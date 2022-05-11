@@ -1,4 +1,4 @@
-#base "npc_abilities_extra_wave.txt"
+//#base "npc_abilities_extra_wave.txt"
 "DOTAAbilities"
 {
 	"Version"		"1"
@@ -43,7 +43,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"builder_test.lua"
+				"ScriptFile"	"builder.lua"
 				"Function"		"Build"
 			}
 		}

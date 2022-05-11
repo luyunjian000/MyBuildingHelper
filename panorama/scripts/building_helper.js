@@ -80,7 +80,7 @@ function StartBuildingHelper( params )
         requires = GetRequiredGridType(entindex)
         distance_to_gold_mine = HasGoldMineDistanceRestriction(entindex)
         
-        // If we chose to not recolor the ghost model, set it white
+        // 如果我们选择不重新激活幽灵模型，请将其设置为白色
         var ghost_color = [0, 255, 0]
         if (!recolor_ghost)
             ghost_color = [255,255,255]

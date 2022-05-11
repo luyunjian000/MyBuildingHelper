@@ -601,7 +601,7 @@ function BuildingHelper:OrderFilter(order)
 
                 for k,entityIndex in pairs(entityList) do
                     local ent = EntIndexToHScript(entityIndex)
-                    local repair_ability = BuildingHelper:GetRepairAbility(ent)
+                    local repair_aretbility = BuildingHelper:GetRepairAbility(ent)
                     if ent ~= unit and repair_ability then
                         if repair_ability:IsHidden() and ent.ReturnAbility then -- Swap to the repair ability
                             ent:SwapAbilities(repair_ability:GetAbilityName(), ent.ReturnAbility:GetAbilityName(), true, false)
@@ -768,7 +768,9 @@ end
 function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
 
     local buildingTable = GetKeyValue(abilityName)
-
+    print("buildingTable")
+    print(buildingTable)
+    
     function buildingTable:GetVal(key, expectedType)
         local val = buildingTable[key]
 

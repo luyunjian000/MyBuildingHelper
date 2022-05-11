@@ -63,11 +63,11 @@ LOAD_BASE_FILES = false
 if not KeyValues then
     KeyValues = {}
     -- 下面新增的
-    KeyValues.All = {}
-    KeyValues.UnitKV = {}
-    KeyValues.AbilityKV = {}
-    KeyValues.ItemKV = {}
-    KeyValues.HeroKV = {}
+    -- KeyValues.All = {}
+    -- KeyValues.UnitKV = {}
+    -- KeyValues.AbilityKV = {}
+    -- KeyValues.ItemKV = {}
+    -- KeyValues.HeroKV = {}
 end
 
 local split = function(inputstr, sep)
@@ -89,13 +89,11 @@ function LoadGameKeyValues()
                     UnitKV = {base="npc_units",custom="npc_units_custom"},
                     HeroKV = {base="npc_heroes",custom="npc_heroes_custom"}
                   }
-
     -- Load and validate the files
     for k,v in pairs(files) do
         local file = {}
         if LOAD_BASE_FILES then
             file = LoadKeyValues(scriptPath..v.base..".txt")
-            print("file==="..file)
         end
 
         -- Replace main game keys by any match on the override file
@@ -104,7 +102,7 @@ function LoadGameKeyValues()
                 file[k] = v
             end
         end
-
+        
         local custom_file = LoadKeyValues(scriptPath..v.custom..".txt")
         if custom_file then
             for k,v in pairs(custom_file) do
@@ -120,7 +118,7 @@ function LoadGameKeyValues()
     end   
 
     -- Merge All KVs
-    -- KeyValues.All = {} 这个是不是要放上面的
+    KeyValues.All = {}
     for name,path in pairs(files) do
         for key,value in pairs(KeyValues[name]) do
             if not KeyValues.All[key] then
@@ -129,7 +127,7 @@ function LoadGameKeyValues()
         end
     end
 
-    -- Merge units and heroes (due to them sharing the same class CDOTA_BaseNPC)
+    -- 合并单位和英雄（因为他们共享同一个职业CDOTA_BaseNPC）
     for key,value in pairs(KeyValues.HeroKV) do
         if not KeyValues.UnitKV[key] then
             KeyValues.UnitKV[key] = value
