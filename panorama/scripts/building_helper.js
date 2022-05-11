@@ -3,7 +3,7 @@
 GameUI.SetRenderBottomInsetOverride( 0 );
 
 var state = 'disabled';
-var frame_rate = 1/30;
+var frame_rate = 1/60;  // 1/30 原来，这个不知道控制什么的
 var tree_update_interval = 1;
 var size = 0;
 var overlay_size = 0;
@@ -147,7 +147,7 @@ function StartBuildingHelper( params )
     {   
         $.Schedule(frame_rate, StartBuildingHelper);
 
-        // Get all the visible entities
+        // 获取所有可见的实体
         var entities = Entities.GetAllEntitiesByClassname('npc_dota_building')
         var hero_entities = Entities.GetAllHeroEntities()
         var creature_entities = Entities.GetAllEntitiesByClassname('npc_dota_creature')
@@ -158,7 +158,7 @@ function StartBuildingHelper( params )
         entities = entities.concat(creature_entities)
         entities = entities.concat(dummy_entities)
 
-        // Build the entity grid with the construction sizes and entity origins
+        // 使用构造尺寸和实体原点构建实体网格
         entityGrid = []
         for (var i = 0; i < entities.length; i++)
         {
@@ -168,7 +168,7 @@ function StartBuildingHelper( params )
             
             if (squares > 0)
             {
-                // Block squares centered on the origin
+                // 以原点为中心的方块
                 BlockGridSquares(entPos, squares, GRID_TYPES["BLOCKED"])
             }
             else
@@ -225,6 +225,7 @@ function StartBuildingHelper( params )
             }
         }
 
+        // 获取当前鼠标位置
         var mPos = GameUI.GetCursorPosition();
         var GamePos = Game.ScreenXYToWorld(mPos[0], mPos[1]);
         if ( GamePos !== null ) 
@@ -245,7 +246,7 @@ function StartBuildingHelper( params )
 
             var closeToGoldMine = TooCloseToGoldmine(GamePos)
 
-            // Building Base Grid
+            // 建筑基础网格
             for (var x=boundingRect["leftBorderX"]+32; x <= boundingRect["rightBorderX"]-32; x+=64)
             {
                 for (var y=boundingRect["topBorderY"]-32; y >= boundingRect["bottomBorderY"]+32; y-=64)
@@ -255,6 +256,7 @@ function StartBuildingHelper( params )
                         return
 
                     var gridParticle = gridParticles[part]
+                    //pos[2] = pos[2] + 20 // add by lyjian
                     Particles.SetParticleControl(gridParticle, 0, pos)     
                     part++; 
 
@@ -305,6 +307,7 @@ function StartBuildingHelper( params )
 
                         color = [255,255,255] //White on empty positions
                         var overlayParticle = overlayParticles[part2]
+                        //pos2[2] = pos2[2] + 20 // add by lyjian
                         Particles.SetParticleControl(overlayParticle, 0, pos2)     
                         part2++;
 
@@ -457,7 +460,19 @@ function RegisterGNV(msg){
     $.Msg("Registering GNV ["+squareX+","+squareY+"] ","Min Bounds: X="+boundX+", Y="+boundY)
 
     var arr = [];
-    // Thanks to BMD for this method
+
+    //add by lyjian
+    var fullMsg = msg.gnv1 + msg.gnv2 + msg.gnv3
+    for (var i=0; i<fullMsg.length; i++){
+        var code = fullMsg.charCodeAt(i)-32;
+        for (var j=4; j>=0; j-=2){
+            var g = (code & (3 << j)) >> j;
+            if (g != 0)
+              arr.push(g);
+        }
+    } 
+    
+    /**
     for (var i=0; i<msg.gnv.length; i++){
         var code = msg.gnv.charCodeAt(i)-32;
         for (var j=4; j>=0; j-=2){
@@ -466,6 +481,7 @@ function RegisterGNV(msg){
               arr.push(g);
         }
     }
+    **/
 
     // Load the GridNav
     var x = 0;
@@ -550,11 +566,11 @@ function IsBlocked(position) {
     var x = WorldToGridPosY(position[1]) - Root.boundY
 
     //{"BLIGHT":8,"BUILDABLE":2,"GOLDMINE":4,"BLOCKED":1}
-    // Check height restriction
+    // 检查高度限制
     if (height_restriction !== undefined && position[2] < height_restriction)
         return true
 
-    // Merge grids together into the same value
+    // 将网格合并到同一个值中
     var flag = Root.GridNav[x][y]
     var entGridValue = (entityGrid[x] !== undefined && entityGrid[x][y] !== undefined) ? entityGrid[x][y] : GRID_TYPES["BUILDABLE"]
     if (entityGrid[x] && entityGrid[x][y])
@@ -579,6 +595,7 @@ function IsBlocked(position) {
 }
 
 function BlockEntityGrid(position, gridType) {
+    // Root.boundX 这个是什么啊
     var y = WorldToGridPosX(position[0]) - Root.boundX
     var x = WorldToGridPosY(position[1]) - Root.boundY
 

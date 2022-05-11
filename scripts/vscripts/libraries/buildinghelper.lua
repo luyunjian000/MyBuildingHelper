@@ -321,7 +321,7 @@ function BuildingHelper:InitGNV()
     local line = {}
     local ASCII_ART = false
 
-    -- Trigger zones named "bh_blocked" will block the terrain for construction
+    -- 名为“bh_blocked”的触发区将封锁施工地形
     local blocked_map_zones = Entities:FindAllByName("*bh_blocked")
 
     for y=boundY1,boundY2 do
@@ -334,7 +334,7 @@ function BuildingHelper:InitGNV()
             local position = Vector(gridX, gridY, 0)
             local treeBlocked = GridNav:IsNearbyTree(position, 30, true)
 
-            -- If tree updating is enabled, trees aren't networked but detected as ent_dota_tree entities on clients
+            -- 如果启用了树更新，则树不会联网，而是在客户端上检测为ent_dota_树实体
             local terrainBlocked = not GridNav:IsTraversable(position) or GridNav:IsBlocked(position)
             if BuildingHelper.Settings["UPDATE_TREES"] then
                 terrainBlocked = terrainBlocked and not treeBlocked
@@ -412,12 +412,18 @@ function BuildingHelper:InitGNV()
 end
 
 function BuildingHelper:SendGNV(args)
+    -- add by lyjian
+    gnv11 = string.sub(BuildingHelper.Encoded, 0, 32765)
+    gnv22 = string.sub(BuildingHelper.Encoded, 32766, 65532)
+    gnv33 = string.sub(BuildingHelper.Encoded, 65533, 87552)
+
     local playerID = args.PlayerID
     if playerID then
         local player = PlayerResource:GetPlayer(playerID)
         if player then
             BuildingHelper:print("Sending GNV to player "..playerID)
-            CustomGameEventManager:Send_ServerToPlayer(player, "gnv_register", {gnv=BuildingHelper.Encoded, squareX = BuildingHelper.squareX, squareY = BuildingHelper.squareY, boundX = BuildingHelper.minBoundX, boundY = BuildingHelper.minBoundY })
+            -- CustomGameEventManager:Send_ServerToPlayer(player, "gnv_register", {gnv=BuildingHelper.Encoded, squareX = BuildingHelper.squareX, squareY = BuildingHelper.squareY, boundX = BuildingHelper.minBoundX, boundY = BuildingHelper.minBoundY })
+            CustomGameEventManager:Send_ServerToPlayer(player, "gnv_register", {gnv1=gnv11, gnv2=gnv22, gnv3=gnv33, squareX = BuildingHelper.squareX, squareY = BuildingHelper.squareY, boundX = BuildingHelper.minBoundX, boundY = BuildingHelper.minBoundY})
         end
     end
 end
@@ -436,7 +442,7 @@ local GetClosestToPosition = function(unitList, position)
     return closest
 end
 
--- Detects a Left Click with a builder through Panorama
+-- 通过全景图检测生成器的左键单击
 function BuildingHelper:BuildCommand(args)
     local playerID = args['PlayerID']
     local x = args['X']
@@ -450,7 +456,7 @@ function BuildingHelper:BuildCommand(args)
     local idle_builders = {}
     local entityList = PlayerResource:GetSelectedEntities(playerID)
 
-    -- Filter all the selected builders
+    -- 筛选所有选定的生成器
     for k,entIndex in pairs(entityList) do
         local unit = EntIndexToHScript(entIndex)
         if unit:GetUnitName() == name then
@@ -768,9 +774,7 @@ end
 function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
 
     local buildingTable = GetKeyValue(abilityName)
-    print("buildingTable")
-    print(buildingTable)
-    
+
     function buildingTable:GetVal(key, expectedType)
         local val = buildingTable[key]
 

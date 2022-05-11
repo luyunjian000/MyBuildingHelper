@@ -21,7 +21,7 @@ function GetMouseTarget()
     return 0
 }
 
-// Handle Right Button events
+// 处理右键事件
 function OnRightButtonPressed()
 {
     var iPlayerID = Players.GetLocalPlayer()
@@ -30,13 +30,13 @@ function OnRightButtonPressed()
     var targetIndex = GetMouseTarget()
     var pressedShift = GameUI.IsShiftDown()
 
-    // Builder Right Click
+    // 生成器右键单击
     if ( IsBuilder( mainSelected ) )
     {
         // Cancel BH
         if (!pressedShift) SendCancelCommand()
 
-        // Repair rightclick
+        // 修复右键单击
         if (right_click_repair && IsCustomBuilding(targetIndex) && Entities.GetHealthPercent(targetIndex) < 100 && IsAlliedUnit(targetIndex, mainSelected)) {
             GameEvents.SendCustomGameEventToServer( "building_helper_repair_command", {targetIndex: targetIndex, queue: pressedShift})
             return true
@@ -46,7 +46,7 @@ function OnRightButtonPressed()
     return false
 }
 
-// Handle Left Button events
+// 处理左键事件
 function OnLeftButtonPressed() {
     return false
 }
