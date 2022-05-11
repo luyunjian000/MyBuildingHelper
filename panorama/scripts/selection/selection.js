@@ -2,7 +2,7 @@
 
 var skip = false
 
-// Recieves a list of entities to replace the current selection
+// 接收实体列表以替换当前选择
 function Selection_New(msg)
 {
     var entities = msg.entities
@@ -16,7 +16,7 @@ function Selection_New(msg)
     OnUpdateSelectedUnit()
 }
 
-// Recieves a list of entities to add to the current selection
+// 接收要添加到当前选择的实体列表
 function Selection_Add(msg)
 {
     var entities = msg.entities
@@ -27,7 +27,7 @@ function Selection_Add(msg)
     OnUpdateSelectedUnit()
 }
 
-// Removes a list of entities from the current selection
+// 从当前选择中删除实体列表
 function Selection_Remove(msg)
 {
     var remove_entities = msg.entities
@@ -54,7 +54,7 @@ function Selection_Remove(msg)
     OnUpdateSelectedUnit()
 }
 
-// Fall back to the default selection
+// 返回默认选择
 function Selection_Reset(msg)
 {
     var playerID = Players.GetLocalPlayer()
@@ -78,7 +78,7 @@ function OnUpdateSelectedUnit()
     $.Schedule(0.03, SendSelectedEntities);
 }
 
-// Updates the list of selected entities on server for this player
+// 更新此播放机服务器上选定实体的列表
 function SendSelectedEntities() {
     GameEvents.SendCustomGameEventToServer("selection_update", {entities: GetSelectedEntities()})
 }
@@ -100,7 +100,7 @@ function OnUpdateQueryUnit()
 }
 
 (function () {
-    // Custom event listeners
+    // 自定义事件侦听器
     GameEvents.Subscribe( "selection_new", Selection_New);
     GameEvents.Subscribe( "selection_add", Selection_Add);
     GameEvents.Subscribe( "selection_remove", Selection_Remove);

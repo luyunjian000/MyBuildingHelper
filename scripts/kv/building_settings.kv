@@ -1,57 +1,57 @@
 "BH_Settings"
 {
     // Particle settings
-    "GRID_ALPHA"                "30"  //Defines the transparency of the base green/red squares in Panorama
-    "ALT_GRID_ALPHA"            "90"  //Defines the transparency of the alt grid white/red squares in Panorama
-    "ALT_GRID_SQUARES"          "4"   //Defines how many small squares to create to each side of the building construction size
-    "RANGE_OVERLAY_ALPHA"       "30"  //Defines the transparency of the range overlay showed when placing a building with attack capabilities
-    "MODEL_ALPHA"               "100" //Defines the transparency of both the ghost model in Panorama and Building Placed in Lua
-    "RECOLOR_GHOST_MODEL"       "false" //Recolor the ghost model green when valid or just default color
-    "RED_MODEL_WHEN_INVALID"    "true"  //Recolor red when ghosting over an invalid position
-    "RECOLOR_BUILDING_PLACED"   "true"  //Recolor green the queue of buildings placed in Lua
+    "GRID_ALPHA"                "30"  //定义全景中基础绿色/红色正方形的透明度
+    "ALT_GRID_ALPHA"            "90"  //定义全景中alt grid白色/红色正方形的透明度
+    "ALT_GRID_SQUARES"          "4"   //定义要在建筑结构尺寸的每一侧创建的小正方形数
+    "RANGE_OVERLAY_ALPHA"       "30"  //定义放置具有攻击能力的建筑时显示的距离覆盖的透明度
+    "MODEL_ALPHA"               "100" //定义全景中的重影模型和Lua中放置的建筑的透明度
+    "RECOLOR_GHOST_MODEL"       "false" //在有效或仅为默认颜色时，将重着色为绿色
+    "RED_MODEL_WHEN_INVALID"    "true"  //当在无效位置上重影时，恢复红色
+    "RECOLOR_BUILDING_PLACED"   "true"  //雷科洛·格林：卢阿的建筑群
     "PERMANENT_ALT_GRID"        "false"
 
-    // Does this game have tree cutting methods and allows for building on them?
+    // 这个游戏有砍树的方法吗，并允许在它们的基础上进行构建？
     "UPDATE_TREES"              "true"
 
-    // Percentage health that buildings should start at
+    // 建筑物应开始的健康百分比
     "INITIAL_HEALTH_FACTOR"     "0.1"
 
-    // Percentage health at which buildings should play their FireEffect
+    // 建筑物应发挥防火效果的健康百分比
     "FIRE_EFFECT_FACTOR"        "0.5"
 
-    // Min Height buildings are able to be placed, leave it empty for none. If a value is defined, all building placements strictly below this number will be invalid
+    // 可以放置最小高度的建筑，让它空无一人。如果定义了一个值，则严格低于该值的所有建筑放置都将无效
     "HEIGHT_RESTRICTION"        ""
 
-    // Should buildings be immune to magic damage? Should also be careful with healing abilities targeting them.
+    // 建筑物应该对魔法伤害免疫吗？还应该注意针对他们的治疗能力。
     "MAGIC_IMMUNE_BUILDINGS"    "true"
 
-    // Should buildings be deniable from 100% HP?
+    // 建筑物是否应该100%HP拒绝？
     "DENIABLE_BUILDINGS"        "true"
 
-    // Should we disable building turnrate by default? Defining a "DisableTurning" kv on the unit will still override the global setting
+    // 我们应该在默认情况下禁用建筑周转率吗？在装置上定义“禁用转向”kv仍将覆盖全局设置
     "DISABLE_BUILDING_TURNING"  "true"
 
-    // Path of the builder callbacks, can be changed to somewhere else within vscripts
+    // 生成器回调的路径可以更改为VScript中的其他位置
     "BUILD_PATH"                "builder"
 
-    // Should we try to tie allied building rightclick to a "RepairAbility" usage ?
+    // 我们是否应该尝试将allied building rightclick与“可修复性”用途联系起来？
     "RIGHT_CLICK_REPAIR"        "true"
 
-    // Path of the repair callbacks, can be changed to somewhere else within vscripts
+    // 修复回调的路径可以更改为VScript中的其他位置
     "REPAIR_PATH"               "repair"
 
-    // The following can be overriden in each ability KV if different ratios are necessary
+    // 如果需要不同的比率，可在每种能力中覆盖以下内容：
     "REPAIR_SETTINGS"
     {
-        "RepairCostRatio"       "0.35" //Resource cost needed to heal the buildings HP based on the original cost
-        "RepairTimeRatio"       "1.5"  //Time needed to heal the buildings HP based on the original time
+        "RepairCostRatio"       "0.35" //在原有成本的基础上修复建筑所需的资源成本
+        "RepairTimeRatio"       "1.5"  //修复建筑所需的时间基于最初的时间
 
-        // Powerbuild is applied for every extra builder working on the same building
+        // Powerbuild适用于在同一栋建筑上工作的每一个额外的构建者
         "PowerbuildCost"        "0.15" //Cost Ratio = RepairCostRatio + PowerbuildCost*(Builders-1)
         "PowerbuildRate"        "0.6"  //Time Ratio = RepairTimeRatio * PowerbuildRate^(Builders-1)
     }
 
-    // Turn this off to hide the console print messages
+    // 关闭此选项可隐藏控制台打印消息
     "TESTING"                   "true"
 }

@@ -8,24 +8,24 @@ function Build( event )
     local hero = caster:IsRealHero() and caster or caster:GetOwner()
     local playerID = hero:GetPlayerID()
 
-    -- If the ability has an AbilityGoldCost, it's impossible to not have enough gold the first time it's cast
-    -- Always refund the gold here, as the building hasn't been placed yet
+    -- 如果该异能具有异能黄金成本，则不可能在第一次施放时没有足够的黄金
+    -- 一定要在这里退金，因为这栋楼还没建好
     hero:ModifyGold(gold_cost, false, 0)
 
-    -- Makes a building dummy and starts panorama ghosting
+    -- 制作一个建筑假人并开始全景重影
     BuildingHelper:AddBuilding(event)
 
     -- Additional checks to confirm a valid building position can be performed here
     event:OnPreConstruction(function(vPos)
 
-        -- Check for minimum height if defined
+        -- 检查最小高度（如果定义）
         if not BuildingHelper:MeetsHeightCondition(vPos) then
             BuildingHelper:print("Failed placement of " .. building_name .." - Placement is below the min height required")
             SendErrorMessage(playerID, "#error_invalid_build_position")
             return false
         end
 
-        -- If not enough resources to queue, stop
+        -- 如果没有足够的资源排队，请停止
         if PlayerResource:GetGold(playerID) < gold_cost then
             BuildingHelper:print("Failed placement of " .. building_name .." - Not enough gold!")
             SendErrorMessage(playerID, "#error_not_enough_gold")

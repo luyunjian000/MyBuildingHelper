@@ -1,8 +1,8 @@
-// Defines scripts to set selection redirects
+// 定义用于设置选择重定向的脚本
 
-var DESELECT_BUILDINGS = false; // Get only the units when units&buildings are on the same list
-var SELECT_ONLY_BUILDINGS = false; // Get only the buildings when units&buildings are on the same list
-var DISPLAY_RANGE_PARTICLE = false; // Uses the main selected entity to update a particle showing attack range
+var DESELECT_BUILDINGS = false; // 当单位和建筑在同一列表中时，仅获取单位
+var SELECT_ONLY_BUILDINGS = false; // 当单位和建筑在同一列表中时，仅获取建筑
+var DISPLAY_RANGE_PARTICLE = false; // 使用主选定实体更新显示攻击范围的粒子
 var rangedParticle
 
 function SelectionFilter( entityList ) {
@@ -80,7 +80,7 @@ function GetFirstUnitFromSelectionSkipUnit ( entityList, entIndex ) {
     return 0
 }
 
-// Returns whether the selection group contains both buildings and non-building units
+// 返回选择组是否同时包含建筑和非建筑单位
 function IsMixedBuildingSelectionGroup ( entityList ) {
     var buildings = 0
     var nonBuildings = 0

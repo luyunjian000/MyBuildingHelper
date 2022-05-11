@@ -62,6 +62,12 @@ LOAD_BASE_FILES = false
 
 if not KeyValues then
     KeyValues = {}
+    -- 下面新增的
+    KeyValues.All = {}
+    KeyValues.UnitKV = {}
+    KeyValues.AbilityKV = {}
+    KeyValues.ItemKV = {}
+    KeyValues.HeroKV = {}
 end
 
 local split = function(inputstr, sep)
@@ -89,6 +95,7 @@ function LoadGameKeyValues()
         local file = {}
         if LOAD_BASE_FILES then
             file = LoadKeyValues(scriptPath..v.base..".txt")
+            print("file==="..file)
         end
 
         -- Replace main game keys by any match on the override file
@@ -113,7 +120,7 @@ function LoadGameKeyValues()
     end   
 
     -- Merge All KVs
-    KeyValues.All = {}
+    -- KeyValues.All = {} 这个是不是要放上面的
     for name,path in pairs(files) do
         for key,value in pairs(KeyValues[name]) do
             if not KeyValues.All[key] then

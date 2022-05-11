@@ -1,0 +1,51 @@
+#base "npc_abilities_extra_wave.txt"
+"DOTAAbilities"
+{
+	"Version"		"1"
+	"build_tower_test"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"box_icon"
+		"MaxLevel"						"1"
+		"RequiredLevel"                 "1"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityCastPoint"				"0"
+		
+		// BuildingHelper info
+		"Building"						"1" //bool
+		"BuildingSize"					"3"
+		"BuildTime"						"0"
+		"AbilityCastRange"				"400"
+		"UpdateHealth"					"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"						"npc_dota_tower_empty"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"10"
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"build_time"			"0.0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"gold_cost"				"170"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder_test.lua"
+				"Function"		"Build"
+			}
+		}
+	}
+} //end

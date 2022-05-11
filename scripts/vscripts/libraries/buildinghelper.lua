@@ -697,7 +697,7 @@ function BuildingHelper:AddBuilding(keys)
     -- npc_dota_creature doesn't render cosmetics on the particle ghost, use hero names instead
     unitName = GetUnitKV(unitName, "OverrideBuildingGhost") or unitName
 
-    -- Get a model dummy to pass it to panorama
+    -- 让模型假人将其传递给全景
     local mgd = BuildingHelper:GetOrCreateDummy(unitName)
     event.entindex = mgd:GetEntityIndex()
 
@@ -764,7 +764,7 @@ function BuildingHelper:SetCallbacks(keys)
     return callbacks
 end
 
--- Setup building table, returns a constructed table.
+-- 设置生成表，返回构造的表.
 function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
 
     local buildingTable = GetKeyValue(abilityName)
@@ -772,7 +772,7 @@ function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
     function buildingTable:GetVal(key, expectedType)
         local val = buildingTable[key]
 
-        -- Return value directly if no second parameter
+        -- 如果没有第二个参数，则直接返回值
         if not expectedType then
             return val
         end
