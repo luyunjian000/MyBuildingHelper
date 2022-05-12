@@ -64,7 +64,7 @@ function IsAlliedUnit(entIndex, targetIndex) {
     return (Entities.GetTeamNumber(entIndex) == Entities.GetTeamNumber(targetIndex))
 }
 
-// Main mouse event callback
+// 主鼠标事件回调
 GameUI.SetMouseCallback( function( eventName, arg ) {
     var CONSUME_EVENT = true
     var CONTINUE_PROCESSING_EVENT = false

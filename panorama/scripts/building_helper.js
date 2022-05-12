@@ -64,7 +64,7 @@ function StartBuildingHelper( params )
 {
     if (params !== undefined)
     {
-        // Set the parameters passed by AddBuilding
+        // 设置AddBuilding传递的参数
         localHeroIndex = Players.GetPlayerHeroEntityIndex( Players.GetLocalPlayer() );
         state = params.state;
         size = params.size;
@@ -72,19 +72,19 @@ function StartBuildingHelper( params )
         overlay_size = size + alt_grid_squares * 2;
         builderIndex = params.builderIndex;
         var scale = params.scale;
-        var entindex = params.entindex;
+        var entindex = params.entindex; //建筑单位的index把
         var propScale = params.propScale;
         offsetZ = params.offsetZ;
         modelOffset = params.modelOffset;
 
         requires = GetRequiredGridType(entindex)
-        distance_to_gold_mine = HasGoldMineDistanceRestriction(entindex)
         
+        distance_to_gold_mine = HasGoldMineDistanceRestriction(entindex)
         // 如果我们选择不重新激活幽灵模型，请将其设置为白色
-        var ghost_color = [0, 255, 0]
+        var ghost_color = [0, 255, 0] // 绿色
         if (!recolor_ghost)
             ghost_color = [255,255,255]
-
+  
         pressedShift = GameUI.IsShiftDown();
 
         if (modelParticle !== undefined) {
@@ -161,7 +161,7 @@ function StartBuildingHelper( params )
         // 使用构造尺寸和实体原点构建实体网格
         entityGrid = []
         for (var i = 0; i < entities.length; i++)
-        {
+        {   
             if (!Entities.IsAlive(entities[i]) || Entities.IsOutOfGame(entities[i]) || !HasModifier(entities[i], "modifier_building")) continue
             var entPos = Entities.GetAbsOrigin( entities[i] )
             var squares = GetConstructionSize(entities[i])
@@ -260,7 +260,7 @@ function StartBuildingHelper( params )
                     Particles.SetParticleControl(gridParticle, 0, pos)     
                     part++; 
 
-                    // Grid color turns red when over invalid position
+                    // 当超过无效位置时，网格颜色变为红色
                     color = [0,255,0]
                     if (IsBlocked(pos) || closeToGoldMine)
                     {
@@ -272,7 +272,7 @@ function StartBuildingHelper( params )
                 }
             }
 
-            // Overlay Grid, visible with Alt pressed
+            // 叠加网格，按住Alt键可见
             altDown = permanent_alt_grid || GameUI.IsAltDown();
             if (altDown)
             {
@@ -462,6 +462,7 @@ function RegisterGNV(msg){
     var arr = [];
 
     //add by lyjian
+    /**
     var fullMsg = msg.gnv1 + msg.gnv2 + msg.gnv3
     for (var i=0; i<fullMsg.length; i++){
         var code = fullMsg.charCodeAt(i)-32;
@@ -471,8 +472,8 @@ function RegisterGNV(msg){
               arr.push(g);
         }
     } 
+    **/
     
-    /**
     for (var i=0; i<msg.gnv.length; i++){
         var code = msg.gnv.charCodeAt(i)-32;
         for (var j=4; j>=0; j-=2){
@@ -481,7 +482,6 @@ function RegisterGNV(msg){
               arr.push(g);
         }
     }
-    **/
 
     // Load the GridNav
     var x = 0;

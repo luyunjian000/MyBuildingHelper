@@ -23,7 +23,7 @@ function BuildingHelper:Init()
     BuildingHelper.Dummies = {} -- Holds up to one entity for each building name
     BuildingHelper.TreeDummies = {} -- Holds tree chopped dummies
     BuildingHelper.Grid = {}    -- Construction grid
-    BuildingHelper.Terrain = {} -- Terrain grid, this only changes when a tree is cut
+    BuildingHelper.Terrain = {} -- 地形网格，仅当树木被砍伐时才会改变
     BuildingHelper.Encoded = "" -- String containing the base terrain, networked to clients
     BuildingHelper.squareX = 0  -- Number of X grid points
     BuildingHelper.squareY = 0  -- Number of Y grid points
@@ -397,9 +397,9 @@ function BuildingHelper:InitGNV()
 
     BuildingHelper:print("Free: "..unblockedCount.." Blocked: "..blockedCount)
 
-    -- Initially, the construction grid equals the terrain grid
-    -- Clients will have full knowledge of the terrain grid
-    -- The construction grid is only known by the server
+    -- 最初，构造网格等于地形网格
+    -- 客户将完全了解地形网格
+    -- 构造网格仅由服务器知道
     BuildingHelper.Grid = BuildingHelper.Terrain
 
     BuildingHelper.Encoded = gnv_string
@@ -412,23 +412,23 @@ function BuildingHelper:InitGNV()
 end
 
 function BuildingHelper:SendGNV(args)
-    -- add by lyjian
-    gnv11 = string.sub(BuildingHelper.Encoded, 0, 32765)
-    gnv22 = string.sub(BuildingHelper.Encoded, 32766, 65532)
-    gnv33 = string.sub(BuildingHelper.Encoded, 65533, 87552)
+    -- add by lyjian 不知道random_fame_td修改是干啥的
+    -- gnv11 = string.sub(BuildingHelper.Encoded, 0, 32765)
+    -- gnv22 = string.sub(BuildingHelper.Encoded, 32766, 65532)
+    -- gnv33 = string.sub(BuildingHelper.Encoded, 65533, 87552)
 
     local playerID = args.PlayerID
     if playerID then
         local player = PlayerResource:GetPlayer(playerID)
         if player then
             BuildingHelper:print("Sending GNV to player "..playerID)
-            -- CustomGameEventManager:Send_ServerToPlayer(player, "gnv_register", {gnv=BuildingHelper.Encoded, squareX = BuildingHelper.squareX, squareY = BuildingHelper.squareY, boundX = BuildingHelper.minBoundX, boundY = BuildingHelper.minBoundY })
-            CustomGameEventManager:Send_ServerToPlayer(player, "gnv_register", {gnv1=gnv11, gnv2=gnv22, gnv3=gnv33, squareX = BuildingHelper.squareX, squareY = BuildingHelper.squareY, boundX = BuildingHelper.minBoundX, boundY = BuildingHelper.minBoundY})
+            CustomGameEventManager:Send_ServerToPlayer(player, "gnv_register", {gnv=BuildingHelper.Encoded, squareX = BuildingHelper.squareX, squareY = BuildingHelper.squareY, boundX = BuildingHelper.minBoundX, boundY = BuildingHelper.minBoundY })
+            -- CustomGameEventManager:Send_ServerToPlayer(player, "gnv_register", {gnv1=gnv11, gnv2=gnv22, gnv3=gnv33, squareX = BuildingHelper.squareX, squareY = BuildingHelper.squareY, boundX = BuildingHelper.minBoundX, boundY = BuildingHelper.minBoundY})
         end
     end
 end
 
--- Used to find the closest builder to a building location
+-- 用于查找离建筑位置最近的建筑商
 local GetClosestToPosition = function(unitList, position)
     local distance = math.huge
     local closest
@@ -651,6 +651,7 @@ function BuildingHelper:AddBuilding(keys)
     local builder = keys.caster
     local ability = keys.ability
     local abilName = ability:GetAbilityName()
+    -- npc_units_custom.txt 这个里面的配置
     local buildingTable = BuildingHelper:SetupBuildingTable(abilName, builder)
 
     buildingTable:SetVal("AbilityHandle", ability)
@@ -724,7 +725,7 @@ function BuildingHelper:AddBuilding(keys)
         event.offsetZ = buildingTable:GetVal("PedestalOffset", "float") or 0
     end
 
-    -- Adjust the Model Orientation
+    -- 调整模型方向
     local yaw = buildingTable:GetVal("ModelRotation", "float")
     mgd:SetAngles(0, -yaw, 0)
                         
@@ -913,16 +914,16 @@ function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
     return buildingTable
 end
 
--- Sends a builder to start the construction of a building
+-- 派一个建筑工人开始建筑
 function BuildingHelper:OrderBuildingConstruction(builder, ability, position)
     ExecuteOrderFromTable({UnitIndex = builder:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_STOP, Queue = false}) 
     Build({caster=builder, ability=ability})
     BuildingHelper:AddToQueue(builder, position, false)
 end
 
--- Places a new building on full health and returns the handle. Places grid nav blockers
--- Skips the construction phase and doesn't require a builder, this is most important to place the "base" buildings for the players when the game starts.
--- Make sure the position is valid before calling this in code.
+-- 将新建筑置于完全健康状态并返回句柄。放置栅格导航拦截器
+-- 跳过建造阶段，不需要建造者，这一点在游戏开始时为玩家放置“基础”建筑是最重要的。
+-- 在调用此代码之前，请确保该位置有效.
 function BuildingHelper:PlaceBuilding(player, name, location, construction_size, pathing_size, angle)
     construction_size = construction_size or BuildingHelper:GetConstructionSize(name)
     pathing_size = pathing_size or BuildingHelper:GetBlockPathingSize(name)
@@ -1045,7 +1046,7 @@ function BuildingHelper:RemoveBuilding(building, bSkipEffects)
     end
 end
 
--- Creates the building and starts the construction process
+-- 创建建筑并开始施工过程
 function BuildingHelper:StartBuilding(builder)
     local playerID = builder:GetMainControllingPlayer()
     local work = builder.work
@@ -1059,17 +1060,17 @@ function BuildingHelper:StartBuilding(builder)
     local construction_size = buildingTable:GetVal("ConstructionSize", "number")
     local pathing_size = buildingTable:GetVal("BlockPathingSize", "number")
 
-    -- Check gridnav and cancel if invalid
+    -- 检查gridnav，如果无效则取消
     if not BuildingHelper:ValidPosition(construction_size, location, builder, callbacks) then
         
-        -- Remove the model particle and Advance Queue
+        -- 移除模型粒子并前进队列
         BuildingHelper:AdvanceQueue(builder)
         BuildingHelper:ClearWorkParticles(work)
 
         -- Remove pedestal
         BuildingHelper:RemoveEntity(work.entity.prop)
 
-        -- Building canceled, refund resources
+        -- 大楼被取消了，退还资源
         work.refund = true
         callbacks.onConstructionCancelled(work)
         return
@@ -1077,13 +1078,13 @@ function BuildingHelper:StartBuilding(builder)
 
     BuildingHelper:print("Initializing Building Entity: "..unitName.." at "..VectorString(location))
 
-    -- Mark this work in progress, skip refund if cancelled as the building is already placed
+    -- 标记此正在进行的工作，如果取消，则跳过退款，因为建筑已放置
     work.inProgress = true
 
-    -- Spawn point obstructions before placing the building
+    -- 放置建筑前生成点障碍物
     local gridNavBlockers = BuildingHelper:BlockGridSquares(construction_size, pathing_size, location)
 
-    -- For overriden ghosts we need to create another unit
+    -- 对于覆盖的幽灵，我们需要创建另一个单位
     if building:GetUnitName() ~= unitName then
         building = CreateUnitByName(unitName, location, false, playersHero, player, builder:GetTeam())
         building:SetNeverMoveToClearSpace(true)
@@ -1586,9 +1587,9 @@ function BuildingHelper:CancelRepair(building)
     end
 end
 
--- Blocks a square of certain construction and pathing size at a location on the server grid
--- construction_size: square of grid points to block from construction
--- pathing_size: square of pathing obstructions that will be spawned 
+-- 在服务器网格上的某个位置阻止具有特定结构和路径大小的正方形
+-- construction_size: 要阻止施工的网格点的平方
+-- pathing_size: 将产生的路径障碍物的平方 
 function BuildingHelper:BlockGridSquares(construction_size, pathing_size, location)
     BuildingHelper:RemoveGridType(construction_size, location, "BUILDABLE")
     BuildingHelper:AddGridType(construction_size, location, "BLOCKED")
@@ -1644,7 +1645,7 @@ function BuildingHelper:NewGridType(grid_type)
     CustomNetTables:SetTableValue("building_settings", "grid_types", BuildingHelper.GridTypes)
 end
 
--- Adds a grid_type to a square of size at centered at a location
+-- 将网格类型添加到以某个位置为中心的正方形中
 function BuildingHelper:AddGridType(size, location, grid_type, shape)
     -- If it doesn't exist, add it
     grid_type = string.upper(grid_type)
@@ -1668,7 +1669,7 @@ function BuildingHelper:RemoveGridType(size, location, grid_type, shape)
     end
 end
 
--- Central function used to add, remove or override multiple grid squares at once
+-- 用于一次添加、删除或覆盖多个网格正方形的中心函数
 function BuildingHelper:SetGridType(size, location, grid_type, option)
     if not size or size == 0 then return end
 
@@ -1694,7 +1695,7 @@ function BuildingHelper:SetGridType(size, location, grid_type, option)
     -- Adjust to upper case
     grid_type = string.upper(grid_type)
 
-    -- Default by omission is to override the old value
+    -- 默认情况下，省略会覆盖旧值
     if not option then
         for y = lowerBoundY, upperBoundY do
             for x = lowerBoundX, upperBoundX do
@@ -1805,7 +1806,7 @@ function BuildingHelper:GetCellGridTypes(x,y)
     return s
 end
 
--- Checks if the cell has a certain grid type by name
+-- 按名称检查单元格是否具有特定网格类型
 function BuildingHelper:CellHasGridType(x, y, grid_type)
     if BuildingHelper.GridTypes[grid_type] then
         return bit.band(BuildingHelper.Grid[y][x], BuildingHelper.GridTypes[grid_type]) ~= 0
@@ -2344,7 +2345,7 @@ function BuildingHelper:GetPlayerTable(playerID)
     return BuildingHelper.Players[playerID]
 end
 
--- Creates an out of world dummy at map origin and stores it, reducing load from creating units
+-- 在地图原点创建一个世界外的虚拟对象并将其存储，从而减少创建单位的负载
 function BuildingHelper:GetOrCreateDummy(unitName)
     if BuildingHelper.Dummies[unitName] then
         return BuildingHelper.Dummies[unitName]
@@ -2566,7 +2567,7 @@ function BuildingHelper:FindClosestEmptyPositionNearby(location, construction_si
     return towerPos
 end
 
--- Used to find if a position is insde the trigger entity bounds
+-- 用于查找位置是否位于触发器实体边界内
 function BuildingHelper:IsInsideEntityBounds(entity, location)
     local origin = entity:GetAbsOrigin()
     local bounds = entity:GetBounds()
