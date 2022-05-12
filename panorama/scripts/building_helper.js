@@ -3,7 +3,7 @@
 GameUI.SetRenderBottomInsetOverride( 0 );
 
 var state = 'disabled';
-var frame_rate = 1/60;  // 1/30 原来，这个不知道控制什么的
+var frame_rate = 1/30;  // 1/30 原来，这个不知道控制什么的
 var tree_update_interval = 1;
 var size = 0;
 var overlay_size = 0;
@@ -28,6 +28,7 @@ var distance_to_gold_mine;
 var last_tree_update = Game.GetGameTime();
 var treeGrid = [];
 var cutTrees = [];
+var abilityname = "";
 
 // building_settings.kv options
 var grid_alpha = CustomNetTables.GetTableValue( "building_settings", "grid_alpha").value
@@ -76,6 +77,7 @@ function StartBuildingHelper( params )
         var propScale = params.propScale;
         offsetZ = params.offsetZ;
         modelOffset = params.modelOffset;
+        abilityname = params.abilityname;
 
         requires = GetRequiredGridType(entindex)
         
@@ -333,7 +335,7 @@ function StartBuildingHelper( params )
 
             var modelPos = SnapHeight(GamePos[0],GamePos[1],GamePos[2])
 
-            // Destroy the range overlay if its not a valid building location
+            // 如果不是有效的建筑位置，请销毁范围覆盖
             if (invalid)
             {
                 if (rangeOverlayActive && rangeOverlay !== undefined)
@@ -369,7 +371,7 @@ function StartBuildingHelper( params )
                 Particles.SetParticleControl(propParticle, 0, pedestalPos)
             }
 
-            // Turn the model red if we can't build there
+            // 如果我们不能在那里建造，就把模型变成红色
             if (turn_red){
                 invalid ? Particles.SetParticleControl(modelParticle, 2, [255,0,0]) : Particles.SetParticleControl(modelParticle, 2, [255,255,255])
                 if (propParticle !== undefined)
@@ -380,6 +382,11 @@ function StartBuildingHelper( params )
         if ( (!GameUI.IsShiftDown() && pressedShift) || !Entities.IsAlive( builderIndex ) )
         {
             EndBuildingHelper();
+        }
+
+        // GameUI.
+        if(GameUI.IsShiftDown()){
+            changeAngles();
         }
     }
 }
@@ -409,6 +416,7 @@ function EndBuildingHelper()
     }
 }
 
+// 发送指令开始建造了
 function SendBuildCommand( params )
 {
     if (invalid)
@@ -749,3 +757,14 @@ function HasModifier(entIndex, modifierName) {
     };
     return false
 };
+
+
+// 旋转模型角度
+function changeAngles(){
+    var yaw = 45;
+    var ability = Entities.GetAbilityByName(localHeroIndex,abilityname);
+    // 这边要用index的
+    var caster = Abilities.GetCaster(ability)
+    var params = {"caster":localHeroIndex,"ability":ability,"yaw":yaw} ;
+    GameEvents.SendCustomGameEventToServer( "change_angles", params);
+}

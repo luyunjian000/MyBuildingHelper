@@ -16,8 +16,8 @@
 		
 		// BuildingHelper info
 		"Building"						"1" //bool
-		"BuildingSize"					"3"
-		"BuildTime"						"0"
+		"BuildingSize"					"3" //不知道干啥的
+		"BuildTime"						"0" //完成这座建筑所需的时间
 		"AbilityCastRange"				"400"
 		"UpdateHealth"					"1" //bool
 		"PlayerCanControl"				"1" //bool
@@ -25,13 +25,68 @@
 		"UnitName"						"npc_dota_tower_empty"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"10"
+
+		// "BuilderInside" 在建造过程中会隐藏建造者
+		// "ConsumesBuilder" 建造完成后杀死建造者
+		// "RequiresRepairOnConstructionCompleted" 放置建筑物并且在完全愈合之前不会更新其健康状况也不会发送回调。
 		
 		"AbilitySpecial"
 		{
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"build_time"			"0.0"
+				"build_time"			"5.0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"gold_cost"				"170"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"		"Build"
+			}
+		}
+	}
+
+	"build_tower_wall"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"box_icon"
+		"MaxLevel"						"1"
+		"RequiredLevel"                 "1"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityCastPoint"				"0"
+		
+		// BuildingHelper info
+		"Building"						"1" //bool
+		"BuildingSize"					"3" 
+		"BuildTime"						"2"
+		"AbilityCastRange"				"400"
+		"UpdateHealth"					"1000" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"						"npc_dota_tower_wall"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"10"
+		
+		"BuilderInside" "1"
+		// "ConsumesBuilder" 建造完成后杀死建造者
+		"OnConstructionCompleted" "1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"build_time"			"5.0"
 			}
 			"02"
 			{

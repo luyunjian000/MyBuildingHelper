@@ -40,6 +40,7 @@ function BuildingHelper:Init()
     CustomGameEventManager:RegisterListener("building_helper_repair_command", Dynamic_Wrap(BuildingHelper, "RepairCommand"))
     CustomGameEventManager:RegisterListener("selection_update", Dynamic_Wrap(BuildingHelper, 'OnSelectionUpdate')) --Hook selection library
     CustomGameEventManager:RegisterListener("gnv_request", Dynamic_Wrap(BuildingHelper, "SendGNV"))
+    CustomGameEventManager:RegisterListener("change_angles", Dynamic_Wrap(BuildingHelper, "changeAngles"))
 
      -- Game Event Listeners
     ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(BuildingHelper, 'OnGameRulesStateChange'), self)
@@ -715,6 +716,7 @@ function BuildingHelper:AddBuilding(keys)
 
     -- Make a pedestal dummy if required
     local pedestal = buildingTable:GetVal("PedestalModel")
+
     if pedestal then
         local prop = BuildingHelper:GetOrCreateProp(pedestal)
         mgd.prop = prop
@@ -727,8 +729,15 @@ function BuildingHelper:AddBuilding(keys)
 
     -- 调整模型方向
     local yaw = buildingTable:GetVal("ModelRotation", "float")
+    if keys.yaw then 
+        yaw = keys.yaw
+    end
     mgd:SetAngles(0, -yaw, 0)
-                        
+
+    -- add by lyjian 
+    event.abilityname =  abilName
+    BuildingHelper:print("abilityname=="..event.abilityname)
+
     CustomGameEventManager:Send_ServerToPlayer(player, "building_helper_enable", event)
 end
 
@@ -781,6 +790,10 @@ function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
 
         -- 如果没有第二个参数，则直接返回值
         if not expectedType then
+            -- 这边兼容下，如果是传的nil就直接false
+            if val == "nil" then
+                return nil
+            end
             return val
         end
 
@@ -804,6 +817,7 @@ function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
         elseif expectedType == "number" or expectedType == "float" then
             return tonumber(val)
         end
+        
         return sVal
     end
 
@@ -2677,3 +2691,9 @@ function DrawGridSquare(x, y, color, duration)
 end
 
 if not BuildingHelper.Players then BuildingHelper:Init() else BuildingHelper:OnScriptReload() end
+
+-- add by lyjian 旋转模型角度
+function BuildingHelper:changeAngles(args)
+    BuildingHelper:print("changeAngles=="..args.caster)
+    BuildingHelper:AddBuilding(args)
+end
