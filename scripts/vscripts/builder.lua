@@ -12,6 +12,8 @@ function Build( event )
     -- 一定要在这里退金，因为这栋楼还没建好
     hero:ModifyGold(gold_cost, false, 0)
 
+    -- 为了方便处理
+    event.yaw = 0
     -- 制作一个建筑假人并开始全景重影
     BuildingHelper:AddBuilding(event)
 

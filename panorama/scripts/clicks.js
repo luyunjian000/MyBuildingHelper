@@ -64,12 +64,15 @@ function IsAlliedUnit(entIndex, targetIndex) {
     return (Entities.GetTeamNumber(entIndex) == Entities.GetTeamNumber(targetIndex))
 }
 
-// 主鼠标事件回调
+// 主鼠标事件回调 
+/** 
 GameUI.SetMouseCallback( function( eventName, arg ) {
     var CONSUME_EVENT = true
     var CONTINUE_PROCESSING_EVENT = false
+    // 0左键，1右键，2中键
     var LEFT_CLICK = (arg === 0)
     var RIGHT_CLICK = (arg === 1)
+    // var MIDDLE_CLICK = (arg === 2)
 
     if ( GameUI.GetClickBehaviors() !== CLICK_BEHAVIORS.DOTA_CLICK_BEHAVIOR_NONE )
         return CONTINUE_PROCESSING_EVENT
@@ -85,11 +88,13 @@ GameUI.SetMouseCallback( function( eventName, arg ) {
             else if (RIGHT_CLICK) 
                 return OnRightButtonPressed()
 
-        if (LEFT_CLICK) 
+        if (LEFT_CLICK) {
             return OnLeftButtonPressed()
-        else if (RIGHT_CLICK) 
+        }
+        else if (RIGHT_CLICK) {
             return OnRightButtonPressed() 
-        
+        }
     }
     return CONTINUE_PROCESSING_EVENT
 } )
+**/

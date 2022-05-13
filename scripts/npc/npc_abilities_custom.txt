@@ -79,6 +79,7 @@
 		
 		"BuilderInside" "1"
 		// "ConsumesBuilder" 建造完成后杀死建造者
+		// "RequiresRepair" "1"  //这个东西设置了之后hp条会停下来
 		"OnConstructionCompleted" "1"
 
 		"AbilitySpecial"

@@ -29,6 +29,7 @@ var last_tree_update = Game.GetGameTime();
 var treeGrid = [];
 var cutTrees = [];
 var abilityname = "";
+var yaw = -45;
 
 // building_settings.kv options
 var grid_alpha = CustomNetTables.GetTableValue( "building_settings", "grid_alpha").value
@@ -68,8 +69,10 @@ function StartBuildingHelper( params )
         // 设置AddBuilding传递的参数
         localHeroIndex = Players.GetPlayerHeroEntityIndex( Players.GetLocalPlayer() );
         state = params.state;
+        // 设置的3
         size = params.size;
         range = params.range;
+        // 定义要在建筑结构尺寸的每一侧创建的小正方形数 设置的 6
         overlay_size = size + alt_grid_squares * 2;
         builderIndex = params.builderIndex;
         var scale = params.scale;
@@ -382,11 +385,6 @@ function StartBuildingHelper( params )
         if ( (!GameUI.IsShiftDown() && pressedShift) || !Entities.IsAlive( builderIndex ) )
         {
             EndBuildingHelper();
-        }
-
-        // GameUI.
-        if(GameUI.IsShiftDown()){
-            changeAngles();
         }
     }
 }
@@ -759,12 +757,116 @@ function HasModifier(entIndex, modifierName) {
 };
 
 
-// 旋转模型角度
+// 旋转模型角度,有点问题，设置了没用
 function changeAngles(){
-    var yaw = 45;
+    // var yaw = -45;
     var ability = Entities.GetAbilityByName(localHeroIndex,abilityname);
     // 这边要用index的
-    var caster = Abilities.GetCaster(ability)
-    var params = {"caster":localHeroIndex,"ability":ability,"yaw":yaw} ;
+    // var caster = Abilities.GetCaster(ability)
+    var params = {"caster":localHeroIndex,"ability":ability,"yaw":yaw};
     GameEvents.SendCustomGameEventToServer( "change_angles", params);
 }
+
+// 把 clicks.js 移过来
+"use strict"
+var right_click_repair = CustomNetTables.GetTableValue("building_settings", "right_click_repair").value;
+
+function GetMouseTarget()
+{
+    var mouseEntities = GameUI.FindScreenEntities( GameUI.GetCursorPosition() )
+    var localHeroIndex = Players.GetPlayerHeroEntityIndex( Players.GetLocalPlayer() )
+
+    for ( var e of mouseEntities )
+    {
+        if ( !e.accurateCollision )
+            continue
+        return e.entityIndex
+    }
+
+    for ( var e of mouseEntities )
+    {
+        return e.entityIndex
+    }
+
+    return 0
+}
+
+// 处理右键事件
+function OnRightButtonPressed()
+{
+    var iPlayerID = Players.GetLocalPlayer()
+    var selectedEntities = Players.GetSelectedEntities( iPlayerID )
+    var mainSelected = Players.GetLocalPlayerPortraitUnit() 
+    var targetIndex = GetMouseTarget()
+    var pressedShift = GameUI.IsShiftDown()
+
+    // 生成器右键单击
+    if ( IsBuilder( mainSelected ) )
+    {
+        // Cancel BH
+        if (!pressedShift) SendCancelCommand()
+
+        // 修复右键单击
+        if (right_click_repair && IsCustomBuilding(targetIndex) && Entities.GetHealthPercent(targetIndex) < 100 && IsAlliedUnit(targetIndex, mainSelected)) {
+            GameEvents.SendCustomGameEventToServer( "building_helper_repair_command", {targetIndex: targetIndex, queue: pressedShift})
+            return true
+        }
+    }
+
+    return false
+}
+
+// 处理左键事件
+function OnLeftButtonPressed() {
+    return false
+}
+
+function IsCustomBuilding(entIndex) {
+    return (Entities.GetAbilityByName( entIndex, "ability_building") != -1)
+}
+
+function IsBuilder(entIndex) {
+    var tableValue = CustomNetTables.GetTableValue( "builders", entIndex.toString())
+    return (tableValue !== undefined) && (tableValue.IsBuilder == 1)
+}
+
+function IsAlliedUnit(entIndex, targetIndex) {
+    return (Entities.GetTeamNumber(entIndex) == Entities.GetTeamNumber(targetIndex))
+}
+
+// 主鼠标事件回调
+
+GameUI.SetMouseCallback( function( eventName, arg ) {
+    var CONSUME_EVENT = true
+    var CONTINUE_PROCESSING_EVENT = false
+    // 0左键，1右键，2中键
+    var LEFT_CLICK = (arg === 0)
+    var RIGHT_CLICK = (arg === 1)
+    var MIDDLE_CLICK = (arg === 2)
+
+    if ( GameUI.GetClickBehaviors() !== CLICK_BEHAVIORS.DOTA_CLICK_BEHAVIOR_NONE )
+        return CONTINUE_PROCESSING_EVENT
+
+    var mainSelected = Players.GetLocalPlayerPortraitUnit()
+
+    if ( eventName === "pressed" || eventName === "doublepressed")
+    {
+        // Builder Clicks
+        if (IsBuilder(mainSelected))
+            if (LEFT_CLICK) 
+                return (state == "active") ? SendBuildCommand() : OnLeftButtonPressed()
+            else if (RIGHT_CLICK) 
+                return OnRightButtonPressed()
+
+        if (LEFT_CLICK) {
+            return OnLeftButtonPressed()
+        }
+        else if (RIGHT_CLICK) {
+            return OnRightButtonPressed() 
+        }
+        else if(MIDDLE_CLICK && state === 'active') {
+            return changeAngles()
+        }
+    }
+    return CONTINUE_PROCESSING_EVENT
+} )

@@ -654,8 +654,10 @@ function BuildingHelper:AddBuilding(keys)
     local abilName = ability:GetAbilityName()
     -- npc_units_custom.txt 这个里面的配置
     local buildingTable = BuildingHelper:SetupBuildingTable(abilName, builder)
-
     buildingTable:SetVal("AbilityHandle", ability)
+
+    -- 这边重新设置下yaw
+    -- buildingTable:SetVal("ModelRotation", keys.yaw)
 
     -- Prepare the builder, if it hasn't already been done
     if not builder.buildingQueue then  
@@ -729,14 +731,10 @@ function BuildingHelper:AddBuilding(keys)
 
     -- 调整模型方向
     local yaw = buildingTable:GetVal("ModelRotation", "float")
-    if keys.yaw then 
-        yaw = keys.yaw
-    end
     mgd:SetAngles(0, -yaw, 0)
 
     -- add by lyjian 
     event.abilityname =  abilName
-    BuildingHelper:print("abilityname=="..event.abilityname)
 
     CustomGameEventManager:Send_ServerToPlayer(player, "building_helper_enable", event)
 end
@@ -1135,9 +1133,9 @@ function BuildingHelper:StartBuilding(builder)
 
     ------------------------------------------------------------------
     -- Build Behaviours
-    --  RequiresRepair: If set to 1 it will place the building and not update its health nor send the OnConstructionCompleted callback until its fully healed
-    --  BuilderInside: Puts the builder unselectable/invulnerable/nohealthbar inside the building in construction
-    --  ConsumesBuilder: Kills the builder after the construction is done
+    --  RequiresRepair: 如果设置为1，它将放置建筑，并且不会更新其运行状况，也不会发送OnConstructionCompleted回调，直到其完全修复
+    --  BuilderInside: 将建筑商置于建筑中的不可选择/不可攻击/不可健康栏中
+    --  ConsumesBuilder: 施工结束后杀死建筑工人
     local bRequiresRepair = buildingTable:GetVal("RequiresRepair", "bool")
     local bBuilderInside = buildingTable:GetVal("BuilderInside", "bool")
     local bConsumesBuilder = buildingTable:GetVal("ConsumesBuilder", "bool")
@@ -1968,6 +1966,7 @@ end
 -- Adds a location to the builders work queue
 -- bQueued will be true if the command was done with shift pressed
 -- If bQueued is false, the queue is cleared and this building is put on top
+-- 加个模型角度的参数
 function BuildingHelper:AddToQueue(builder, location, bQueued)
     local playerID = builder:GetMainControllingPlayer()
     local player = PlayerResource:GetPlayer(playerID)
@@ -1999,10 +1998,10 @@ function BuildingHelper:AddToQueue(builder, location, bQueued)
     -- Make the new work entry
     local work = {["location"] = location, ["name"] = buildingName, ["buildingTable"] = buildingTable, ["callbacks"] = callbacks}
 
-    -- Position chosen is initially valid, send callback to spend gold
+    -- 所选职位最初有效，发送回拨以支付黄金
     callbacks.onBuildingPosChosen(location)
 
-    -- Self placement doesn't make ghost particles on the placement area
+    -- “自放置”不会在放置区域上生成重影粒子
     if builder:GetUnitName() == buildingName then
         -- Never queued
         BuildingHelper:ClearQueue(builder)
@@ -2073,8 +2072,8 @@ function BuildingHelper:AddToQueue(builder, location, bQueued)
         -- Add this to the builder queue
         table.insert(builder.buildingQueue, work)
 
-        -- If the builder doesn't have a current work, start the queue
-        -- Extra check for builder-inside behaviour, those abilities are always queued
+        -- 如果生成器没有当前工作，请启动队列
+        -- 额外检查建设者的内部行为，这些能力总是排队的
         if builder.work == nil and not builder:HasModifier("modifier_builder_hidden") and not (builder.state == "repairing" or builder.state == "moving_to_repair") then
             builder.work = builder.buildingQueue[1]
             BuildingHelper:print("Builder doesn't have work to do, start right away")
@@ -2694,6 +2693,11 @@ if not BuildingHelper.Players then BuildingHelper:Init() else BuildingHelper:OnS
 
 -- add by lyjian 旋转模型角度
 function BuildingHelper:changeAngles(args)
-    BuildingHelper:print("changeAngles=="..args.caster)
+    local caster = EntIndexToHScript(args.caster)
+    local ability = EntIndexToHScript(args.ability)
+    --BuildingHelper:print("caster=="..caster:GetUnitName())
+    --BuildingHelper:print("ability=="..ability:GetAbilityName())
+    args.caster = caster
+    args.ability = ability
     BuildingHelper:AddBuilding(args)
 end
