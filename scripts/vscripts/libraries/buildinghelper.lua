@@ -664,7 +664,8 @@ function BuildingHelper:AddBuilding(keys)
         BuildingHelper:InitializeBuilder(builder)
     end
 
-    local size = buildingTable:GetVal("ConstructionSize", "number")
+    -- local size = buildingTable:GetVal("ConstructionSize", "number")
+    local size = buildingTable:GetVal("ConstructionSize")
     local unitName = buildingTable:GetVal("UnitName", "string")
 
     -- Handle self-ghosting
@@ -690,7 +691,8 @@ function BuildingHelper:AddBuilding(keys)
     end
 
     -- Basic event table to send
-    local event = { state = "active", size = size, scale = fMaxScale, builderIndex = builder:GetEntityIndex() }
+    local xysize = BuildingHelper:getXYSize(size)
+    local event = { state = "active", size = size, size_x = xysize.x, size_y = xysize.y, scale = fMaxScale, builderIndex = builder:GetEntityIndex() }
 
     -- Set the active variables and callbacks
     local playerID = builder:GetMainControllingPlayer()
@@ -939,7 +941,9 @@ end
 function BuildingHelper:PlaceBuilding(player, name, location, construction_size, pathing_size, angle)
     construction_size = construction_size or BuildingHelper:GetConstructionSize(name)
     pathing_size = pathing_size or BuildingHelper:GetBlockPathingSize(name)
-    BuildingHelper:SnapToGrid(construction_size, location)
+    -- BuildingHelper:SnapToGrid(construction_size, location)
+    BuildingHelper:SnapToGridXY(construction_size, location)
+
     local playerID = type(player)=="number" and player or player:GetPlayerID() --accept pass player ID or player Handle
     local player = PlayerResource:GetPlayer(playerID)
     local playersHero = PlayerResource:GetSelectedHeroEntity(playerID)
@@ -1069,7 +1073,8 @@ function BuildingHelper:StartBuilding(builder)
     local player = PlayerResource:GetPlayer(playerID)
     local playersHero = PlayerResource:GetSelectedHeroEntity(playerID)
     local buildingTable = work.buildingTable
-    local construction_size = buildingTable:GetVal("ConstructionSize", "number")
+    -- local construction_size = buildingTable:GetVal("ConstructionSize", "number")
+    local construction_size = buildingTable:GetVal("ConstructionSize")
     local pathing_size = buildingTable:GetVal("BlockPathingSize", "number")
 
     -- 检查gridnav，如果无效则取消
@@ -1603,8 +1608,8 @@ end
 -- construction_size: 要阻止施工的网格点的平方
 -- pathing_size: 将产生的路径障碍物的平方 
 function BuildingHelper:BlockGridSquares(construction_size, pathing_size, location)
-    BuildingHelper:RemoveGridType(construction_size, location, "BUILDABLE")
-    BuildingHelper:AddGridType(construction_size, location, "BLOCKED")
+    BuildingHelper:RemoveGridTypeXY(construction_size, location, "BUILDABLE")
+    BuildingHelper:AddGridTypeXY(construction_size, location, "BLOCKED")
 
     return BuildingHelper:BlockPSO(pathing_size, location)
 end
@@ -1646,8 +1651,8 @@ end
 
 -- Clears out an area for construction
 function BuildingHelper:FreeGridSquares(construction_size, location)
-    BuildingHelper:RemoveGridType(construction_size, location, "BLOCKED")
-    BuildingHelper:AddGridType(construction_size, location, "BUILDABLE")
+    BuildingHelper:RemoveGridTypeXY(construction_size, location, "BLOCKED")
+    BuildingHelper:AddGridTypeXY(construction_size, location, "BUILDABLE")
 end
 
 function BuildingHelper:NewGridType(grid_type)
@@ -1666,19 +1671,81 @@ function BuildingHelper:AddGridType(size, location, grid_type, shape)
     end
 
     if shape == "radius" then
-        BuildingHelper:SetGridTypeRadius(size, location, grid_type, "add")
+        BuildingHelper:SetGridTypeRadiusXY(size, location, grid_type, "add")
     else
-        BuildingHelper:SetGridType(size, location, grid_type, "add")
+        BuildingHelper:SetGridTypeXY(size, location, grid_type, "add")
     end
 end
 
 -- Removes grid_type from every cell of a square around the location
 function BuildingHelper:RemoveGridType(size, location, grid_type, shape)
     if shape == "radius" then
-        BuildingHelper:SetGridTypeRadius(size, location, grid_type, "remove")
+        BuildingHelper:SetGridTypeRadiusXY(size, location, grid_type, "remove")
     else
-        BuildingHelper:SetGridType(size, location, grid_type, "remove")
+        BuildingHelper:SetGridTypeXY(size, location, grid_type, "remove")
     end
+end
+
+function BuildingHelper:SetGridTypeXY(size, location, grid_type, option)
+    if not size or size == 0 then return end
+    local sizexy = BuildingHelper:getXYSize(size)
+
+    local originX = GridNav:WorldToGridPosX(location.x)
+    local originY = GridNav:WorldToGridPosY(location.y)
+    local halfSize_x = math.floor(sizexy.x/2)
+    local halfSize_y = math.floor(sizexy.y/2)
+    local boundX1 = originX + halfSize_x
+    local boundX2 = originX - halfSize_x
+    local boundY1 = originY + halfSize_y
+    local boundY2 = originY - halfSize_y
+
+    local lowerBoundX = math.min(boundX1, boundX2)
+    local upperBoundX = math.max(boundX1, boundX2)
+    local lowerBoundY = math.min(boundY1, boundY2)
+    local upperBoundY = math.max(boundY1, boundY2)
+
+    -- Adjust even size
+    if (sizexy.x % 2) == 0 then
+        upperBoundX = upperBoundX-1
+    end
+
+    if (sizexy.y % 2) == 0 then
+        upperBoundY = upperBoundY-1
+    end
+
+    -- Adjust to upper case
+    grid_type = string.upper(grid_type)
+
+    -- 默认情况下，省略会覆盖旧值
+    if not option then
+        for y = lowerBoundY, upperBoundY do
+            for x = lowerBoundX, upperBoundX do
+                BuildingHelper.Grid[y][x] = BuildingHelper.GridTypes[grid_type]
+            end
+        end
+
+    elseif option == "add" then
+        for y = lowerBoundY, upperBoundY do
+            for x = lowerBoundX, upperBoundX do
+                -- Only add if it doesn't have it yet
+                local hasGridType = BuildingHelper:CellHasGridType(x,y,grid_type)
+                if not hasGridType then
+                    BuildingHelper.Grid[y][x] = BuildingHelper.Grid[y][x] + BuildingHelper.GridTypes[grid_type]
+                end
+            end
+        end
+
+    elseif option == "remove" then
+        for y = lowerBoundY, upperBoundY do
+            for x = lowerBoundX, upperBoundX do
+                -- Only remove if it has it
+                local hasGridType = BuildingHelper:CellHasGridType(x,y,grid_type)
+                if hasGridType then
+                    BuildingHelper.Grid[y][x] = BuildingHelper.Grid[y][x] - BuildingHelper.GridTypes[grid_type]
+                end
+            end
+        end
+    end     
 end
 
 -- 用于一次添加、删除或覆盖多个网格正方形的中心函数
@@ -1733,6 +1800,81 @@ function BuildingHelper:SetGridType(size, location, grid_type, option)
                 local hasGridType = BuildingHelper:CellHasGridType(x,y,grid_type)
                 if hasGridType then
                     BuildingHelper.Grid[y][x] = BuildingHelper.Grid[y][x] - BuildingHelper.GridTypes[grid_type]
+                end
+            end
+        end
+    end     
+end
+
+-- Alternative with radius
+function BuildingHelper:SetGridTypeRadiusXY(radius, location, grid_type, option)
+    if not radius or radius == 0 then return end
+    local sizexy = BuildingHelper:getXYSize(radius)
+    local size_x = (sizexy.x - (sizexy.x%32))/32
+    local size_y = (sizexy.y - (sizexy.y%32))/32
+
+    local originX = GridNav:WorldToGridPosX(location.x)
+    local originY = GridNav:WorldToGridPosY(location.y)
+    local halfSize_x = math.floor(size_x/2)
+    local halfSize_y = math.floor(size_y/2)
+    local boundX1 = originX + halfSize_x
+    local boundX2 = originX - halfSize_x
+    local boundY1 = originY + halfSize_y
+    local boundY2 = originY - halfSize_y
+
+    local lowerBoundX = math.min(boundX1, boundX2)
+    local upperBoundX = math.max(boundX1, boundX2)
+    local lowerBoundY = math.min(boundY1, boundY2)
+    local upperBoundY = math.max(boundY1, boundY2)
+
+    -- Adjust to upper case
+    grid_type = string.upper(grid_type)
+
+    -- 默认情况下，省略会覆盖旧值
+    if not option then
+        for y = lowerBoundY, upperBoundY do
+            for x = lowerBoundX, upperBoundX do
+                local current_pos = Vector(GridNav:GridPosToWorldCenterX(x), GridNav:GridPosToWorldCenterY(y), 0)
+                local distance = (current_pos - location):Length2D()
+                BuildingHelper:print("distance="..distance)
+                BuildingHelper:print("types="..BuildingHelper.GridTypes[grid_type])
+                -- radius 3x3 
+                if distance <= radius then
+                    BuildingHelper.Grid[y][x] = BuildingHelper.GridTypes[grid_type]
+                end
+            end
+        end
+
+    elseif option == "add" then
+        for y = lowerBoundY, upperBoundY do
+            for x = lowerBoundX, upperBoundX do
+                -- 只有在它还没有的时候才添加
+                local hasGridType = BuildingHelper:CellHasGridType(x,y,grid_type)
+                if not hasGridType then
+                    local current_pos = Vector(GridNav:GridPosToWorldCenterX(x), GridNav:GridPosToWorldCenterY(y), 0)
+                    local distance = (current_pos - location):Length2D()
+                    BuildingHelper:print("distance="..distance)
+                    BuildingHelper:print("types="..BuildingHelper.GridTypes[grid_type])
+                    if distance <= radius then
+                        BuildingHelper.Grid[y][x] = BuildingHelper.Grid[y][x] + BuildingHelper.GridTypes[grid_type]
+                    end
+                end
+            end
+        end
+
+    elseif option == "remove" then
+         for y = lowerBoundY, upperBoundY do
+            for x = lowerBoundX, upperBoundX do
+                -- Only remove if it has it
+                local hasGridType = BuildingHelper:CellHasGridType(x,y,grid_type)
+                if hasGridType then
+                    local current_pos = Vector(GridNav:GridPosToWorldCenterX(x), GridNav:GridPosToWorldCenterY(y), 0)
+                    local distance = (current_pos - location):Length2D()
+                    BuildingHelper:print("distance="..distance)
+                    BuildingHelper:print("types="..BuildingHelper.GridTypes[grid_type])
+                    if distance <= radius then
+                        BuildingHelper.Grid[y][x] = BuildingHelper.Grid[y][x] - BuildingHelper.GridTypes[grid_type]
+                    end
                 end
             end
         end
@@ -1825,7 +1967,7 @@ function BuildingHelper:CellHasGridType(x, y, grid_type)
     end
 end
 
--- Checks GridNav square of certain size at a location. Sends onConstructionFailed if invalid
+-- 在某个位置检查特定大小的GridNav square。如果无效，则发送OnConstruction失败
 function BuildingHelper:ValidPosition(size, location, unit, callbacks)
     local bBlocked
 
@@ -1838,13 +1980,13 @@ function BuildingHelper:ValidPosition(size, location, unit, callbacks)
     local prevents = buildingTable and buildingTable["Prevents"]
 
     if requires then
-        bBlocked = not BuildingHelper:AreaMeetsCriteria(size, location, requires, "all")
+        bBlocked = not BuildingHelper:AreaMeetsCriteriaXY(size, location, requires, "all")
     else
         bBlocked = BuildingHelper:IsAreaBlocked(size, location)
     end
 
     if prevents then
-        bBlocked = bBlocked or BuildingHelper:AreaMeetsCriteria(size, location, prevents, "one")
+        bBlocked = bBlocked or BuildingHelper:AreaMeetsCriteriaXY(size, location, prevents, "one")
     end
 
     if bBlocked then
@@ -1854,14 +1996,18 @@ function BuildingHelper:ValidPosition(size, location, unit, callbacks)
         end
     end
 
-    -- Check enemy units blocking the area
-    local construction_radius = size * 64
+    -- 检查封锁该地区的敌军单位
+    -- local construction_radius = size * 64
+    -- 这边放大一点应该没什么问题把
+    local sizexy = BuildingHelper:getXYSize(size)
+    local construction_radius = math.max(sizexy.x, sizexy.y)
+
     local target_type = DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC
     local flags = DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE + DOTA_UNIT_TARGET_FLAG_NO_INVIS
     local enemies = FindUnitsInRadius(unit:GetTeamNumber(), location, nil, construction_radius, DOTA_UNIT_TARGET_TEAM_ENEMY, target_type, flags, FIND_ANY_ORDER, false)
 
     for _,enemy in pairs(enemies) do
-        local origin = enemy:GetAbsOrigin()
+        -- local origin = enemy:GetAbsOrigin()
         if not IsCustomBuilding(enemy) and BuildingHelper:EnemyIsInsideBuildingArea(enemy:GetAbsOrigin(), location, size) then
             if callbacks.onConstructionFailed then
                 callbacks.onConstructionFailed()
@@ -1871,6 +2017,18 @@ function BuildingHelper:ValidPosition(size, location, unit, callbacks)
     end
 
     return true
+end
+
+function BuildingHelper:GetBoundsXY(point, size)
+    local sizexy = BuildingHelper:getXYSize(size)
+    local bounds = {}
+    local X1 = point.x + sizexy.x * 32
+    local X2 = point.x - sizexy.x * 32
+    local Y1 = point.y + sizexy.y * 32
+    local Y2 = point.y - sizexy.y * 32
+    bounds.Min = {x=math.min(X1, X2),y=math.min(Y1, Y2)}
+    bounds.Max = {x=math.max(X1, X2),y=math.max(Y1, Y2)}
+    return bounds
 end
 
 function BuildingHelper:GetBounds(point, len)
@@ -1884,10 +2042,11 @@ function BuildingHelper:GetBounds(point, len)
     return bounds
 end
 
+-- 敌人是否在建筑范围内，感觉有点奇怪
 function BuildingHelper:EnemyIsInsideBuildingArea(enemy_location, building_location, size)
-    local bBounds = BuildingHelper:GetBounds(building_location, size * 32)
-    
-    -- Enemy covers 2x2 squares
+    -- local bBounds = BuildingHelper:GetBoundsXY(building_location, size * 32)
+    local bBounds = BuildingHelper:GetBoundsXY(building_location, size)
+    -- 敌人占领了2x2个方格
     BuildingHelper:SnapToGrid(2, enemy_location)
     local eBounds = BuildingHelper:GetBounds(enemy_location, 64)
 
@@ -1901,12 +2060,73 @@ function BuildingHelper:EnemyIsInsideBuildingArea(enemy_location, building_locat
     return betweenX and betweenY
 end
 
--- If not all squares are buildable, the area is blocked
+-- 如果不是所有的广场都可以建造，那么这个区域就会被封锁
 function BuildingHelper:IsAreaBlocked(size, location)
-    return BuildingHelper:AreaMeetsCriteria(size, location, "BLOCKED", "one")
+    return BuildingHelper:AreaMeetsCriteriaXY(size, location, "BLOCKED", "one")
 end
 
--- Checks that all squares meet each of the passed grid_type criteria (can be multiple, split by spaces)
+-- 检查所有正方形是否符合每个通过的栅格类型标准（可以是多个，按空间分割）
+function BuildingHelper:AreaMeetsCriteriaXY(size, location, grid_type, option)
+    local sizexy = BuildingHelper:getXYSize(size)
+    local originX = GridNav:WorldToGridPosX(location.x)
+    local originY = GridNav:WorldToGridPosY(location.y)
+    local halfSize_x = math.floor(sizexy.x/2)
+    local halfSize_y = math.floor(sizexy.y/2)
+    local boundX1 = originX + halfSize_x
+    local boundX2 = originX - halfSize_x
+    local boundY1 = originY + halfSize_y
+    local boundY2 = originY - halfSize_y
+
+    local lowerBoundX = math.min(boundX1, boundX2)
+    local upperBoundX = math.max(boundX1, boundX2)
+    local lowerBoundY = math.min(boundY1, boundY2)
+    local upperBoundY = math.max(boundY1, boundY2)
+
+    -- Adjust even size
+    if (sizexy.x % 2) == 0 then
+        upperBoundX = upperBoundX-1
+    end
+    if (sizexy.y % 2) == 0 then
+        upperBoundY = upperBoundY-1
+    end
+
+    -- Default by omission is to check if all the cells meet the criteria
+    if not option or option == "all" then
+        for y = lowerBoundY, upperBoundY do
+            for x = lowerBoundX, upperBoundX do
+                local grid_types = split(grid_type, " ")
+                for k,v in pairs(grid_types) do
+                    local t = string.upper(v)
+                    local hasGridType = BuildingHelper:CellHasGridType(x,y,t)
+                    if not hasGridType then
+                        return false
+                    end
+                end
+            end
+        end
+        return true -- all cells have the grid types
+
+    -- When searching for one block, stop at the first grid point found with every type
+    elseif option == "one" then
+        for y = lowerBoundY, upperBoundY do
+            for x = lowerBoundX, upperBoundX do
+                local grid_types = split(grid_type, " ")
+                local hasGridType = true
+                for k,v in pairs(grid_types) do
+                    local t = string.upper(v)
+                    hasGridType = hasGridType and BuildingHelper:CellHasGridType(x,y,t)
+                end
+
+                if hasGridType then
+                    return true
+                end
+            end
+        end
+        return false -- no cells meet the criteria
+    end
+end
+
+-- 检查所有正方形是否符合每个通过的栅格类型标准（可以是多个，按空间分割）
 function BuildingHelper:AreaMeetsCriteria(size, location, grid_type, option)
     local originX = GridNav:WorldToGridPosX(location.x)
     local originY = GridNav:WorldToGridPosY(location.y)
@@ -1978,7 +2198,7 @@ function BuildingHelper:AddToQueue(builder, location, bQueued)
     local pathing_size = buildingTable:GetVal("BlockGridNavSize", "number")
     local callbacks = playerTable.activeCallbacks
 
-    BuildingHelper:SnapToGrid(size, location)
+    BuildingHelper:SnapToGridXY(size, location)
 
     -- Check gridnav
     if not BuildingHelper:ValidPosition(size, location, builder, callbacks) then
@@ -2336,6 +2556,21 @@ function BuildingHelper:SnapToGrid(size, location)
     end
 end
 
+function BuildingHelper:SnapToGridXY(size, location)
+    local sizexy = BuildingHelper:getXYSize(size)
+    if sizexy.x % 2 ~= 0 then
+        location.x = BuildingHelper:SnapToGrid32(location.x)
+    else
+        location.x = BuildingHelper:SnapToGrid64(location.x)
+    end
+
+    if sizexy.y % 2 ~= 0 then
+        location.y = BuildingHelper:SnapToGrid32(location.y)
+    else
+        location.y = BuildingHelper:SnapToGrid64(location.y)
+    end
+end
+
 function BuildingHelper:SnapToGrid64(coord)
     return 64*math.floor(0.5+coord/64)
 end
@@ -2521,6 +2756,68 @@ function BuildingHelper:ShowBuilder(unit)
     unit:RemoveNoDraw()
 end
 
+-- 没发现有什么地方用到了这个东西，有问题再说把
+function BuildingHelper:FindClosestEmptyPositionNearbyXY(location, construction_size, maxDistance, avoidUnits)
+    local sizexy = BuildingHelper:getXYSize(construction_size)
+    local originX = GridNav:WorldToGridPosX(location.x)
+    local originY = GridNav:WorldToGridPosY(location.y)
+
+    local boundX1 = originX + math.floor(maxDistance/64)
+    local boundX2 = originX - math.floor(maxDistance/64)
+    local boundY1 = originY + math.floor(maxDistance/64)
+    local boundY2 = originY - math.floor(maxDistance/64)
+
+    local lowerBoundX = math.min(boundX1, boundX2)
+    local upperBoundX = math.max(boundX1, boundX2)
+    local lowerBoundY = math.min(boundY1, boundY2)
+    local upperBoundY = math.max(boundY1, boundY2)
+
+    -- Restrict to the map edges
+    lowerBoundX = math.max(lowerBoundX, -BuildingHelper.squareX/2+1)
+    upperBoundX = math.min(upperBoundX, BuildingHelper.squareX/2-1)
+    lowerBoundY = math.max(lowerBoundY, -BuildingHelper.squareY/2+1)
+    upperBoundY = math.min(upperBoundY, BuildingHelper.squareY/2-1)
+
+    -- Adjust even size
+    if (sizexy.x % 2) == 0 then
+        upperBoundX = upperBoundX-1
+    end
+    if (sizexy.y % 2) == 0 then
+        upperBoundY = upperBoundY-1
+    end
+
+    local towerPos = nil
+    local closestDistance = maxDistance
+
+    for x = lowerBoundX, upperBoundX do
+        for y = lowerBoundY, upperBoundY do
+            if BuildingHelper:CellHasGridType(x,y,"BUILDABLE") then
+                local pos = GetGroundPosition(Vector(GridNav:GridPosToWorldCenterX(x), GridNav:GridPosToWorldCenterY(y), 0), nil)
+                BuildingHelper:SnapToGridXY(construction_size, pos)
+                if BuildingHelper:MeetsHeightCondition(pos) and not BuildingHelper:IsAreaBlocked(construction_size, pos) then
+                    local distance = (pos - location):Length2D()
+                    if distance < closestDistance then
+                        if avoidUnits then
+                            local units = FindUnitsInRadius(DOTA_TEAM_GOODGUYS, pos, nil, 64, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_BASIC+DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES, FIND_ANY_ORDER, false)
+                            if #units == 0 then
+                                towerPos = pos
+                                closestDistance = distance
+                            end
+                        else
+                            towerPos = pos
+                            closestDistance = distance
+                        end                        
+                    end
+                end
+            end
+        end
+    end
+    if towerPos then
+        BuildingHelper:SnapToGridXY(construction_size, towerPos)
+    end
+    return towerPos
+end
+
 -- Find the closest position of construction_size, within maxDistance
 function BuildingHelper:FindClosestEmptyPositionNearby(location, construction_size, maxDistance, avoidUnits)
     local originX = GridNav:WorldToGridPosX(location.x)
@@ -2691,6 +2988,12 @@ end
 
 if not BuildingHelper.Players then BuildingHelper:Init() else BuildingHelper:OnScriptReload() end
 
+function BuildingHelper:getXYSize(size)
+    local xysize = {}
+    xysize.x = tonumber(split(size,"x")[0])
+    xysize.y = tonumber(split(size,"x")[1])
+    return xysize
+end
 -- add by lyjian 旋转模型角度
 function BuildingHelper:changeAngles(args)
     local caster = EntIndexToHScript(args.caster)

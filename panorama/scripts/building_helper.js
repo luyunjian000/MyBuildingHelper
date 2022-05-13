@@ -6,7 +6,11 @@ var state = 'disabled';
 var frame_rate = 1/30;  // 1/30 原来，这个不知道控制什么的
 var tree_update_interval = 1;
 var size = 0;
+var size_x = 0;
+var size_y = 0;
 var overlay_size = 0;
+var overlay_size_x = 0;
+var overlay_size_y = 0;
 var range = 0;
 var pressedShift = false;
 var altDown = false;
@@ -70,10 +74,14 @@ function StartBuildingHelper( params )
         localHeroIndex = Players.GetPlayerHeroEntityIndex( Players.GetLocalPlayer() );
         state = params.state;
         // 设置的3
-        size = params.size;
+        // size = params.size;
+        size_x = params.size_x;
+        size_y = params.size_y;
         range = params.range;
         // 定义要在建筑结构尺寸的每一侧创建的小正方形数 设置的 6
-        overlay_size = size + alt_grid_squares * 2;
+        //overlay_size = size + alt_grid_squares * 2;
+        overlay_size_x = size_x + alt_grid_squares * 2;
+        overlay_size_y = size_y + alt_grid_squares * 2;
         builderIndex = params.builderIndex;
         var scale = params.scale;
         var entindex = params.entindex; //建筑单位的index把
@@ -126,7 +134,8 @@ function StartBuildingHelper( params )
 
         // Grid squares
         gridParticles = [];
-        for (var x=0; x < size*size; x++)
+        //for (var x=0; x < size*size; x++)
+        for (var x=0; x < size_x*size_y; x++)
         {
             var particle = Particles.CreateParticle("particles/buildinghelper/square_sprite.vpcf", ParticleAttachment_t.PATTACH_CUSTOMORIGIN, 0)
             Particles.SetParticleControl(particle, 1, [32,0,0])
@@ -167,14 +176,25 @@ function StartBuildingHelper( params )
         entityGrid = []
         for (var i = 0; i < entities.length; i++)
         {   
+            $.Msg("!Entities.IsAlive(entities[i]=="+!Entities.IsAlive(entities[i]))
+            $.Msg("Entities.IsOutOfGame(entities[i]=="+Entities.IsOutOfGame(entities[i]))
+            $.Msg("!HasModifier(entities[i],=="+!HasModifier(entities[i], "modifier_building"))
             if (!Entities.IsAlive(entities[i]) || Entities.IsOutOfGame(entities[i]) || !HasModifier(entities[i], "modifier_building")) continue
             var entPos = Entities.GetAbsOrigin( entities[i] )
-            var squares = GetConstructionSize(entities[i])
-            
-            if (squares > 0)
+            // var squares = GetConstructionSize(entities[i])
+            var squaresstr = GetConstructionSize(entities[i])
+            $.Msg("squaresstr=="+squaresstr)
+            var squares_x = squaresstr.split("x")[0];
+            var squares_y = squaresstr.split("x")[1];
+            $.Msg("squares_x=="+squares_x)
+            $.Msg("squares_y=="+squares_y)
+
+            //if (squares > 0)
+            if (squares_x > 0 && squares_y > 0)
             {
                 // 以原点为中心的方块
-                BlockGridSquares(entPos, squares, GRID_TYPES["BLOCKED"])
+                // BlockGridSquares(entPos, squares, GRID_TYPES["BLOCKED"])
+                BlockGridSquaresXY(entPos, squares_x, squares_y, GRID_TYPES["BLOCKED"])
             }
             else
             {
@@ -187,11 +207,13 @@ function StartBuildingHelper( params )
                 // Block 2x2 squares if its an enemy unit
                 else if (Entities.GetTeamNumber(entities[i]) != Entities.GetTeamNumber(builderIndex) && !HasModifier(entities[i], "modifier_out_of_world"))
                 {
-                    BlockGridSquares(entPos, 2, GRID_TYPES["BLOCKED"])
+                    //BlockGridSquares(entPos, 2, GRID_TYPES["BLOCKED"])
+                    BlockGridSquaresXY(entPos, 2, 2, GRID_TYPES["BLOCKED"])
                 }
             }
 
             var specialGrid = GetCustomGrid(entities[i])
+            $.Msg("specialGrid=="+specialGrid)
             if (specialGrid)
             {
                 for (var gridType in specialGrid)
@@ -235,17 +257,20 @@ function StartBuildingHelper( params )
         var GamePos = Game.ScreenXYToWorld(mPos[0], mPos[1]);
         if ( GamePos !== null ) 
         {
-            SnapToGrid(GamePos, size)
+            //SnapToGrid(GamePos, size)
+            SnapToGridXY(GamePos, size_x ,size_y)
 
             invalid = false
             var color = [0,255,0]
             var part = 0
-            var halfSide = (size/2)*64
+            //var halfSide = (size/2)*64
+            var halfSide_x = (size_x/2)*64
+            var halfSide_y = (size_y/2)*64
             var boundingRect = {}
-            boundingRect["leftBorderX"] = GamePos[0]-halfSide
-            boundingRect["rightBorderX"] = GamePos[0]+halfSide
-            boundingRect["topBorderY"] = GamePos[1]+halfSide
-            boundingRect["bottomBorderY"] = GamePos[1]-halfSide
+            boundingRect["leftBorderX"] = GamePos[0]-halfSide_x
+            boundingRect["rightBorderX"] = GamePos[0]+halfSide_x
+            boundingRect["topBorderY"] = GamePos[1]+halfSide_y
+            boundingRect["bottomBorderY"] = GamePos[1]-halfSide_y
 
             if (GamePos[0] > 10000000) return
 
@@ -257,8 +282,10 @@ function StartBuildingHelper( params )
                 for (var y=boundingRect["topBorderY"]-32; y >= boundingRect["bottomBorderY"]+32; y-=64)
                 {
                     var pos = SnapHeight(x,y,GamePos[2])
-                    if (part>size*size)
+                    //if (part>size*size) {
+                    if (part>size_x*size_y) {
                         return
+                    }
 
                     var gridParticle = gridParticles[part]
                     //pos[2] = pos[2] + 20 // add by lyjian
@@ -284,7 +311,8 @@ function StartBuildingHelper( params )
                 // Create the particles
                 if (overlayParticles && overlayParticles.length == 0)
                 {
-                    for (var y=0; y < overlay_size*overlay_size; y++)
+                    //for (var y=0; y < overlay_size*overlay_size; y++)
+                    for (var y=0; y < overlay_size_x*overlay_size_y; y++)
                     {
                         var particle = Particles.CreateParticle("particles/buildinghelper/square_overlay.vpcf", ParticleAttachment_t.PATTACH_CUSTOMORIGIN, 0)
                         Particles.SetParticleControl(particle, 1, [32,0,0])
@@ -295,20 +323,30 @@ function StartBuildingHelper( params )
 
                 color = [255,255,255]
                 var part2 = 0
-                var halfSide2 = (overlay_size/2)*64
+                // var halfSide2 = (overlay_size/2)*64
+                var halfSide_x = (overlay_size_x/2)*64
+                var halfSide_y = (overlay_size_y/2)*64
                 var boundingRect2 = {}
-                boundingRect2["leftBorderX"] = GamePos[0]-halfSide2
-                boundingRect2["rightBorderX"] = GamePos[0]+halfSide2
-                boundingRect2["topBorderY"] = GamePos[1]+halfSide2
-                boundingRect2["bottomBorderY"] = GamePos[1]-halfSide2
+                //boundingRect2["leftBorderX"] = GamePos[0]-halfSide2
+                //boundingRect2["rightBorderX"] = GamePos[0]+halfSide2
+                //boundingRect2["topBorderY"] = GamePos[1]+halfSide2
+                //boundingRect2["bottomBorderY"] = GamePos[1]-halfSide2
+                boundingRect2["leftBorderX"] = GamePos[0]-halfSide_x
+                boundingRect2["rightBorderX"] = GamePos[0]+halfSide_x
+                boundingRect2["topBorderY"] = GamePos[1]+halfSide_y
+                boundingRect2["bottomBorderY"] = GamePos[1]-halfSide_y
+
 
                 for (var x2=boundingRect2["leftBorderX"]+32; x2 <= boundingRect2["rightBorderX"]-32; x2+=64)
                 {
                     for (var y2=boundingRect2["topBorderY"]-32; y2 >= boundingRect2["bottomBorderY"]+32; y2-=64)
                     {
                         var pos2 = SnapHeight(x2,y2,GamePos[2])
-                        if (part2>=overlay_size*overlay_size)
+
+                        // if (part2>=overlay_size*overlay_size) {
+                        if (part2>=overlay_size_x*overlay_size_y) {
                             return
+                        }
 
                         color = [255,255,255] //White on empty positions
                         var overlayParticle = overlayParticles[part2]
@@ -555,6 +593,27 @@ function SnapToGrid(vec, size) {
     }
 }
 
+function SnapToGridXY(vec, size_x ,size_y) {
+    // Buildings are centered differently when the size is odd.
+    if (size_x % 2 != 0) 
+    {
+        vec[0] = SnapToGrid32(vec[0])
+    } 
+    else 
+    {
+        vec[0] = SnapToGrid64(vec[0])
+    }
+
+    if (size_y % 2 != 0) 
+    {
+        vec[1] = SnapToGrid32(vec[1])
+    } 
+    else 
+    {
+        vec[1] = SnapToGrid64(vec[1])
+    }
+}
+
 function SnapToGrid64(coord) {
     return 64*Math.floor(0.5+coord/64);
 }
@@ -651,6 +710,37 @@ function BlockGridSquares (position, squares, gridType) {
     }
 }
 
+function BlockGridSquaresXY (position, squares_x, squares_y,  gridType) {
+    var halfSide_x = (squares_x/2)*64
+    var halfSide_y = (squares_y/2)*64
+    var boundingRect = {}
+    boundingRect["leftBorderX"] = position[0]-halfSide_x
+    boundingRect["rightBorderX"] = position[0]+halfSide_x
+    boundingRect["topBorderY"] = position[1]+halfSide_y
+    boundingRect["bottomBorderY"] = position[1]-halfSide_y
+
+    if (gridType == "TREE")
+    {
+        for (var x=boundingRect["leftBorderX"]+32; x <= boundingRect["rightBorderX"]-32; x+=64)
+        {
+            for (var y=boundingRect["topBorderY"]-32; y >= boundingRect["bottomBorderY"]+32; y-=64)
+            {
+                BlockTreeGrid([x,y,0])
+            }
+        }
+    }
+    else
+    {
+        for (var x=boundingRect["leftBorderX"]+32; x <= boundingRect["rightBorderX"]-32; x+=64)
+        {
+            for (var y=boundingRect["topBorderY"]-32; y >= boundingRect["bottomBorderY"]+32; y-=64)
+            {
+                BlockEntityGrid([x,y,0], gridType)
+            }
+        }
+    }
+}
+
 function BlockGridInRadius (position, radius, gridType) {
     var boundingRect = {}
     boundingRect["leftBorderX"] = position[0]-radius
@@ -681,7 +771,9 @@ function WorldToGridPosY(y){
 function GetConstructionSize(entIndex) {
     var entName = Entities.GetUnitName(entIndex)
     var table = CustomNetTables.GetTableValue("construction_size", entName)
-    return table ? table.size : 0
+    // return table ? table.size : 0 
+    $.Msg("tablesize=="+table.size)
+    return table ? table.size : "0x0"
 }
 
 function GetRequiredGridType(entIndex) {
@@ -864,9 +956,10 @@ GameUI.SetMouseCallback( function( eventName, arg ) {
         else if (RIGHT_CLICK) {
             return OnRightButtonPressed() 
         }
-        else if(MIDDLE_CLICK && state === 'active') {
+        /** else if(MIDDLE_CLICK && state === 'active') {
             return changeAngles()
         }
+        **/
     }
     return CONTINUE_PROCESSING_EVENT
 } )

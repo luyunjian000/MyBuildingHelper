@@ -24,7 +24,7 @@
 
 		// BuildingHelper info 
 		// 看https://github.com/MNoya/BuildingHelper/wiki/KeyValues
-		"ConstructionSize"		"3"  //	阻止在该区域建造其他建筑物。需要一个相同大小的有效正方形。
+		"ConstructionSize"		"3x3"  //	阻止在该区域建造其他建筑物。需要一个相同大小的有效正方形。
 		"BlockPathingSize"		"3"  // 用障碍物阻挡路径，用于迷宫。可以为 0
 
     // Abilities
@@ -114,7 +114,7 @@
 
 		// BuildingHelper info 
 		// 看https://github.com/MNoya/BuildingHelper/wiki/KeyValues
-		"ConstructionSize"		"3"  //	阻止在该区域建造其他建筑物。需要一个相同大小的有效正方形。
+		"ConstructionSize"		"3x1"  //	阻止在该区域建造其他建筑物。需要一个相同大小的有效正方形。
 		"BlockPathingSize"		"3"  // 用障碍物阻挡路径，用于迷宫。可以为 0
 
     // Abilities
