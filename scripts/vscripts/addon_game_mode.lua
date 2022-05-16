@@ -14,6 +14,10 @@ function Precache( context )
 			PrecacheResource( "particle", "*.vpcf", context )
 			PrecacheResource( "particle_folder", "particles/folder", context )
 	]]
+
+	PrecacheUnitByNameSync("npc_dota_tower_empty", context)
+	PrecacheUnitByNameSync("npc_dota_tower_wall", context)
+
 	PrecacheResource("particle_folder", "particles/buildinghelper", context)
 end
 

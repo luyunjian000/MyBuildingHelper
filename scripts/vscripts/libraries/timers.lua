@@ -177,7 +177,8 @@ function Timers:HandleEventError(name, event, err)
 
   -- Tell everyone there was an error
   --Say(nil, name .. ' threw an error on event '..event, false)
-  ExcaliburS:SendToFarmTDConsole({text=err}, true)
+  -- 这个不知道是干啥的
+  -- ExcaliburS:SendToFarmTDConsole({text=err}, true)
 
   -- Prevent loop arounds
   if not self.errorHandled then

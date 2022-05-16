@@ -445,6 +445,7 @@ end
 
 -- 通过全景图检测生成器的左键单击
 function BuildingHelper:BuildCommand(args)
+    BuildingHelper:print("进入BuildCommand")
     local playerID = args['PlayerID']
     local x = args['X']
     local y = args['Y']
@@ -719,6 +720,7 @@ function BuildingHelper:AddBuilding(keys)
     end
 
     -- Make a pedestal dummy if required
+    -- 有个底座这个东西
     local pedestal = buildingTable:GetVal("PedestalModel")
 
     if pedestal then
@@ -984,7 +986,7 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
     return building
 end
 
--- Replaces a building by a new one by name, updating the necessary references and returning the new created unit
+-- 按名称将建筑替换为新建筑，更新必要的参照并返回新创建的单元
 function BuildingHelper:UpgradeBuilding(building, newName)
     local oldBuildingName = building:GetUnitName()
     BuildingHelper:print("Upgrading Building: "..oldBuildingName.." -> "..newName)
@@ -1003,7 +1005,7 @@ function BuildingHelper:UpgradeBuilding(building, newName)
     -- Create the new building
     local new_building = BuildingHelper:PlaceBuilding(playerID, newName, position, BuildingHelper:GetConstructionSize(newName), BuildingHelper:GetBlockPathingSize(newName), angle)
 
-    -- If there were units repairing the old building, redirect them to the new building
+    -- 如果有单位在维修旧建筑，请将其重定向到新建筑
     if building.units_repairing then
         for _,builder in pairs(building.units_repairing) do
             builder.repair_target = new_building
@@ -1015,7 +1017,7 @@ function BuildingHelper:UpgradeBuilding(building, newName)
     return new_building
 end
 
--- Removes a building, removing it from the gridnav, with an optional parameter to skip particle effects
+-- 移除建筑，将其从gridnav中移除，并使用可选参数跳过粒子效果
 function BuildingHelper:RemoveBuilding(building, bSkipEffects)
     local buildingName = building:GetUnitName()
     BuildingHelper:print("Removing Building: "..buildingName)
@@ -1075,7 +1077,8 @@ function BuildingHelper:StartBuilding(builder)
     local buildingTable = work.buildingTable
     -- local construction_size = buildingTable:GetVal("ConstructionSize", "number")
     local construction_size = buildingTable:GetVal("ConstructionSize")
-    local pathing_size = buildingTable:GetVal("BlockPathingSize", "number")
+    -- local pathing_size = buildingTable:GetVal("BlockPathingSize", "number")
+    local pathing_size = buildingTable:GetVal("BlockPathingSize")
 
     -- 检查gridnav，如果无效则取消
     if not BuildingHelper:ValidPosition(construction_size, location, builder, callbacks) then
@@ -1608,13 +1611,72 @@ end
 -- construction_size: 要阻止施工的网格点的平方
 -- pathing_size: 将产生的路径障碍物的平方 
 function BuildingHelper:BlockGridSquares(construction_size, pathing_size, location)
-    BuildingHelper:RemoveGridTypeXY(construction_size, location, "BUILDABLE")
-    BuildingHelper:AddGridTypeXY(construction_size, location, "BLOCKED")
+    BuildingHelper:RemoveGridType(construction_size, location, "BUILDABLE")
+    BuildingHelper:AddGridType(construction_size, location, "BLOCKED")
 
-    return BuildingHelper:BlockPSO(pathing_size, location)
+    -- return BuildingHelper:BlockPSO(5, location)
+    return BuildingHelper:BlockPSOXY(pathing_size, location)
 end
 
--- Spawns a square of point_simple_obstruction entities at a location
+function BuildingHelper:BlockPSOXY(size, location)
+    local sizexy = BuildingHelper:getXYSize(size)
+    if sizexy.x == 0 or sizexy.y == 0 then return end
+
+    local pos = Vector(location.x, location.y, location.z)
+    BuildingHelper:SnapToGridXY(size, pos)
+    
+    local gridNavBlockers = {}
+    if sizexy.x % 2 == 1 then
+        if sizexy.y % 2 == 1 then 
+            for x = pos.x - (sizexy.x-2) * 32, pos.x + (sizexy.x-2) * 32, 64 do
+                for y = pos.y - (sizexy.y-2) * 32, pos.y + (sizexy.y-2) * 32, 64 do
+                    local blockerLocation = Vector(x, y, pos.z)
+                    local ent = SpawnEntityFromTableSynchronous("point_simple_obstruction", {origin = blockerLocation})
+                    table.insert(gridNavBlockers, ent)
+                end
+            end
+        else
+            local leny = sizexy.y * 32 - 64
+            for x = pos.x - (sizexy.x-2) * 32, pos.x + (sizexy.x-2) * 32, 64 do
+                for y = pos.y - leny, pos.y + leny, 128 do
+                    local blockerLocation = Vector(x, y, pos.z)
+                    local ent = SpawnEntityFromTableSynchronous("point_simple_obstruction", {origin = blockerLocation})
+                    table.insert(gridNavBlockers, ent)
+                end
+            end
+        end 
+    else
+        local lenx = sizexy.x * 32 - 64
+        if sizexy.y % 2 == 1 then 
+            for x = pos.x - lenx, pos.x + lenx, 128 do
+                for y = pos.y - (sizexy.y-2) * 32, pos.y + (sizexy.y-2) * 32, 64 do
+                    local blockerLocation = Vector(x, y, pos.z)
+                    local ent = SpawnEntityFromTableSynchronous("point_simple_obstruction", {origin = blockerLocation})
+                    table.insert(gridNavBlockers, ent)
+                end
+            end
+        else
+            local leny = sizexy.y * 32 - 64
+            if lenx == 0 and leny == 0 then
+                local ent = SpawnEntityFromTableSynchronous("point_simple_obstruction", {origin = pos})
+                table.insert(gridNavBlockers, ent)
+            else
+                for x = pos.x - lenx, pos.x + lenx, 128 do
+                    for y = pos.y - leny, pos.y + leny, 128 do
+                        local blockerLocation = Vector(x, y, pos.z)
+                        local ent = SpawnEntityFromTableSynchronous("point_simple_obstruction", {origin = blockerLocation})
+                        table.insert(gridNavBlockers, ent)
+                    end
+                end
+            end
+        end 
+    end
+
+    return gridNavBlockers
+end
+
+-- 在一个位置生成一个正方形的点_简单_障碍实体
+-- 就是设置拦截的实体
 function BuildingHelper:BlockPSO(size, location)
     if size == 0 then return end
 
@@ -1651,8 +1713,8 @@ end
 
 -- Clears out an area for construction
 function BuildingHelper:FreeGridSquares(construction_size, location)
-    BuildingHelper:RemoveGridTypeXY(construction_size, location, "BLOCKED")
-    BuildingHelper:AddGridTypeXY(construction_size, location, "BUILDABLE")
+    BuildingHelper:RemoveGridType(construction_size, location, "BLOCKED")
+    BuildingHelper:AddGridType(construction_size, location, "BUILDABLE")
 end
 
 function BuildingHelper:NewGridType(grid_type)
@@ -2194,7 +2256,8 @@ function BuildingHelper:AddToQueue(builder, location, bQueued)
     local buildingName = playerTable.activeBuilding
     local buildingTable = playerTable.activeBuildingTable
     local fMaxScale = buildingTable:GetVal("MaxScale", "float")
-    local size = buildingTable:GetVal("ConstructionSize", "number")
+    -- local size = buildingTable:GetVal("ConstructionSize", "number")
+    local size = buildingTable:GetVal("ConstructionSize")
     local pathing_size = buildingTable:GetVal("BlockGridNavSize", "number")
     local callbacks = playerTable.activeCallbacks
 
@@ -2990,8 +3053,8 @@ if not BuildingHelper.Players then BuildingHelper:Init() else BuildingHelper:OnS
 
 function BuildingHelper:getXYSize(size)
     local xysize = {}
-    xysize.x = tonumber(split(size,"x")[0])
-    xysize.y = tonumber(split(size,"x")[1])
+    xysize.x = tonumber(split(size,"x")[1])
+    xysize.y = tonumber(split(size,"x")[2])
     return xysize
 end
 -- add by lyjian 旋转模型角度

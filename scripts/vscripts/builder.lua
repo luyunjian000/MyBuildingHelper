@@ -127,7 +127,7 @@ function Build( event )
     end)
 end
 
--- Called when the Cancel ability-item is used
+-- 使用取消能力项时调用
 function CancelBuilding( keys )
     local building = keys.unit
     local hero = building:GetOwner()
@@ -149,7 +149,19 @@ function CancelBuilding( keys )
     building:ForceKill(true) --This will call RemoveBuilding
 end
 
--- Requires notifications library from bmddota/barebones
+function DeleteBuilding( keys )
+    local building = keys.unit
+    BuildingHelper:print("DeleteBuilding "..building:GetUnitName().." "..building:GetEntityIndex())
+    -- Eject builder
+    local builder = building.builder_inside
+    if builder then
+        BuildingHelper:ShowBuilder(builder)
+    end
+
+    building:ForceKill(true) --This will call RemoveBuilding
+end
+
+-- 需要来自bmddota/barebones的通知库
 function SendErrorMessage( pID, string )
     Notifications:ClearBottom(pID)
     Notifications:Bottom(pID, {text=string, style={color='#E62020'}, duration=2})

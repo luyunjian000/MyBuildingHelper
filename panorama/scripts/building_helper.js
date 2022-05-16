@@ -77,6 +77,7 @@ function StartBuildingHelper( params )
         // size = params.size;
         size_x = params.size_x;
         size_y = params.size_y;
+        $.Msg("size_x=="+size_x+";size_y=="+size_y)
         range = params.range;
         // 定义要在建筑结构尺寸的每一侧创建的小正方形数 设置的 6
         //overlay_size = size + alt_grid_squares * 2;
