@@ -13,7 +13,7 @@ function Build( event )
     hero:ModifyGold(gold_cost, false, 0)
 
     -- 为了方便处理
-    event.yaw = 0
+    -- event.yaw = 0
     -- 制作一个建筑假人并开始全景重影
     BuildingHelper:AddBuilding(event)
 

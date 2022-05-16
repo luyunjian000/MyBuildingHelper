@@ -936,21 +936,19 @@ GameUI.SetMouseCallback( function( eventName, arg ) {
     var LEFT_CLICK = (arg === 0)
     var RIGHT_CLICK = (arg === 1)
     var MIDDLE_CLICK = (arg === 2)
-
     if ( GameUI.GetClickBehaviors() !== CLICK_BEHAVIORS.DOTA_CLICK_BEHAVIOR_NONE )
         return CONTINUE_PROCESSING_EVENT
 
     var mainSelected = Players.GetLocalPlayerPortraitUnit()
-
     if ( eventName === "pressed" || eventName === "doublepressed")
-    {
+    {   
         // Builder Clicks
-        if (IsBuilder(mainSelected))
+        if (IsBuilder(mainSelected)) {
             if (LEFT_CLICK) 
                 return (state == "active") ? SendBuildCommand() : OnLeftButtonPressed()
             else if (RIGHT_CLICK) 
                 return OnRightButtonPressed()
-
+        }
         if (LEFT_CLICK) {
             return OnLeftButtonPressed()
         }

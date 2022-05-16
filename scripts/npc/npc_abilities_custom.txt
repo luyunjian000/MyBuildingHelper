@@ -106,6 +106,59 @@
 		}
 	}
 
+	"build_tower_ancient"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"box_icon"
+		"MaxLevel"						"1"
+		"RequiredLevel"                 "1"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityCastPoint"				"0"
+		
+		// BuildingHelper info
+		"Building"						"1" //bool
+		"BuildingSize"					"3" 
+		"BuildTime"						"2"
+		"AbilityCastRange"				"400"
+		"UpdateHealth"					"1000" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"						"npc_dota_tower_ancient"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"10"
+		
+		"BuilderInside" "0"  //会隐藏建造者
+		// "ConsumesBuilder" 建造完成后杀死建造者
+		// "RequiresRepair" "1"  //这个东西设置了之后hp条会停下来
+		"OnConstructionCompleted" "1"
+
+		// 这个不知道是干什么的
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"build_time"			"5.0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"gold_cost"				"170"
+			}
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"		"Build"
+			}
+		}
+	}
+
 	"cancel_build_tower"
 	{
 		"BaseClass"             		"item_datadriven"

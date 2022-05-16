@@ -17,6 +17,7 @@ function Precache( context )
 
 	PrecacheUnitByNameSync("npc_dota_tower_empty", context)
 	PrecacheUnitByNameSync("npc_dota_tower_wall", context)
+	PrecacheUnitByNameSync("npc_dota_tower_ancient", context)
 
 	PrecacheResource("particle_folder", "particles/buildinghelper", context)
 end
