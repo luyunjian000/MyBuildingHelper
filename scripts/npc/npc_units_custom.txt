@@ -7,7 +7,8 @@
   	{
 		// General
 		//----------------------------------------------------------------
-    	"Model"                  "models/props_generic/crate_01.vmdl"   // Model.
+    	// "Model"                  "models/props_generic/crate_01.vmdl"   // Model.
+		"Model"                  "models/create_01.vmdl"
 		"SoundSet"					"Furion_Treant"					// Name of sound set.
 		"BaseClass"               "npc_dota_creature"
 		"MinimapIcon"				"minimap_tower135"  //小地图图标
@@ -22,7 +23,7 @@
 		// BuildingHelper info 
 		"PedestalOffset"            "0"
 		"PedestalModelScale"        "1.40"
-		"PedestalModel"             "models/props_teams/logo_dire_winter_small.vmdl" //这个好像是底座  nil就
+		"PedestalModel"             "nil" //"models/props_teams/logo_dire_winter_small.vmdl" //这个好像是底座  nil就
 		"ModelRotation"				"-90"
 		"BuilderInside"				"1"
 		"ConsumesBuilder"			"1"
@@ -129,7 +130,8 @@
   	{
 		// General
 		//----------------------------------------------------------------
-    	"Model"                  "maps/journey_assets/props/walls_128/wall_jrny_radiant_128_int_1.vmdl"   // Model.
+    	// "Model"                  "maps/journey_assets/props/walls_128/wall_jrny_radiant_128_int_1.vmdl"   // Model.
+		"Model"                  "models/tent_01a.vmdl"
 		"SoundSet"					"Furion_Treant"					// Name of sound set.
 		"BaseClass"               "npc_dota_creature"
 		"MinimapIcon"				"minimap_tower135"
@@ -219,7 +221,7 @@
   	{
 		// General
 		//----------------------------------------------------------------
-    	"Model"                  	"models/heroes/ancient_apparition/ancient_apparition.vmdl"   // Model.
+    	"Model"                  	"maps/cavern_assets/models/crystals/crystal01.vmdl"   // Model.
 		"SoundSet"					"Furion_Treant"					// Name of sound set.
 		"BaseClass"               	"npc_dota_creature"
 		"MinimapIcon"				"minimap_tower135"  //小地图图标
@@ -234,7 +236,7 @@
 		// BuildingHelper info 
 		"PedestalOffset"            "0"
 		"PedestalModelScale"        "1.40"
-		"PedestalModel"             "models/props_teams/logo_dire_winter_small.vmdl" //这个好像是底座  nil就
+		"PedestalModel"             "nil" //这个好像是底座  nil就
 		"ModelRotation"				"-90"
 		"BuilderInside"				"1"
 		"ConsumesBuilder"			"1"

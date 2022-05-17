@@ -4,3 +4,5 @@ mklink /J "D:\personal\steam\steamapps\common\dota 2 beta\game\dota_addons\mybui
 mklink /J "D:\personal\steam\steamapps\common\dota 2 beta\content\dota_addons\mybuildinghelper\panorama" "D:\personal\dota2_rpg_example\MyBuildingHelper\MyBuildingHelper\panorama"
 
 mklink /J "D:\personal\steam\steamapps\common\dota 2 beta\content\dota_addons\mybuildinghelper\particles" "D:\personal\dota2_rpg_example\MyBuildingHelper\MyBuildingHelper\particles"
+
+mklink /J "D:\personal\steam\steamapps\common\dota 2 beta\content\dota_addons\mybuildinghelper\models" "D:\personal\dota2_rpg_example\MyBuildingHelper\MyBuildingHelper\models"
