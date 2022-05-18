@@ -140,8 +140,8 @@
 		"AbilityLayout"				"6"
 		"Ability1"					"build_tower_test"
 		"Ability2"					"build_tower_wall"
-		"Ability3"					"build_tower_ancient"
-		"Ability4"					"cancel_build_tower"
+		"Ability3"					"build_tower_gryphon"
+		"Ability4"					""
 		"Ability5"					""
 		"Ability6"					"" // ability_net_fishing | build_tower_debug | Debug broke panorama if more than 6 abiltiies.
 		"Ability7"					""

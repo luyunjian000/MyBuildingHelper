@@ -130,31 +130,36 @@
   	{
 		// General
 		//----------------------------------------------------------------
-    	// "Model"                  "maps/journey_assets/props/walls_128/wall_jrny_radiant_128_int_1.vmdl"   // Model.
-		"Model"                  "models/tent_01a.vmdl"
+    	// "Model"                  	"maps/cavern_assets/models/crystals/crystal01.vmdl"   // Model.
+		"Model"                  	"models/wall.vmdl"
 		"SoundSet"					"Furion_Treant"					// Name of sound set.
-		"BaseClass"               "npc_dota_creature"
-		"MinimapIcon"				"minimap_tower135"
-		"MinimapIconSize"			"200"
+		"BaseClass"               	"npc_dota_creature"
+		"MinimapIcon"				"minimap_tower135"  //小地图图标
+		"MinimapIconSize"			"200"               //小地图图标尺寸
 		"Level"						"1"
-		"ModelScale"				"1"
-		"PedestalOffset"            "0"
-		"PedestalModelScale"        "1.40"
-		"PedestalModel"             "nil"
-		"ModelRotation"				"0"
-		"BuilderInside"				"1"
-		"ConsumesBuilder"			"1"
-		"AutoAttacksByDefault" "0"
+		"HealthBarOffset"			"140"   //血条位移，可以看到蓝条
+		"ModelScale"		 		"1.7"
+		// "HasInventory"              "1" // 是否有物品栏 
+		"ConsideredHero"            "1" // 是否作为英雄
+
 
 		// BuildingHelper info 
+		"PedestalOffset"            "0"
+		"PedestalModelScale"        "1.40"
+		"PedestalModel"             "nil" //这个好像是底座  nil就
+		"ModelRotation"				"-90"
+		"BuilderInside"				"1"
+		"ConsumesBuilder"			"1"
+
 		// 看https://github.com/MNoya/BuildingHelper/wiki/KeyValues
-		"ConstructionSize"		"2x2"  //	阻止在该区域建造其他建筑物。需要一个相同大小的有效正方形。
-		"BlockPathingSize"		"2x2"  // 用障碍物阻挡路径，用于迷宫。可以为 0
+		"ConstructionSize"		"3x3"  //	阻止在该区域建造其他建筑物。需要一个相同大小的有效正方形。
+		"BlockPathingSize"		"3x3"  // 用障碍物阻挡路径，用于迷宫。可以为 0
 
 		// Abilities
 		//----------------------------------------------------------------
-		"Ability1"               "upgrade_building"         // Ability 3
-		"Ability2"               "detele_building"         // Ability 2
+		"AbilityLayout"				"1"
+		"Ability1"               "upgrade_building_wall2"         // Ability 3
+		"Ability2"               "delete_building"         // Ability 2
 		"Ability3"               ""         	// Ability 3
 		"Ability4"               ""         // Ability 4
 		"Ability5"               "" 		// Ability 5
@@ -164,64 +169,215 @@
 		
 		// Armor
 		//----------------------------------------------------------------
-		"ArmorPhysical"				"0"		// Physical protection.
-		"MagicalResistance"			"0"			// Magical protection.
+		"ArmorPhysical"				"5"		// 物理护甲
+		"MagicalResistance"			"0"			// 魔法抗性
 
 		// Attack
 		//----------------------------------------------------------------
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"			"0"		// Damage range min.
-		"AttackDamageMax"			"0"		// Damage range max.
+		// 攻击能力  不能攻击 DOTA_UNIT_CAP_NO_ATTACK ; 近战攻击 DOTA_UNIT_CAP_MELEE_ATTACK ; 远程攻击 DOTA_UNIT_CAP_RANGED_ATTACK
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK" 
+		"AttackDamageMin"			"8"		// 攻击最小值
+		"AttackDamageMax"			"8"		// 攻击最大值
 		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
-		"AttackRate"				"1.2"			// Speed of attack.
-		"AttackAnimationPoint"		"0.0"		// Normalized time in animation cycle to attack.
-		"AttackAcquisitionRange"	"0"		// Range within a target can be acquired.
-		"AttackRange"				"0"		// Range within a target can be attacked.
-		"ProjectileModel"			"particles/base_attacks/ranged_goodguy_trail.vpcf"			// Particle system model for projectile.
-		"ProjectileSpeed"			"1500"			// Speed of projectile.
+		"AttackRate"				"1.2"			// 攻击速率
+		"AttackAnimationPoint"		"0.0"		// 攻击动画点
+		"AttackAcquisitionRange"	"888"		// 攻击接受范围（警戒范围）
+		"AttackRange"				"888"		// 攻击范围
+		"ProjectileModel"			"particles/base_attacks/ranged_goodguy_trail.vpcf" // 投射物模型
+		"ProjectileSpeed"			"1500"			// 投射物速度
+
+		"AutoAttacksByDefault"	    "1"  //是否自动攻击
+		// 攻击类型 
+		// DOTA_COMBAT_CLASS_ATTACK_BASIC  普通
+		// DOTA_COMBAT_CLASS_ATTACK_HERO   英雄
+		// DOTA_COMBAT_CLASS_ATTACK_LIGHT  混乱
+		// DOTA_COMBAT_CLASS_ATTACK_PIERCE 穿刺
+		// DOTA_COMBAT_CLASS_ATTACK_SIEGE  攻城
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_SIEGE"
+		// 防御类型 
+		// DOTA_COMBAT_CLASS_DEFEND_BASIC 普通
+		// DOTA_COMBAT_CLASS_DEFEND_HERO  英雄
+		// DOTA_COMBAT_CLASS_DEFEND_SOFT  轻型
+		// DOTA_COMBAT_CLASS_DEFEND_STRONG 重型
+		// DOTA_COMBAT_CLASS_DEFEND_STRUCTURE 建筑
+		// DOTA_COMBAT_CLASS_DEFEND_WEAK 脆弱
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
 
 		// Bounty
 		//----------------------------------------------------------------
-		"BountyXP"					"0"		// Experience earn.
-		"BountyGoldMin"				"0"		// Gold earned min.
-		"BountyGoldMax"				"0"		// Gold earned max.
+		"BountyXP"					"0"		// 金验奖励.
+		"BountyGoldMin"				"0"		// 金钱奖励最小值.
+		"BountyGoldMax"				"0"		// 金钱奖励最大值.
 
 		// Bounds
 		//----------------------------------------------------------------
-		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// 用于导航/移动的船体类型。
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// 碰撞体积
 		"ProjectileCollisionSize"	"50"
-		"RingRadius"				"120"
+		"RingRadius"				"120"                               // 选取框半径
 
 		// Movement
 		//----------------------------------------------------------------
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"			// 运动类型-地面、空中
-		"MovementSpeed"				"100"				// Speed
+		// 移动能力  不能移动 DOTA_UNIT_CAP_MOVE_NONE ; 地面 DOTA_UNIT_CAP_MOVE_GROUND ; 飞行 DOTA_UNIT_CAP_MOVE_FLY
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"	
+		"MovementSpeed"				"0"				// 移动速度
+		// "MovementTurnRate"          "" //转身速率
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"		// 基础健康。
-		"StatusMana"				"0"		// 基础法力。
-		"StatusHealthRegen"			"0"			// 健康再生率。
-		"StatusManaRegen"			"0"			// 法力回复率。
+		"StatusHealth"				"1000"		// 基础生命值
+		"StatusMana"				"100"		// 基础魔法值
+		"StatusHealthRegen"			"0"			// 基础生命恢复
+		"StatusManaRegen"			"0"			// 基础魔法恢复
+		"StatusStartingMana"		"0"		    // 初始魔法值
 
 		// Team
 		//----------------------------------------------------------------
-		"TeamName"					"DOTA_TEAM_NOTEAM"			// Team name.
-		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_SIEGE"
-		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
+		"TeamName"					"DOTA_TEAM_NOTEAM"
+		// 单位相关类型
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT  默认
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BARRACKS 兵营
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING 建筑
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_COURIER  信使
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_HERO     英雄
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_SIEGE    主城
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD     眼
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 		
 		// Vision
 		//----------------------------------------------------------------
-		"VisionDaytimeRange"		"0"		// 白天的视野范围。
-		"VisionNighttimeRange"		"0"		// 夜间的视野范围。		
+		"VisionDaytimeRange"		"1000"		// 白天的视野范围。
+		"VisionNighttimeRange"		"1000"		// 夜间的视野范围。		
  	}
 
-	"npc_dota_tower_ancient"  
+	"npc_dota_tower_wall2"  
   	{
 		// General
 		//----------------------------------------------------------------
-    	"Model"                  	"maps/cavern_assets/models/crystals/crystal01.vmdl"   // Model.
+    	// "Model"                  	"maps/cavern_assets/models/crystals/crystal01.vmdl"   // Model.
+		"Model"                  	"models/wall2.vmdl"
+		"SoundSet"					"Furion_Treant"					// Name of sound set.
+		"BaseClass"               	"npc_dota_creature"
+		"MinimapIcon"				"minimap_tower135"  //小地图图标
+		"MinimapIconSize"			"200"               //小地图图标尺寸
+		"Level"						"1"
+		"HealthBarOffset"			"140"   //血条位移，可以看到蓝条
+		"ModelScale"		 		"1.7"
+		// "HasInventory"              "1" // 是否有物品栏 
+		"ConsideredHero"            "1" // 是否作为英雄
+
+
+		// BuildingHelper info 
+		"PedestalOffset"            "0"
+		"PedestalModelScale"        "1.40"
+		"PedestalModel"             "nil" //这个好像是底座  nil就
+		"ModelRotation"				"-90"
+		"BuilderInside"				"1"
+		"ConsumesBuilder"			"1"
+
+		// 看https://github.com/MNoya/BuildingHelper/wiki/KeyValues
+		"ConstructionSize"		"3x3"  //	阻止在该区域建造其他建筑物。需要一个相同大小的有效正方形。
+		"BlockPathingSize"		"3x3"  // 用障碍物阻挡路径，用于迷宫。可以为 0
+
+		// Abilities
+		//----------------------------------------------------------------
+		"AbilityLayout"				"1"
+		"Ability1"               ""         // Ability 3
+		"Ability2"               "delete_building"         // Ability 2
+		"Ability3"               ""         	// Ability 3
+		"Ability4"               ""         // Ability 4
+		"Ability5"               "" 		// Ability 5
+		"Ability6"               ""         // Ability 6
+		
+		"SelectOnSpawn"                "0"
+		
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"5"		// 物理护甲
+		"MagicalResistance"			"0"			// 魔法抗性
+
+		// Attack
+		//----------------------------------------------------------------
+		// 攻击能力  不能攻击 DOTA_UNIT_CAP_NO_ATTACK ; 近战攻击 DOTA_UNIT_CAP_MELEE_ATTACK ; 远程攻击 DOTA_UNIT_CAP_RANGED_ATTACK
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK" 
+		"AttackDamageMin"			"8"		// 攻击最小值
+		"AttackDamageMax"			"8"		// 攻击最大值
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"				"1.2"			// 攻击速率
+		"AttackAnimationPoint"		"0.0"		// 攻击动画点
+		"AttackAcquisitionRange"	"888"		// 攻击接受范围（警戒范围）
+		"AttackRange"				"888"		// 攻击范围
+		"ProjectileModel"			"particles/base_attacks/ranged_goodguy_trail.vpcf" // 投射物模型
+		"ProjectileSpeed"			"1500"			// 投射物速度
+
+		"AutoAttacksByDefault"	    "1"  //是否自动攻击
+		// 攻击类型 
+		// DOTA_COMBAT_CLASS_ATTACK_BASIC  普通
+		// DOTA_COMBAT_CLASS_ATTACK_HERO   英雄
+		// DOTA_COMBAT_CLASS_ATTACK_LIGHT  混乱
+		// DOTA_COMBAT_CLASS_ATTACK_PIERCE 穿刺
+		// DOTA_COMBAT_CLASS_ATTACK_SIEGE  攻城
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_SIEGE"
+		// 防御类型 
+		// DOTA_COMBAT_CLASS_DEFEND_BASIC 普通
+		// DOTA_COMBAT_CLASS_DEFEND_HERO  英雄
+		// DOTA_COMBAT_CLASS_DEFEND_SOFT  轻型
+		// DOTA_COMBAT_CLASS_DEFEND_STRONG 重型
+		// DOTA_COMBAT_CLASS_DEFEND_STRUCTURE 建筑
+		// DOTA_COMBAT_CLASS_DEFEND_WEAK 脆弱
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"					"0"		// 金验奖励.
+		"BountyGoldMin"				"0"		// 金钱奖励最小值.
+		"BountyGoldMax"				"0"		// 金钱奖励最大值.
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// 碰撞体积
+		"ProjectileCollisionSize"	"50"
+		"RingRadius"				"120"                               // 选取框半径
+
+		// Movement
+		//----------------------------------------------------------------
+		// 移动能力  不能移动 DOTA_UNIT_CAP_MOVE_NONE ; 地面 DOTA_UNIT_CAP_MOVE_GROUND ; 飞行 DOTA_UNIT_CAP_MOVE_FLY
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"	
+		"MovementSpeed"				"0"				// 移动速度
+		// "MovementTurnRate"          "" //转身速率
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"1000"		// 基础生命值
+		"StatusMana"				"100"		// 基础魔法值
+		"StatusHealthRegen"			"0"			// 基础生命恢复
+		"StatusManaRegen"			"0"			// 基础魔法恢复
+		"StatusStartingMana"		"0"		    // 初始魔法值
+
+		// Team
+		//----------------------------------------------------------------
+		"TeamName"					"DOTA_TEAM_NOTEAM"
+		// 单位相关类型
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT  默认
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BARRACKS 兵营
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING 建筑
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_COURIER  信使
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_HERO     英雄
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_SIEGE    主城
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD     眼
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"1000"		// 白天的视野范围。
+		"VisionNighttimeRange"		"1000"		// 夜间的视野范围。		
+ 	}
+
+	"npc_dota_tower_gryphon"  
+  	{
+		// General
+		//----------------------------------------------------------------
+    	// "Model"                  	"maps/cavern_assets/models/crystals/crystal01.vmdl"   // Model.
+		"Model"                  	"models/gryphon_statue001.vmdl"
 		"SoundSet"					"Furion_Treant"					// Name of sound set.
 		"BaseClass"               	"npc_dota_creature"
 		"MinimapIcon"				"minimap_tower135"  //小地图图标

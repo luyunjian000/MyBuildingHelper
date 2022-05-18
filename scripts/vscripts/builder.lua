@@ -37,7 +37,7 @@ function Build( event )
         return true
     end)
 
-    -- Position for a building was confirmed and valid
+    -- 建筑物位置已确认且有效
     event:OnBuildingPosChosen(function(vPos)
         -- Spend resources
         hero:ModifyGold(-gold_cost, false, 0)
@@ -46,7 +46,7 @@ function Build( event )
         EmitSoundOnClient("DOTA_Item.ObserverWard.Activate", PlayerResource:GetPlayer(playerID))
     end)
 
-    -- The construction failed and was never confirmed due to the gridnav being blocked in the attempted area
+    -- 由于gridnav在尝试的区域被阻塞，施工失败，从未得到确认
     event:OnConstructionFailed(function()
         local playerTable = BuildingHelper:GetPlayerTable(playerID)
         local building_name = playerTable.activeBuilding
@@ -54,7 +54,7 @@ function Build( event )
         BuildingHelper:print("Failed placement of " .. building_name)
     end)
 
-    -- Cancelled due to ClearQueue
+    -- 由于ClearQueue而取消
     event:OnConstructionCancelled(function(work)
         local building_name = work.name
         BuildingHelper:print("Cancelled construction of " .. building_name)
@@ -65,7 +65,7 @@ function Build( event )
         end
     end)
 
-    -- A building unit was created
+    -- 已创建建筑单元
     event:OnConstructionStarted(function(unit)
         BuildingHelper:print("Started construction of " .. unit:GetUnitName() .. " " .. unit:GetEntityIndex())
         -- Play construction sound
@@ -100,7 +100,7 @@ function Build( event )
         unit:RemoveModifierByName("modifier_invulnerable")
     end)
 
-    -- A building finished construction
+    -- 已完工的建筑物
     event:OnConstructionCompleted(function(unit)
         BuildingHelper:print("Completed construction of " .. unit:GetUnitName() .. " " .. unit:GetEntityIndex())
         
@@ -152,13 +152,24 @@ end
 function DeleteBuilding( keys )
     local building = keys.unit
     BuildingHelper:print("DeleteBuilding "..building:GetUnitName().." "..building:GetEntityIndex())
-    -- Eject builder
+    -- 弹出生成器
     local builder = building.builder_inside
+
     if builder then
         BuildingHelper:ShowBuilder(builder)
     end
 
+    -- 强制击杀该单位
     building:ForceKill(true) --This will call RemoveBuilding
+end
+
+function UpgradeBuilding( keys )
+    local building = keys.unit
+
+    BuildingHelper:print("UpgradeBuilding "..building:GetUnitName().." "..building:GetEntityIndex())
+    local newName = keys.UnitName
+    -- 这边是否要检查满足条件（钱什么的）
+    BuildingHelper:UpgradeBuilding(building,newName)
 end
 
 -- 需要来自bmddota/barebones的通知库

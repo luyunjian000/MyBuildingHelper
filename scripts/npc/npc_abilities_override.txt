@@ -1,5 +1,44 @@
 "DOTAAbilities"
 {
 	"Version"		"1"
+
+	"upgrade_building_wall2"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"box_icon"  // 图标
+		// "MaxLevel"						"1"
+		// "RequiredLevel"                 "1"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityCastPoint"				"0"
+		
+		// BuildingHelper info
+		"Building"						"1" //bool
+		"BuildingSize"					"3" //不知道干啥的
+		"BuildTime"						"2" //完成这座建筑所需的时间
+		"AbilityCastRange"				"400"
+		"UpdateHealth"					"1" //bool
+		"PlayerCanControl"				"1" //bool
 	
+		// "UnitName"						"npc_dota_tower_empty"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"100"
+
+		"BuilderInside" "0"  //会隐藏建造者
+		// "ConsumesBuilder" 建造完成后杀死建造者
+		// "RequiresRepair" "1"  //这个东西设置了之后hp条会停下来
+		"OnConstructionCompleted" "1"
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"		"UpgradeBuilding"
+				"UnitName"      "npc_dota_tower_wall2"
+			}
+		}
+	}
 }

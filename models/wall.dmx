@@ -1,0 +1,521 @@
+<!-- dmx encoding keyvalues2 4 format model 22 -->
+"DmElement"
+{
+	"id" "elementid" "5ce0f093-76ff-4f80-b953-a137b61709e2"
+	"name" "string" "root"
+	"exportTags" "DmeExportTags"
+	{
+		"id" "elementid" "9064d9e5-e9c8-4754-8185-88254aec212c"
+		"name" "string" "exportTags"
+		"date" "string" "2022/05/18"
+		"time" "string" "01:52:16 pm"
+		"user" "string" "PC"
+		"machine" "string" "DESKTOP-738TO3A"
+		"app" "string" "Hammer temp export"
+		"appVersion" "string" "hammer"
+	}
+
+	"model" "element" "b289aeca-110c-4296-ab4d-749ea79f44e4"
+	"skeleton" "element" "b289aeca-110c-4296-ab4d-749ea79f44e4"
+}
+
+"DmeModel"
+{
+	"id" "elementid" "b289aeca-110c-4296-ab4d-749ea79f44e4"
+	"name" "string" "model"
+	"transform" "DmeTransform"
+	{
+		"id" "elementid" "ae3d0e79-e47a-4bd1-963e-0b62d93f67cf"
+		"position" "vector3" "0 0 0"
+		"orientation" "quaternion" "0 0 0 1"
+	}
+
+	"shape" "element" ""
+	"visible" "bool" "1"
+	"children" "element_array" 
+	[
+		"DmeDag"
+		{
+			"id" "elementid" "1933e442-2c3e-4d2e-bc79-2d57b6797f80"
+			"name" "string" "hammermesh-4-dag"
+			"transform" "DmeTransform"
+			{
+				"id" "elementid" "21970189-4963-46f9-859c-e9068c3de3cf"
+				"position" "vector3" "0 0 96"
+				"orientation" "quaternion" "0 0 0 1"
+			}
+
+			"shape" "DmeMesh"
+			{
+				"id" "elementid" "77be1981-d8df-4269-8220-7f30fa32b8d7"
+				"name" "string" "hammermesh-4"
+				"visible" "bool" "1"
+				"bindState" "element" ""
+				"currentState" "element" "aa8de37a-a18c-4b35-9970-b783554a2395"
+				"baseStates" "element_array" 
+				[
+					"element" "aa8de37a-a18c-4b35-9970-b783554a2395"
+				]
+				"deltaStates" "element_array" 
+				[
+				]
+				"faceSets" "element_array" 
+				[
+					"DmeFaceSet"
+					{
+						"id" "elementid" "19f55cb5-3386-4478-acbb-d38115747305"
+						"name" "string" "faceSet"
+						"faces" "int_array" 
+						[
+							"0",
+							"1",
+							"2",
+							"3",
+							"-1",
+							"4",
+							"5",
+							"6",
+							"7",
+							"-1",
+							"8",
+							"9",
+							"10",
+							"11",
+							"-1",
+							"12",
+							"13",
+							"14",
+							"15",
+							"-1",
+							"16",
+							"17",
+							"18",
+							"19",
+							"-1",
+							"20",
+							"21",
+							"22",
+							"23",
+							"-1"
+						]
+						"material" "DmeMaterial"
+						{
+							"id" "elementid" "581bcdd4-d1e7-43c6-b853-c5125f4e08c2"
+							"name" "string" "material"
+							"mtlName" "string" "materials/blends/dire_base_winter.vmat"
+						}
+
+						"lightmapScaleBias" "int" "0"
+					}
+				]
+				"deltaStateWeights" "vector2_array" 
+				[
+				]
+				"deltaStateWeightsLagged" "vector2_array" 
+				[
+				]
+			}
+
+			"visible" "bool" "1"
+			"children" "element_array" 
+			[
+			]
+		}
+	]
+	"jointList" "element_array" 
+	[
+	]
+	"baseStates" "element_array" 
+	[
+	]
+	"upAxis" "string" "Y"
+	"axisSystem" "DmeAxisSystem"
+	{
+		"id" "elementid" "f0f92b2b-063d-43c2-9f4d-4b205afc295a"
+		"upAxis" "int" "3"
+		"forwardParity" "int" "1"
+		"coordSys" "int" "0"
+	}
+
+}
+
+"DmeVertexData"
+{
+	"id" "elementid" "aa8de37a-a18c-4b35-9970-b783554a2395"
+	"name" "string" "bind"
+	"vertexFormat" "string_array" 
+	[
+		"position$0",
+		"texcoord$0",
+		"normal$0",
+		"tangent$0",
+		"VertexPaintTintColor$0",
+		"VertexPaintBlendParams$0",
+		"VertexPaintBlendParams1$0"
+	]
+	"jointCount" "int" "0"
+	"flipVCoordinates" "bool" "0"
+	"position$0" "vector3_array" 
+	[
+		"-64 -128 96",
+		"64 -128 96",
+		"-64 128 96",
+		"64 128 -96",
+		"-64 128 -96",
+		"64 128 96",
+		"64 -128 -96",
+		"-64 -128 -96"
+	]
+	"position$0Indices" "int_array" 
+	[
+		"1",
+		"5",
+		"2",
+		"0",
+		"3",
+		"6",
+		"7",
+		"4",
+		"7",
+		"0",
+		"2",
+		"4",
+		"1",
+		"6",
+		"3",
+		"5",
+		"4",
+		"2",
+		"5",
+		"3",
+		"0",
+		"7",
+		"6",
+		"1"
+	]
+	"texcoord$0" "vector2_array" 
+	[
+		"0.5 1",
+		"0.5 -1",
+		"-0.5 -1",
+		"-0.5 1",
+		"0.5 -1",
+		"0.5 1",
+		"-0.5 1",
+		"-0.5 -1",
+		"-1 0",
+		"-1 -1.5",
+		"1 -1.5",
+		"1 0",
+		"-1 -1.5",
+		"-1 0",
+		"1 0",
+		"1 -1.5",
+		"-0.5 0",
+		"-0.5 -1.5",
+		"0.5 -1.5",
+		"0.5 0",
+		"-0.5 -1.5",
+		"-0.5 0",
+		"0.5 0",
+		"0.5 -1.5"
+	]
+	"texcoord$0Indices" "int_array" 
+	[
+		"0",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15",
+		"16",
+		"17",
+		"18",
+		"19",
+		"20",
+		"21",
+		"22",
+		"23"
+	]
+	"normal$0" "vector3_array" 
+	[
+		"0 0 1",
+		"0 0 1",
+		"0 0 1",
+		"0 0 1",
+		"0 0 -1",
+		"0 0 -1",
+		"0 0 -1",
+		"0 0 -1",
+		"-1 0 0",
+		"-1 0 0",
+		"-1 0 0",
+		"-1 0 0",
+		"1 0 0",
+		"1 0 0",
+		"1 0 0",
+		"1 0 0",
+		"0 1 0",
+		"0 1 0",
+		"0 1 0",
+		"0 1 0",
+		"0 -1 0",
+		"0 -1 0",
+		"0 -1 0",
+		"0 -1 0"
+	]
+	"normal$0Indices" "int_array" 
+	[
+		"0",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15",
+		"16",
+		"17",
+		"18",
+		"19",
+		"20",
+		"21",
+		"22",
+		"23"
+	]
+	"tangent$0" "vector4_array" 
+	[
+		"1 0 0 -1",
+		"1 0 0 -1",
+		"1 0 0 -1",
+		"1 0 0 -1",
+		"1 0 0 1",
+		"1 0 0 1",
+		"1 0 0 1",
+		"1 0 0 1",
+		"0 1 0 1",
+		"0 1 0 1",
+		"0 1 0 1",
+		"0 1 0 1",
+		"0 1 0 -1",
+		"0 1 0 -1",
+		"0 1 0 -1",
+		"0 1 0 -1",
+		"1 -0 0 1",
+		"1 -0 0 1",
+		"1 -0 0 1",
+		"1 -0 0 1",
+		"1 0 0 -1",
+		"1 0 0 -1",
+		"1 0 0 -1",
+		"1 0 0 -1"
+	]
+	"tangent$0Indices" "int_array" 
+	[
+		"0",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15",
+		"16",
+		"17",
+		"18",
+		"19",
+		"20",
+		"21",
+		"22",
+		"23"
+	]
+	"VertexPaintTintColor$0" "vector4_array" 
+	[
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1",
+		"1 1 1 1"
+	]
+	"VertexPaintTintColor$0Indices" "int_array" 
+	[
+		"0",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15",
+		"16",
+		"17",
+		"18",
+		"19",
+		"20",
+		"21",
+		"22",
+		"23"
+	]
+	"VertexPaintBlendParams$0" "vector4_array" 
+	[
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0"
+	]
+	"VertexPaintBlendParams$0Indices" "int_array" 
+	[
+		"0",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15",
+		"16",
+		"17",
+		"18",
+		"19",
+		"20",
+		"21",
+		"22",
+		"23"
+	]
+	"VertexPaintBlendParams1$0" "vector4_array" 
+	[
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0",
+		"0 0 0 0"
+	]
+	"VertexPaintBlendParams1$0Indices" "int_array" 
+	[
+		"0",
+		"1",
+		"2",
+		"3",
+		"4",
+		"5",
+		"6",
+		"7",
+		"8",
+		"9",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15",
+		"16",
+		"17",
+		"18",
+		"19",
+		"20",
+		"21",
+		"22",
+		"23"
+	]
+}
+

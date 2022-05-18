@@ -1,31 +1,31 @@
 <!-- dmx encoding keyvalues2 4 format model 22 -->
 "DmElement"
 {
-	"id" "elementid" "25b13153-a8cb-4a0b-be83-acb4c81314ec"
+	"id" "elementid" "14b96b3e-8a4d-45d7-97d7-2f99ada00804"
 	"name" "string" "root"
 	"exportTags" "DmeExportTags"
 	{
-		"id" "elementid" "8627d044-a7b7-4b20-b6ee-0061c8a97e83"
+		"id" "elementid" "35afcb27-02a6-490f-a642-1f9cd88fa070"
 		"name" "string" "exportTags"
-		"date" "string" "2022/05/17"
-		"time" "string" "01:14:40 pm"
+		"date" "string" "2022/05/18"
+		"time" "string" "02:42:11 pm"
 		"user" "string" "PC"
 		"machine" "string" "DESKTOP-738TO3A"
 		"app" "string" "Hammer temp export"
 		"appVersion" "string" "hammer"
 	}
 
-	"model" "element" "aeabec28-bd51-49a4-929c-9c3cd60db00a"
-	"skeleton" "element" "aeabec28-bd51-49a4-929c-9c3cd60db00a"
+	"model" "element" "7f3d1f06-d300-4f8b-80f8-d57c46d8f149"
+	"skeleton" "element" "7f3d1f06-d300-4f8b-80f8-d57c46d8f149"
 }
 
 "DmeModel"
 {
-	"id" "elementid" "aeabec28-bd51-49a4-929c-9c3cd60db00a"
+	"id" "elementid" "7f3d1f06-d300-4f8b-80f8-d57c46d8f149"
 	"name" "string" "model"
 	"transform" "DmeTransform"
 	{
-		"id" "elementid" "cd138317-ec4f-4c47-9d94-2382e02cbaad"
+		"id" "elementid" "408fd3d1-01ed-4c24-81cc-5c5a928328a6"
 		"position" "vector3" "0 0 0"
 		"orientation" "quaternion" "0 0 0 1"
 	}
@@ -36,25 +36,25 @@
 	[
 		"DmeDag"
 		{
-			"id" "elementid" "4ec37968-c4fb-426c-a555-85f2b64bbb75"
+			"id" "elementid" "03dc02f1-9a09-4908-a88a-f2d8be5353ff"
 			"name" "string" "prop_static-models/props_generic/crate_01.vmdl"
 			"transform" "DmeTransform"
 			{
-				"id" "elementid" "d11b2385-da93-47c7-a178-d7e6ad74e63f"
+				"id" "elementid" "7b40ffa7-659b-4cd8-a879-aa4e8a884650"
 				"position" "vector3" "0 0 0"
 				"orientation" "quaternion" "0 0 0 1"
 			}
 
 			"shape" "DmeMesh"
 			{
-				"id" "elementid" "a1c11546-ceac-4778-89ff-8c10c5cade78"
+				"id" "elementid" "b2812275-86a3-4087-ba40-0a0c854ab5d1"
 				"name" "string" "mesh"
 				"visible" "bool" "1"
 				"bindState" "element" ""
-				"currentState" "element" "80662db6-5ffa-427c-bd74-c92b7ccb68c7"
+				"currentState" "element" "a6eccdbf-86fb-43ff-9c8d-0a7fd8417afc"
 				"baseStates" "element_array" 
 				[
-					"element" "80662db6-5ffa-427c-bd74-c92b7ccb68c7"
+					"element" "a6eccdbf-86fb-43ff-9c8d-0a7fd8417afc"
 				]
 				"deltaStates" "element_array" 
 				[
@@ -63,7 +63,7 @@
 				[
 					"DmeFaceSet"
 					{
-						"id" "elementid" "b6af0476-474b-412e-9d31-f4eacf494d7b"
+						"id" "elementid" "a3713223-024d-459e-a572-d5a3f48b46b8"
 						"name" "string" "faceSet"
 						"faces" "int_array" 
 						[
@@ -4030,7 +4030,7 @@
 						]
 						"material" "DmeMaterial"
 						{
-							"id" "elementid" "f91db17b-1328-4bec-adfa-3c35059d6d88"
+							"id" "elementid" "28b01d7e-e2d3-4af8-abf8-b309b173744d"
 							"name" "string" "material"
 							"mtlName" "string" "materials/models/props_structures/props_generic_00.vmat"
 						}
@@ -4060,7 +4060,7 @@
 	"upAxis" "string" "Y"
 	"axisSystem" "DmeAxisSystem"
 	{
-		"id" "elementid" "944cfd88-d15b-41c8-ae46-3d25595f94bb"
+		"id" "elementid" "9918a639-23a2-46e7-8f0a-69a5919e4ac4"
 		"upAxis" "int" "3"
 		"forwardParity" "int" "1"
 		"coordSys" "int" "0"
@@ -4070,7 +4070,7 @@
 
 "DmeVertexData"
 {
-	"id" "elementid" "80662db6-5ffa-427c-bd74-c92b7ccb68c7"
+	"id" "elementid" "a6eccdbf-86fb-43ff-9c8d-0a7fd8417afc"
 	"name" "string" "bind"
 	"vertexFormat" "string_array" 
 	[

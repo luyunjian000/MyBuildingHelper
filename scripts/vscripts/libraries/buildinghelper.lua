@@ -2763,7 +2763,7 @@ function BuildingHelper:SetBuildingCount(playerID, buildingName, number, bUnderC
     end
 end
 
--- Store handle and increment count tracking
+-- 存储句柄和增量计数跟踪
 function BuildingHelper:AddBuildingToPlayerTable(playerID, building, bUnderConstruction)
     local buildingName = building:GetUnitName()
     if bUnderConstruction then
@@ -2816,6 +2816,7 @@ end
 function BuildingHelper:ShowBuilder(unit)
     unit:RemoveModifierByName("modifier_builder_hidden")
     FindClearSpaceForUnit(unit, unit.entrance_to_build, true)
+    -- 这个在我们这好像没什么用，先不管了把
     unit:RemoveNoDraw()
 end
 

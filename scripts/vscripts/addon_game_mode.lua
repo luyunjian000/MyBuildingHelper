@@ -17,9 +17,12 @@ function Precache( context )
 
 	PrecacheUnitByNameSync("npc_dota_tower_empty", context)
 	PrecacheUnitByNameSync("npc_dota_tower_wall", context)
-	PrecacheUnitByNameSync("npc_dota_tower_ancient", context)
+	PrecacheUnitByNameSync("npc_dota_tower_wall2", context)
 
 	PrecacheModel("models/create_01.vmdl", context)
+	PrecacheModel("models/wall.vmdl", context)
+	PrecacheModel("models/wall2.vmdl", context)
+	PrecacheModel("models/gryphon_statue001.vmdl", context)
 
 	PrecacheResource("particle_folder", "particles/buildinghelper", context)
 end
