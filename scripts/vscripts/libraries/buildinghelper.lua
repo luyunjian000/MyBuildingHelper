@@ -445,7 +445,6 @@ end
 
 -- 通过全景图检测生成器的左键单击
 function BuildingHelper:BuildCommand(args)
-    BuildingHelper:print("进入BuildCommand")
     local playerID = args['PlayerID']
     local x = args['X']
     local y = args['Y']
@@ -830,7 +829,7 @@ function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
     -- Extract data from the KV files, set is called to guarantee these have values later on in execution
     local unitName = buildingTable:GetVal("UnitName", "string")
     if not unitName then
-        BuildingHelper:print('Error: ' .. abilName .. ' does not have a UnitName KeyValue')
+        BuildingHelper:print('Error: ' .. abilityName .. ' does not have a UnitName KeyValue')
         return
     end
     buildingTable:SetVal("UnitName", unitName)
@@ -951,14 +950,14 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
     local playersHero = PlayerResource:GetSelectedHeroEntity(playerID)
     BuildingHelper:print("PlaceBuilding for playerID ".. playerID)
 
-    -- Spawn point obstructions before placing the building
+    -- 放置建筑前生成点障碍物
     local gridNavBlockers = BuildingHelper:BlockGridSquares(construction_size, pathing_size, location)
 
     -- Adjust the model position z
     local model_offset = GetUnitKV(name, "ModelOffset") or 0
     local model_location = Vector(location.x, location.y, location.z + model_offset)
 
-    -- Spawn the building
+    -- 生成建筑
     local building = CreateUnitByName(name, model_location, false, playersHero, player, playersHero:GetTeamNumber())
     building:SetControllableByPlayer(playerID, true)
     building:SetNeverMoveToClearSpace(true)
@@ -987,7 +986,12 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
 end
 
 -- 按名称将建筑替换为新建筑，更新必要的参照并返回新创建的单元
-function BuildingHelper:UpgradeBuilding(building, newName)
+function BuildingHelper:UpgradeBuilding(keys)
+    local builder = keys.caster
+    local building = keys.unit
+    local ability = keys.ability
+    local newName = keys.UnitName
+
     local oldBuildingName = building:GetUnitName()
     BuildingHelper:print("Upgrading Building: "..oldBuildingName.." -> "..newName)
     local playerID = building:GetPlayerOwnerID()
@@ -1004,6 +1008,119 @@ function BuildingHelper:UpgradeBuilding(building, newName)
     
     -- Create the new building
     local new_building = BuildingHelper:PlaceBuilding(playerID, newName, position, BuildingHelper:GetConstructionSize(newName), BuildingHelper:GetBlockPathingSize(newName), angle)
+
+    -- 尝试加上建造时间 
+    local abilName = ability:GetAbilityName()
+    -- npc_units_custom.txt 这个里面的配置
+    local buildingTable = BuildingHelper:SetupBuildingTable(abilName, builder)
+
+    -- local bRequiresRepair = buildingTable:GetVal("RequiresRepair", "bool")
+    local bBuilderInside = buildingTable:GetVal("BuilderInside", "bool")
+    local bConsumesBuilder = buildingTable:GetVal("ConsumesBuilder", "bool")
+    -- buildTime can be overriden in the construction start callback
+    local buildTime = buildingTable:GetVal("BuildTime", "float")
+    new_building.buildTime = buildTime
+    if new_building.overrideBuildTime then buildTime = new_building.overrideBuildTime end
+
+    local startTime = GameRules:GetGameTime()
+    -- 建筑应该在什么时间建造完成
+    local fTimeBuildingCompleted = startTime + buildTime
+
+    -- Dota服务器以每秒30帧的速度更新
+    local fserverFrameRate = 1/30
+
+    -- Max and Initial Health factor
+    local fMaxHealth = new_building:GetMaxHealth()
+    local fInitialHealthFactor = BuildingHelper.Settings["INITIAL_HEALTH_FACTOR"]
+    -- fInitialHealthFactor 建筑物应开始的血量百分比  fMaxHealth 建筑的最大血量
+    -- 这边nInitialHealth 就是建筑的初始血量
+    local nInitialHealth = math.floor(fInitialHealthFactor * (fMaxHealth))
+    -- 刷新率 和 增加血量的那什么的 最大值
+    local fUpdateHealthInterval = math.max(fserverFrameRate, buildTime / math.floor(fMaxHealth-nInitialHealth)) -- health tick interval
+    -- 设置一下初始血量
+    new_building:SetHealth(nInitialHealth)
+
+    local fAddedHealth = 0
+    local nHealthInterval = (fMaxHealth-nInitialHealth) / (buildTime / fserverFrameRate)
+    local fSmallHealthInterval = nHealthInterval - math.floor(nHealthInterval) -- just the floating point component
+    nHealthInterval = math.floor(nHealthInterval)
+    local fHPAdjustment = 0
+
+    new_building.updateHealthTimer = Timers:CreateTimer(function()
+        if IsValidEntity(new_building) and new_building:IsAlive() then
+            -- timesUp 时间到了建造完成时间 或者建筑血量到了建筑的最大血量的时候
+            local timesUp = GameRules:GetGameTime() >= fTimeBuildingCompleted or new_building:GetHealth() == new_building:GetMaxHealth()
+            if not timesUp then
+                -- Use +1 every frame or float adjustment
+                local hpGain = 0
+                if fUpdateHealthInterval <= fserverFrameRate then
+                    fHPAdjustment = fHPAdjustment + fSmallHealthInterval
+                    if fHPAdjustment > 1 then
+                        hpGain = nHealthInterval + 1
+                        fHPAdjustment = fHPAdjustment - 1
+                    else
+                        hpGain = nHealthInterval
+                    end
+                else
+                    hpGain = 1
+                end
+
+                -- Fasten up
+                if GameRules.WarpTen then
+                    hpGain = hpGain * 42
+                end
+
+                if hpGain > 0 then
+                    fAddedHealth = fAddedHealth + hpGain
+                    new_building:SetHealth(new_building:GetHealth() + hpGain)
+                end
+            else
+                local adjustment = fMaxHealth - fAddedHealth - nInitialHealth
+                if adjustment > 0 then
+                    new_building:SetHealth(new_building:GetHealth() + fMaxHealth - fAddedHealth - nInitialHealth) -- round up the last little bit
+                end
+                BuildingHelper:print(string.format("Finished %s in %.2f seconds. HP was off by %.2f",new_building:GetUnitName(),GameRules:GetGameTime()-startTime,adjustment))
+
+                -- completion: timesUp is true
+                -- if callbacks.onConstructionCompleted then
+                --    building.constructionCompleted = true
+                --    building.builder = builder
+                --    BuildingHelper:AddBuildingToPlayerTable(playerID, building)
+                --    callbacks.onConstructionCompleted(building)
+                -- end
+
+                -- Eject Builder
+                if bBuilderInside then
+                
+                    -- Consume Builder
+                    if bConsumesBuilder then
+                        new_building:ForceKill(true)
+                    else
+                        BuildingHelper:ShowBuilder(new_building)
+                    end
+
+                    -- Advance Queue
+                    BuildingHelper:AdvanceQueue(new_building)
+                end
+            
+                return
+            end
+        else
+            -- Building destroyed
+
+            -- Eject Builder
+            if bBuilderInside then
+                new_building:RemoveModifierByName("modifier_builder_hidden")
+                new_building:RemoveNoDraw()
+            end
+
+            -- Advance Queue
+            BuildingHelper:AdvanceQueue(new_building)
+
+            return nil
+        end
+        return fUpdateHealthInterval
+    end)    
 
     -- 如果有单位在维修旧建筑，请将其重定向到新建筑
     if building.units_repairing then
@@ -1167,16 +1284,21 @@ function BuildingHelper:StartBuilding(builder)
     if building.overrideBuildTime then buildTime = building.overrideBuildTime end
 
     local startTime = GameRules:GetGameTime()
-    local fTimeBuildingCompleted = startTime+buildTime -- the gametime when the building should be completed
+    -- 建筑应该在什么时间建造完成
+    local fTimeBuildingCompleted = startTime + buildTime
 
-    -- Dota server updates at 30 frames per second
+    -- Dota服务器以每秒30帧的速度更新
     local fserverFrameRate = 1/30
 
     -- Max and Initial Health factor
     local fMaxHealth = building:GetMaxHealth()
     local fInitialHealthFactor = BuildingHelper.Settings["INITIAL_HEALTH_FACTOR"]
+    -- fInitialHealthFactor 建筑物应开始的血量百分比  fMaxHealth 建筑的最大血量
+    -- 这边nInitialHealth 就是建筑的初始血量
     local nInitialHealth = math.floor(fInitialHealthFactor * (fMaxHealth))
+    -- 刷新率 和 增加血量的那什么的 最大值
     local fUpdateHealthInterval = math.max(fserverFrameRate, buildTime / math.floor(fMaxHealth-nInitialHealth)) -- health tick interval
+    -- 设置一下初始血量
     building:SetHealth(nInitialHealth)
 
     local bScale = buildingTable:GetVal("Scale", "bool") -- whether we should scale the building.
@@ -1197,7 +1319,7 @@ function BuildingHelper:StartBuilding(builder)
         BuildingHelper:HideBuilder(builder, location, building)
     end
 
-    -- Health Update Timer and Behaviors
+    -- 运行状况更新计时器和行为
     if not bRequiresRepair then
 
         if not bBuilderInside then
@@ -1213,6 +1335,7 @@ function BuildingHelper:StartBuilding(builder)
 
         building.updateHealthTimer = Timers:CreateTimer(function()
             if IsValidEntity(building) and building:IsAlive() then
+                -- timesUp 时间到了建造完成时间 或者建筑血量到了建筑的最大血量的时候
                 local timesUp = GameRules:GetGameTime() >= fTimeBuildingCompleted or building:GetHealth() == building:GetMaxHealth()
                 if not timesUp then
                     -- Use +1 every frame or float adjustment

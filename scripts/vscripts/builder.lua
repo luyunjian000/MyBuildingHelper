@@ -81,7 +81,7 @@ function Build( event )
             end
         end
 
-        -- Units can't attack while building
+        -- 建造时单位不能攻击
         unit.original_attack = unit:GetAttackCapability()
         unit:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK)
 
@@ -164,12 +164,10 @@ function DeleteBuilding( keys )
 end
 
 function UpgradeBuilding( keys )
-    local building = keys.unit
-
-    BuildingHelper:print("UpgradeBuilding "..building:GetUnitName().." "..building:GetEntityIndex())
-    local newName = keys.UnitName
     -- 这边是否要检查满足条件（钱什么的）
-    BuildingHelper:UpgradeBuilding(building,newName)
+    local newbuilding = BuildingHelper:UpgradeBuilding(keys)
+    -- 据说是防止建筑停止攻击
+    -- newbuilding:SetMoveCapability(0)
 end
 
 -- 需要来自bmddota/barebones的通知库

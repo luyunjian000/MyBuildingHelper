@@ -138,7 +138,7 @@
 		"MinimapIconSize"			"200"               //小地图图标尺寸
 		"Level"						"1"
 		"HealthBarOffset"			"140"   //血条位移，可以看到蓝条
-		"ModelScale"		 		"1.7"
+		"ModelScale"		 		"1"
 		// "HasInventory"              "1" // 是否有物品栏 
 		"ConsideredHero"            "1" // 是否作为英雄
 
@@ -261,7 +261,7 @@
 		"MinimapIconSize"			"200"               //小地图图标尺寸
 		"Level"						"1"
 		"HealthBarOffset"			"140"   //血条位移，可以看到蓝条
-		"ModelScale"		 		"1.7"
+		"ModelScale"		 		"1"
 		// "HasInventory"              "1" // 是否有物品栏 
 		"ConsideredHero"            "1" // 是否作为英雄
 

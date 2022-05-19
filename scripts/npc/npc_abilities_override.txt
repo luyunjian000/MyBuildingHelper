@@ -22,7 +22,7 @@
 		"UpdateHealth"					"1" //bool
 		"PlayerCanControl"				"1" //bool
 	
-		// "UnitName"						"npc_dota_tower_empty"
+		"UnitName"						"npc_dota_tower_wall2"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"100"
 
