@@ -14,4 +14,7 @@ mklink /J "D:\personal\steam\steamapps\common\dota 2 beta\content\dota_addons\my
 
 // 待处理的问题
 升级完建筑之后，要把当前选中目标切换下（或者清除掉），这个不着急把
+
 处理出怪的逻辑
+1.1 定时任务工具类完成
+1.2 出一波怪，出怪的选择是什么

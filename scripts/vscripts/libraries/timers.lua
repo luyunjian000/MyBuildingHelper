@@ -96,8 +96,8 @@ function Timers:Think()
     --return
   --end
 
-  -- Track game time, since the dt passed in to think is actually wall-clock time not simulation time.
-  local now = GameRules:GetGameTime()
+  -- 跟踪游戏时间，因为dt传入认为实际上是挂钟时间而不是模拟时间.
+  -- local now = GameRules:GetGameTime()
 
   -- Process timers
   for k,v in pairs(Timers.timers) do
@@ -209,6 +209,7 @@ function Timers:CreateTimer(name, args, context)
 
   local now = GameRules:GetGameTime()
   if args.useGameTime ~= nil and args.useGameTime == false then
+    -- 当前服务器时间
     now = Time()
   end
 
