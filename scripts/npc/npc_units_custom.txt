@@ -1,4 +1,4 @@
-// Units File 
+#base "npc_enemy_units.txt"
 "DOTAUnits"
 {
 	//"Version"	"1"
@@ -88,6 +88,15 @@
 
 		// Bounds
 		//----------------------------------------------------------------
+		// DOTA_HULL_SIZE_BARRACKS	兵营
+		//DOTA_HULL_SIZE_BUILDING	建筑
+		//DOTA_HULL_SIZE_FILLER	就是高地上那个没用的建筑
+		//DOTA_HULL_SIZE_HERO	英雄
+		//DOTA_HULL_SIZE_HUGE	大型
+		//DOTA_HULL_SIZE_REGULAR	普通
+		//DOTA_HULL_SIZE_SIEGE	城堡
+		//DOTA_HULL_SIZE_SMALL	小型
+		//DOTA_HULL_SIZE_TOWER	塔                 
 		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// 碰撞体积
 		"ProjectileCollisionSize"	"50"
 		"RingRadius"				"120"                               // 选取框半径
@@ -176,8 +185,8 @@
 		//----------------------------------------------------------------
 		// 攻击能力  不能攻击 DOTA_UNIT_CAP_NO_ATTACK ; 近战攻击 DOTA_UNIT_CAP_MELEE_ATTACK ; 远程攻击 DOTA_UNIT_CAP_RANGED_ATTACK
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK" 
-		"AttackDamageMin"			"8"		// 攻击最小值
-		"AttackDamageMax"			"8"		// 攻击最大值
+		"AttackDamageMin"			"0"		// 攻击最小值
+		"AttackDamageMax"			"0"		// 攻击最大值
 		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
 		"AttackRate"				"1.2"			// 攻击速率
 		"AttackAnimationPoint"		"0.0"		// 攻击动画点
@@ -186,7 +195,7 @@
 		"ProjectileModel"			"particles/base_attacks/ranged_goodguy_trail.vpcf" // 投射物模型
 		"ProjectileSpeed"			"1500"			// 投射物速度
 
-		"AutoAttacksByDefault"	    "1"  //是否自动攻击
+		"AutoAttacksByDefault"	    "0"  //是否自动攻击
 		// 攻击类型 
 		// DOTA_COMBAT_CLASS_ATTACK_BASIC  普通
 		// DOTA_COMBAT_CLASS_ATTACK_HERO   英雄

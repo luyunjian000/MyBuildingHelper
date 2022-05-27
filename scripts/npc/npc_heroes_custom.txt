@@ -156,13 +156,17 @@
 		"Ability16"					""
 		"Ability17"					""
 
-		"UnitLabel"					"builder"
+		//"UnitLabel"					"builder"
 		"ModelScale" "1"
 		// Attack
 		//-------------------------------------------------------------------------------------------------------------
-		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
-		"AttackDamageMin"			"0"										// Damage range min.
-		"AttackDamageMax"			"0"										// Damage range max.
+		// DOTA_UNIT_CAP_NO_ATTACK	0	单位无法以任何方式攻击。
+		// DOTA_UNIT_CAP_MELEE_ATTACK	1	单位攻击被归类为近战（没有上坡失手机会，对超过攻击范围 350 的敌人的攻击会自动失手）。
+		// DOTA_UNIT_CAP_RANGED_ATTACK	2	单位攻击被归类为远程攻击（可能会在上坡时失手，可脱身，有射弹）。
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"200"										// Damage range min.
+		"AttackDamageMax"			"200"										// Damage range max.
 		"AttackRate"				"2"									// Speed of attack.
 		"ProjectileSpeed"			"1550"									// Speed of projectile.
 		"AttackAnimationPoint"		"0.35"
@@ -185,14 +189,17 @@
 	
 		// Movement
 		//-------------------------------------------------------------------------------------------------------------
+		// DOTA_UNIT_CAP_MOVE_NONE	0	单位不能以任何方式移动。
+		// DOTA_UNIT_CAP_MOVE_GROUND	1	单位在被地形阻挡时移动。
+		// DOTA_UNIT_CAP_MOVE_FLY	2	单位无视地形。
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"				"550"
 		"MovementTurnRate"			"1.0"
 	
 		// Status
 		//-------------------------------------------------------------------------------------------------------------
-		"StatusHealth"				"20"									// Base health.
-		"StatusHealthRegen"			"0"									// Health regeneration rate.
+		"StatusHealth"				"200"									// Base health.
+		"StatusHealthRegen"			"5"									// Health regeneration rate.
 		"StatusMana"				"5000"											// Base mana.
 		"StatusManaRegen"			"0"									// Mana regeneration rate.
 		"HealthBarOffset"       "150"  

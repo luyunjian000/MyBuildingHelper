@@ -1,0 +1,202 @@
+"DOTAUnits"
+{
+	//"Version"	"1"
+
+	"npc_dota_enemy_1" 
+	{
+		// General
+		//
+		"BaseClass"					"npc_dota_creep_neutral"	// Class of entity of link to.
+		"Model"						"models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl"	// Model.
+		"SoundSet"					"Creep_Good_Melee"					// Name of sound set.
+		"ModelScale"				"1.1"
+		"Level"						"1"
+		"IsSummoned"				"1"
+				
+		// Abilities
+		//----------------------------------------------------------------
+		
+		"Ability1"					""			// Ability 1.
+		"Ability2"					""			// Ability 2.
+		"Ability3"					""			// Ability 3.
+		"Ability4"					""			// Ability 4.
+		"Ability5"					""			// Ability 5.
+		"Ability6"					""			// Ability 6 - Extra.
+		"Ability7"					""			// Ability 7 - Extra.
+		"Ability8"					""			// Ability 8 - Extra.
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"1"			// Physical protection.
+		"MagicalResistance"				"50"			// Magical protection.
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"32"		// Damage range min.
+		"AttackDamageMax"			"37"		// Damage range max.
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"				"1.2"		// Speed of attack.
+		"AttackAnimationPoint"		"0.56"		// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"300"		// Range within a target can be acquired.
+		"AttackRange"				"115"		// Range within a target can be attacked.
+		"ProjectileModel"			""			// Particle system model for projectile.
+		"ProjectileSpeed"			""			// Speed of projectile.
+
+		"AutoAttacksByDefault"	    "0"
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"					"0"		// Experience earn.
+		"BountyGoldMin"				"0"			// Gold earned min.
+		"BountyGoldMax"				"0"		// Gold earned max.
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_SMALLEST"			// Hull type used for navigation/locomotion.
+		"HealthBarOffset"			"140"
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"			// Type of locomotion - ground, air
+		"MovementSpeed"				"350"		// Speed
+		"MovementTurnRate"			"0.5"		// Turning rate.
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"175"		// Base health.
+		"StatusHealthRegen"			"0.0"		// Health regeneration rate.
+		"StatusMana"				"0"			// Base mana.
+		"StatusManaRegen"			"0"			// Mana regeneration rate.
+
+		// Team
+		//----------------------------------------------------------------
+		"TeamName"					"DOTA_TEAM_GOODGUYS"			// Team name.
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_HERO"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_HERO"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"800"		// Range of vision during day light.
+		"VisionNighttimeRange"		"600"		// Range of vision at night time.
+	}
+
+	"npc_dota_enemy_fish"  
+  	{
+		// General
+		//----------------------------------------------------------------
+		"Model"                  "maps/reef_assets/characters/anglerfish/darkreef_anglerfish.vmdl"
+		"SoundSet"					"Furion_Treant"					// Name of sound set.
+		"BaseClass"               "npc_dota_creature"
+		"MinimapIcon"				"minimap_tower135"  //小地图图标
+		"MinimapIconSize"			"200"               //小地图图标尺寸
+		"Level"						"1"
+		//"HealthBarOffset"			"140"   //血条位移，可以看到蓝条
+		"ModelScale"		 		"1"
+		// "HasInventory"              "1" // 是否有物品栏 
+		"ConsideredHero"            "1" // 是否作为英雄
+
+		// Abilities
+		//----------------------------------------------------------------
+		"AbilityLayout"				"1"
+		"Ability1"               ""         // Ability 3
+		"Ability2"               ""         // Ability 2
+		"Ability3"               ""         	// Ability 3
+		"Ability4"               ""         // Ability 4
+		"Ability5"               "" 		// Ability 5
+		"Ability6"               ""         // Ability 6
+		
+		"SelectOnSpawn"                "0"
+		
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"5"		// 物理护甲
+		"MagicalResistance"			"0"			// 魔法抗性
+
+		// Attack
+		//----------------------------------------------------------------
+		// 攻击能力  不能攻击 DOTA_UNIT_CAP_NO_ATTACK ; 近战攻击 DOTA_UNIT_CAP_MELEE_ATTACK ; 远程攻击 DOTA_UNIT_CAP_RANGED_ATTACK
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK" 
+		"AttackDamageMin"			"8"		// 攻击最小值
+		"AttackDamageMax"			"8"		// 攻击最大值
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"				"1.2"			// 攻击速率
+		"AttackAnimationPoint"		"0.0"		// 攻击动画点
+		"AttackAcquisitionRange"	"888"		// 攻击接受范围（警戒范围）
+		"AttackRange"				"888"		// 攻击范围
+		"ProjectileModel"			"particles/base_attacks/ranged_goodguy_trail.vpcf" // 投射物模型
+		"ProjectileSpeed"			"1500"			// 投射物速度
+
+		"AutoAttacksByDefault"	    "1"  //是否自动攻击
+		// 攻击类型 
+		// DOTA_COMBAT_CLASS_ATTACK_BASIC  普通
+		// DOTA_COMBAT_CLASS_ATTACK_HERO   英雄
+		// DOTA_COMBAT_CLASS_ATTACK_LIGHT  混乱
+		// DOTA_COMBAT_CLASS_ATTACK_PIERCE 穿刺
+		// DOTA_COMBAT_CLASS_ATTACK_SIEGE  攻城
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
+		// 防御类型 
+		// DOTA_COMBAT_CLASS_DEFEND_BASIC 普通
+		// DOTA_COMBAT_CLASS_DEFEND_HERO  英雄
+		// DOTA_COMBAT_CLASS_DEFEND_SOFT  轻型
+		// DOTA_COMBAT_CLASS_DEFEND_STRONG 重型
+		// DOTA_COMBAT_CLASS_DEFEND_STRUCTURE 建筑
+		// DOTA_COMBAT_CLASS_DEFEND_WEAK 脆弱
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_BASIC"
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"					"20"		// 金验奖励.
+		"BountyGoldMin"				"10"		// 金钱奖励最小值.
+		"BountyGoldMax"				"10"		// 金钱奖励最大值.
+
+		// Bounds
+		//----------------------------------------------------------------
+		// DOTA_HULL_SIZE_BARRACKS	兵营
+		//DOTA_HULL_SIZE_BUILDING	建筑
+		//DOTA_HULL_SIZE_FILLER	就是高地上那个没用的建筑
+		//DOTA_HULL_SIZE_HERO	英雄
+		//DOTA_HULL_SIZE_HUGE	大型
+		//DOTA_HULL_SIZE_REGULAR	普通
+		//DOTA_HULL_SIZE_SIEGE	城堡
+		//DOTA_HULL_SIZE_SMALL	小型
+		//DOTA_HULL_SIZE_TOWER	塔                 
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// 碰撞体积
+		"ProjectileCollisionSize"	"50"
+		"RingRadius"				"120"                               // 选取框半径
+
+		// Movement
+		//----------------------------------------------------------------
+		// 移动能力  不能移动 DOTA_UNIT_CAP_MOVE_NONE ; 地面 DOTA_UNIT_CAP_MOVE_GROUND ; 飞行 DOTA_UNIT_CAP_MOVE_FLY
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"	
+		"MovementSpeed"				"200"				// 移动速度
+		"MovementTurnRate"          "1.0" //转身速率
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"20"		// 基础生命值
+		"StatusMana"				"20"		// 基础魔法值
+		"StatusHealthRegen"			"2"			// 基础生命恢复
+		"StatusManaRegen"			"2"			// 基础魔法恢复
+		"StatusStartingMana"		"0"		    // 初始魔法值
+
+		// Team
+		//----------------------------------------------------------------
+		"TeamName"					"DOTA_TEAM_NOTEAM"
+		// 单位相关类型
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT  默认
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BARRACKS 兵营
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING 建筑
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_COURIER  信使
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_HERO     英雄
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_SIEGE    主城
+		// DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD     眼
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"1000"		// 白天的视野范围。
+		"VisionNighttimeRange"		"1000"		// 夜间的视野范围。		
+ 	}	
+}
