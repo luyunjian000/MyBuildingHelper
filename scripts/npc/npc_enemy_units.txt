@@ -5,8 +5,9 @@
 	"npc_dota_enemy_1" 
 	{
 		// General
-		//
-		"BaseClass"					"npc_dota_creep_neutral"	// Class of entity of link to.
+		// 错误的baseclass导致不能控制  这边的是中立爬行 可以去矩阵编辑器里面看
+		//"BaseClass"					"npc_dota_creep_neutral"
+		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
 		"Model"						"models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl"	// Model.
 		"SoundSet"					"Creep_Good_Melee"					// Name of sound set.
 		"ModelScale"				"1.1"

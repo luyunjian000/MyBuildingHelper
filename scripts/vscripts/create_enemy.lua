@@ -23,15 +23,15 @@ function createRowEnemy()
     -- 创建单位，根据每个单位都要绑定计时器(那种小的单位太多会不会很占资源)
     ShuaGuai:SetContextThink( "onEnemyThink", function()
         -- 不知道这个name是什么东西，当然后面要弄的话，每个建筑都要有对应的权重的，类似仇恨系统
-        local tower = Entities:FindByClassnameNearest( "npc_dota_creature", ShuaGuai:GetOrigin(), 2000)
+        -- local tower = Entities:FindByClassnameNearest( "npc_dota_creature", ShuaGuai:GetOrigin(), 2000)
+
+        local target = Entities:FindByName(nil,"testtarget")
         -- 有问题
-        print(tower:GetOrigin())
+        print(target:GetOrigin())
 
         -- 这个move也有问题，我服了
-        local target = Vector(500,500,128)
-        if tower then
-            ShuaGuai:MoveToPositionAggressive(target)
-        end
+        ShuaGuai:MoveToPositionAggressive(target:GetOrigin())
+
         return 0.5
     end, 0.5 )
 
