@@ -27,8 +27,6 @@ function createRowEnemy()
 
         local target = Entities:FindByName(nil,"testtarget")
         -- 有问题
-        print(target:GetOrigin())
-
         -- 这个move也有问题，我服了
         ShuaGuai:MoveToPositionAggressive(target:GetOrigin())
 

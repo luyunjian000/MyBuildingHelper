@@ -1,11 +1,23 @@
 mklink /J "D:\personal\steam\steamapps\common\dota 2 beta\game\dota_addons\mybuildinghelper\scripts" "D:\personal\dota2_rpg_example\MyBuildingHelper\MyBuildingHelper\scripts"
 
-
 mklink /J "D:\personal\steam\steamapps\common\dota 2 beta\content\dota_addons\mybuildinghelper\panorama" "D:\personal\dota2_rpg_example\MyBuildingHelper\MyBuildingHelper\panorama"
 
 mklink /J "D:\personal\steam\steamapps\common\dota 2 beta\content\dota_addons\mybuildinghelper\particles" "D:\personal\dota2_rpg_example\MyBuildingHelper\MyBuildingHelper\particles"
 
 mklink /J "D:\personal\steam\steamapps\common\dota 2 beta\content\dota_addons\mybuildinghelper\models" "D:\personal\dota2_rpg_example\MyBuildingHelper\MyBuildingHelper\models"
+
+
+// 自己电脑上的
+mklink /J "F:\steam\steamapps\common\dota 2 beta\content\dota_addons\mybuildinghelper\models" "D:\dota2study\MyBuildingHelper\models"
+
+mklink /J "F:\steam\steamapps\common\dota 2 beta\content\dota_addons\mybuildinghelper\particles" "D:\dota2study\MyBuildingHelper\particles"
+
+mklink /J "F:\steam\steamapps\common\dota 2 beta\content\dota_addons\mybuildinghelper\panorama" "D:\dota2study\MyBuildingHelper\panorama"
+
+mklink /J "F:\steam\steamapps\common\dota 2 beta\game\dota_addons\mybuildinghelper\resource" "D:\dota2study\MyBuildingHelper\resource"
+
+mklink /J "F:\steam\steamapps\common\dota 2 beta\game\dota_addons\mybuildinghelper\scripts" "D:\dota2study\MyBuildingHelper\scripts"
+
 
 
 构建的问题感觉可以了（主要模型的问题，要hitboxs）
@@ -18,3 +30,18 @@ mklink /J "D:\personal\steam\steamapps\common\dota 2 beta\content\dota_addons\my
 处理出怪的逻辑
 1.1 定时任务工具类完成
 1.2 出一波怪，出怪的选择是什么
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

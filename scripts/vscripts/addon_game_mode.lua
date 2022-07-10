@@ -86,7 +86,8 @@ function CAddonTemplateGameMode:OnGameRulesStateChange( keys )
 	elseif newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
 		print("Player game begin")  --玩家开始游戏
 
-		createTimer(nil,"shuabing",createRowEnemy,10,10)
+		-- 刷兵
+		--createTimer(nil,"shuabing",createRowEnemy,10,10)
 		
 		-- 这个不知道有没有用啊
 		--Timers:CreateTimer({
