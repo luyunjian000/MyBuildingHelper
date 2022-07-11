@@ -44,7 +44,42 @@ function Activate()
 end
 
 function CAddonTemplateGameMode:InitGameMode()
-	print( "Template addon is loaded." )
+	-- 分配队伍的颜色
+	self.m_TeamColors = {}
+	self.m_TeamColors[DOTA_TEAM_GOODGUYS] = { 61, 210, 150 }	--		Teal
+	self.m_TeamColors[DOTA_TEAM_BADGUYS]  = { 243, 201, 9 }		--		Yellow
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_1] = { 197, 77, 168 }	--      Pink
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_2] = { 255, 108, 0 }		--		Orange
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_3] = { 52, 85, 255 }		--		Blue
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_4] = { 101, 212, 19 }	--		Green
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_5] = { 129, 83, 54 }		--		Brown
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_6] = { 27, 192, 216 }	--		Cyan
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_7] = { 199, 228, 13 }	--		Olive
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_8] = { 140, 42, 244 }	--		Purple
+
+	for team = 0, (DOTA_TEAM_COUNT-1) do
+		color = self.m_TeamColors[ team ]
+		if color then
+			SetTeamCustomHealthbarColor( team, color[1], color[2], color[3] )
+		end
+	end
+
+	if GetMapName() == "main" then
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 0 )
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 0 )
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_CUSTOM_1, 1 )
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_CUSTOM_2, 1 )
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_CUSTOM_3, 1 )
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_CUSTOM_4, 1 )
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_CUSTOM_5, 1 )
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_CUSTOM_6, 1 )
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_CUSTOM_7, 1 )
+		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_CUSTOM_8, 1 )
+	end
+
+	GameRules:GetGameModeEntity().AddonTemplate = self
+
+
 
 	-- 调试要去掉战争迷雾
 	GameRules:GetGameModeEntity():SetFogOfWarDisabled(true)
@@ -100,5 +135,64 @@ end
 
 function CAddonTemplateGameMode:OnPlayerChat( keys )
 	OnPlayerChat(keys)
+end
+
+-- 分配队伍
+function CAddonTemplateGameMode:AssignTeams()
+	--print( "Assigning teams" )
+	local vecTeamValid = {}
+	local vecTeamNeededPlayers = {}
+	for nTeam = 0, (DOTA_TEAM_COUNT-1) do
+		local nMax = GameRules:GetCustomGameTeamMaxPlayers( nTeam )
+		if nMax > 0 then
+			--print( "Found team " .. nTeam .. " with max players " .. nMax )
+			vecTeamNeededPlayers[ nTeam ] = nMax
+			vecTeamValid[ nTeam ] = true
+		else
+			vecTeamValid[ nTeam ] = false
+		end
+	end
+
+	-- loop 1: count up players on each team
+	local hPlayers = {}
+	for nPlayerID = 0, DOTA_MAX_TEAM_PLAYERS-1 do
+		if PlayerResource:IsValidPlayerID( nPlayerID ) then
+			local nTeam = PlayerResource:GetTeam( nPlayerID )
+			if vecTeamValid[ nTeam ] == false then
+				nTeam = PlayerResource:GetCustomTeamAssignment( nPlayerID )
+			end
+			--print( "Found player " .. nPlayerID .. " on team " .. nTeam )
+			if vecTeamValid[ nTeam ] then
+				vecTeamNeededPlayers[ nTeam ] = vecTeamNeededPlayers[ nTeam ] - 1
+			else
+				table.insert( hPlayers, nPlayerID )
+			end
+		end
+	end
+
+	-- loop 2: 分配玩家。对于无效团队中的每个球员，找到所需球员数量最多的团队，并将球员分配到该队
+	for _,nPlayerID in pairs( hPlayers ) do
+		--print( "Finding team for player " .. nPlayerID )
+		local nTeamNumber = -1
+		local nHighest = 0
+		for nTeam = 0, (DOTA_TEAM_COUNT-1) do
+			if vecTeamValid[ nTeam ] then
+				local nVal = vecTeamNeededPlayers[ nTeam ]
+				if nVal > nHighest then
+					--print( "found team " .. nTeam .. " with needed " .. nVal .. " but highest was only " .. nHighest )
+					nHighest = nVal
+					nTeamNumber = nTeam
+				end
+			end
+		end
+		if nTeamNumber > 0 then
+			PlayerResource:SetCustomTeamAssignment( nPlayerID, nTeamNumber )
+			vecTeamNeededPlayers[ nTeamNumber ] = vecTeamNeededPlayers[ nTeamNumber ] - 1
+		end
+	end
+		
+	if self.m_bFillWithBots == true then
+		GameRules:BotPopulate()
+	end
 end
 
