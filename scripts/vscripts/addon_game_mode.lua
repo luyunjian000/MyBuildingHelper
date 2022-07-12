@@ -83,6 +83,7 @@ function CAddonTemplateGameMode:InitGameMode()
 
 	-- 调试要去掉战争迷雾
 	GameRules:GetGameModeEntity():SetFogOfWarDisabled(true)
+	-- GameRules:GetGameModeEntity():SetUnseenFogOfWarEnabled(true)
 
 	-- 监听游戏状态
 	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CAddonTemplateGameMode,"OnGameRulesStateChange"), self)

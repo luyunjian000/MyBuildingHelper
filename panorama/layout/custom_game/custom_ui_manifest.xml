@@ -2,9 +2,7 @@
 	<script>
 		GameUI.CustomUIConfig().multiteam_top_scoreboard =
 		{
-			reorder_team_scores: true,
-			LeftInjectXMLFile: "file://{resources}/layout/custom_game/overthrow_scoreboard_left.xml",
-			TeamOverlayXMLFile: "file://{resources}/layout/custom_game/overthrow_scoreboard_team_overlay.xml"
+			reorder_team_scores: true
 		};
 
 		//GameUI.CustomUIConfig().team_logo_xml = "file://{resources}/layout/custom_game/overthrow_team_icon.xml";
@@ -13,14 +11,26 @@
 		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_TIMEOFDAY, false );
 		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, false );
 		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, false );
+		// 这个不知道是什么
 		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FIGHT_RECAP, false );
 
 		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_TEAMS, false );
 		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_GAME_NAME, false );
 		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_HERO_SELECTION_CLOCK, false );
-
-
 		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ENDGAME, false );
+
+		// autochess copy 
+		//GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, true );
+		//GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_QUICKBUY, false );
+		//GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_COURIER, false );
+		//GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PROTECT, false );
+		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_ITEMS, true );
+		//GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_GOLD, true );
+		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_SHOP_SUGGESTEDITEMS, false );
+
+		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, true );
+		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_PANEL, true );
+		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PANEL, true );
 
 		GameUI.CustomUIConfig().team_colors = {}
 		GameUI.CustomUIConfig().team_colors[DOTATeam_t.DOTA_TEAM_GOODGUYS] = "#3dd296;"; // { 61, 210, 150 }	--		Teal
@@ -51,11 +61,14 @@
 		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/inventory.xml" /> -->
 		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/buff_list.xml" /> -->
         <!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/custom_ui_manifest_copy.xml" /> -->
-		<!-- 玩法介绍 -->
-		<CustomUIElement type="GameInfo"  layoutfile="file://{resources}/layout/custom_game/custom_game_info.xml" />
 		<!-- 是不是选人的 -->
 		<CustomUIElement type="GameSetup" layoutfile="file://{resources}/layout/custom_game/team_select.xml" />
 		<CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/building_helper.xml" />
 		<CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/selection.xml" />	
+
+		<CustomUIElement type="Hud"	 layoutfile="file://{resources}/layout/custom_game/overthrow_item_notification.xml" />
+
+		<!-- 玩法介绍 -->
+		<CustomUIElement type="GameInfo"  layoutfile="file://{resources}/layout/custom_game/mybuildinghelper_game_info.xml" />
 	</Panel>
 </root>

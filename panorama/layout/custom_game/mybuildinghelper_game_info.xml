@@ -1,15 +1,17 @@
 <root>
 	<styles>
-		<include src="file://{resources}/styles/dotastyles.css" />
+		
 		<include src="file://{resources}/styles/custom_game/custom_game_info.css" />
 	</styles>
 	<Panel class="OverthrowGameInfo">
 		<Panel id="Title">
-			<Label id="TitleName" text="#addonname" />
+			<Label id="TitleName" text="#addon_game_name" />
 		</Panel>
 		<Label id="ObjectiveHeader" class="Header" html="true" text="#overthrow_game_info_header_objective" />
 		<Label id="BriefDescription" text="#overthrow_brief_description" />
 		<Label id="HowToPlayHeader" class="Header" html="true" text="#overthrow_game_info_header_how_to_play" />
+
+
 		<Panel id="ThroneRow" class="InfoRow">
 			<Label id="ThroneText" html="true" text="#overthrow_game_info_throne" />
 			<Image id="ThroneImage" src="file://{images}/custom_game/game_info/throne.psd" />
@@ -22,6 +24,8 @@
 			<Label id="ItemsText" html="true" text="#overthrow_game_info_items" />
 			<Image id="ItemsImage" src="file://{images}/custom_game/game_info/items.psd" />
 		</Panel>
+
+
 		<Label id="TipsHeader" class="Header" html="true" text="#overthrow_game_info_tips_header" />
 		<Panel id="TipsRow" class="InfoRow">
 			<Label id="TipText01" class="TipText" html="true" text="#overthrow_game_info_tip01" />
