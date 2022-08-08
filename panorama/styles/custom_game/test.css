@@ -343,6 +343,14 @@
     border-color: rgb(192, 192, 192);
     
     /*
+    box-shadow: fill #00000066 0px 0px 8px 0px;
+    border-top:1px solid #ffffff44;
+    border-right:1px solid #00000088;
+    border-left:1px solid #ffffff44;
+    border-bottom:1px solid #00000088;
+    */
+
+    /*
     border-top-color: #555555;
     border-left-color: #494949;
     border-bottom-color: #333333;
