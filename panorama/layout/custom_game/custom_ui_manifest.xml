@@ -66,9 +66,13 @@
 		<CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/building_helper.xml" />
 		<CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/selection.xml" />	
 
+		<CustomUIElement type="Hud"	 layoutfile="file://{resources}/layout/custom_game/test.xml" />
+
 		<CustomUIElement type="Hud"	 layoutfile="file://{resources}/layout/custom_game/overthrow_item_notification.xml" />
 
 		<!-- 玩法介绍 -->
 		<CustomUIElement type="GameInfo"  layoutfile="file://{resources}/layout/custom_game/mybuildinghelper_game_info.xml" />
+
+		<CustomUIElement type="Hud"	 layoutfile="file://{resources}/layout/custom_game/canvas.xml" />
 	</Panel>
 </root>

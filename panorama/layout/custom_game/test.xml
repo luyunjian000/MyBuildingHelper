@@ -1,0 +1,73 @@
+<root>
+	<scripts>
+        <include src="file://{resources}/scripts/custom_game/canvas.js" />
+    </scripts>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/test.css" />
+	</styles>
+
+	<Panel class="test">
+		<Panel id = "example1">
+			<TextButton id="DefaultValveButtonID" class="DefaultValveButtonClass" text="#DefaultValveButton"/>
+		</Panel>
+
+		<Panel id = "example2">	
+			<Button id="ExampleButton1">
+				<Label class="ExampleButton1Label" text="#Click"/>
+			</Button>
+		</Panel>
+
+		<Panel id = "example3">
+			<Button id="ExampleButton2ID" class="ExampleButton2Class">
+				<Panel class="Contents">
+					<Panel class="CustomIcon"/>
+					<Label id="ExampleButton2Label" text="#ExampleButton"/>
+				</Panel>
+			</Button>
+		</Panel>
+
+		<Panel id = "example4">
+			<Panel id="PopupESCMenu">
+				<Panel id="ESCActionButtons">
+					<Button id="ESCResumeButton" class="ButtonBevel ESCMenuButton">
+					<Label text="RESUME" />
+					</Button>
+					<Button id="ESCOptionsButton" class="ButtonBevel ESCMenuButton">
+					<Label text="OPTIONS" />
+					</Button>
+					<Button id="ESCTestButton" class="ButtonBevel ESCMenuButton">
+					<Label text="TEST" />
+					</Button>
+					<Button id="ESCExitButton" class="ButtonBevel ESCMenuButton">
+					<Label text="EXIT" />
+					</Button>
+				</Panel>
+			</Panel>
+		</Panel>
+
+		<Panel id = "mymenu">
+			<Panel id="first">
+				<Panel class="line">
+					<Button id="button1" class="mybutton">
+						<Label text="升级" />
+					</Button>
+					<Button id="button2" class="mybutton">
+						<Label text="升至满级" />
+					</Button>
+				</Panel>
+				<Panel class="line">
+					<Button id="button3" class="mybutton">
+						<Label text="#button3" />
+					</Button>
+					<Button id="button4" class="mybutton">
+						<Label text="#button4" />
+					</Button>
+				</Panel>
+				<Panel class="line">
+				</Panel>
+			</Panel>
+		</Panel>
+
+	</Panel>
+</root>
+

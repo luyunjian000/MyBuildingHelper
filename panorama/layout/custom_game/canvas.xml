@@ -1,0 +1,10 @@
+<root>
+	<scripts>
+        <include src="file://{resources}/scripts/custom_game/canvas.js" />
+    </scripts>
+	<Panel type="DOTASpiderGraph">
+		<UICanvas id="mycanvas">
+		</UICanvas>
+	</Panel>
+</root>
+
