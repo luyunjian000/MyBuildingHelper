@@ -1,0 +1,13 @@
+<root>
+	<scripts>
+        <include src="file://{resources}/scripts/custom_game/test2.js" />
+    </scripts>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/test.css" />
+	</styles>
+
+	<Panel>
+		<TextButton class="topmenu3" text="test2"/>
+	</Panel>
+</root>
+

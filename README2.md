@@ -21,6 +21,8 @@ mklink /J "F:\steam\steamapps\common\dota 2 beta\game\dota_addons\mybuildinghelp
 mklink /J "F:\steam\steamapps\common\dota 2 beta\game\dota_addons\mybuildinghelper\scripts" "D:\dota2study\MyBuildingHelper\scripts"
 
 
+// 反编译  这个好像不太行，直接用那个工具就行了
+D:\personal\steam\steamapps\common\dota 2 beta\game\bin\win64\resourceinfo.exe -i D:\personal\dota2source\panorama\images\backgrounds\et_bg_png.vtex_c -debug tga -mip
 
 构建的问题感觉可以了（主要模型的问题，要hitboxs）
 建筑的删除也没什么问题了（不知道有没有那种建筑删除的例子特效的）

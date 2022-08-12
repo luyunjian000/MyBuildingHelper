@@ -68,6 +68,8 @@
 
 		<CustomUIElement type="Hud"	 layoutfile="file://{resources}/layout/custom_game/test.xml" />
 
+		<CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/nemestice/nemestice_hud.xml" />
+
 		<CustomUIElement type="Hud"	 layoutfile="file://{resources}/layout/custom_game/overthrow_item_notification.xml" />
 
 		<!-- 玩法介绍 -->
