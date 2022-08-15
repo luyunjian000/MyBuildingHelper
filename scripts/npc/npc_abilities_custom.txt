@@ -270,4 +270,27 @@
 			}
 		}
 	}
+
+	//选择出兵的地点 兵营等建筑的技能
+	"select_born_position"
+	{
+		"BaseClass"	"ability_datadriven"
+		"AbilityTextureName"	""
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"MaxLevel"	"1"
+		"AbilityCastAnimation"	"ACT_DOTA_TELEPORT"
+		"AbilityCooldown"	"0.2"
+		"AbilityManaCost"	"0"
+		"AbilityCastRange"	"999"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"POINT"
+				"ScriptFile"	"builder.lua"
+				"Function"	"SelectBornPosition"
+			}
+		}
+	}
+
 } //end

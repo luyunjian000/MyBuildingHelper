@@ -168,8 +168,8 @@
 		//----------------------------------------------------------------
 		"AbilityLayout"				"1"
 		"Ability1"               "upgrade_building_wall2"         // Ability 3
-		"Ability2"               "delete_building"         // Ability 2
-		"Ability3"               ""         	// Ability 3
+		"Ability2"               "select_born_position"         // Ability 2
+		"Ability3"               "delete_building"         	// Ability 3
 		"Ability4"               ""         // Ability 4
 		"Ability5"               "" 		// Ability 5
 		"Ability6"               ""         // Ability 6
