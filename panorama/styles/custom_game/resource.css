@@ -1,0 +1,233 @@
+.resourceRoot{
+     flow-children: right;
+     horizontal-align: right;
+     vertical-align: top;
+     background-position: center;
+     background-size: 100%;
+     background-repeat: no-repeat round;
+     margin-top: 50px;
+     margin-right: 0px;
+     width: fit-children;
+}
+
+ .waveinfo{
+     font-weight: bold;
+     font-size: 20px;
+     color: white;
+     text-shadow: 0px 0px 2px #41A0F2;
+ }
+
+ .hpRemain{
+     font-weight: normal;
+     font-size: 16px;
+     color: #00ff38;
+     margin-top: 10px;
+     margin-bottom: 18px;
+     text-shadow: 0px 0px 1px #00ff38;
+ }
+
+ #staticRes{
+     horizontal-align: right;
+     vertical-align: bottom;
+     margin-right: 10px;
+     margin-bottom: 0px;
+     flow-children: right;
+     min-width: 200px;
+     background-color: rgb(23, 23, 23);
+     padding: 5px;
+ }
+
+ .resLine{
+     flow-children: right;
+     vertical-align: bottom;
+     color: white;
+     padding: 5px 10px;
+     tooltip-position: left;
+     width: 120px;
+ }
+
+ .resLineLabel{
+     horizontal-align: left;
+     vertical-align: center;
+     font-weight: normal;
+     font-size: 20px;
+     color: white;
+     text-shadow: 2px 2px 2px #121212;
+     margin-left: 4px;
+ }
+
+ #playerKillPanel1{
+     visibility: collapse;
+     width: 100%;
+ }
+
+ #playerKillPanel2{
+     visibility: collapse;
+     width: 100%;
+ }
+
+ #playerKillPanel3{
+     visibility: collapse;
+     width: 100%;
+ }
+
+ #playerKillPanel4{
+     visibility: collapse;
+     width: 100%;
+ }
+
+ .playerName{
+     font-weight: normal;
+     font-size: 16px;
+     color: rgb(255, 255, 255);
+ }
+
+ .playerKill{
+     horizontal-align: right;
+     font-weight: normal;
+     font-size: 16px;
+     color: rgb(255, 255, 255);
+ }
+
+ .kill_num{
+     margin-top: 16px;
+     margin-bottom: 16px;
+     margin-left: 27px;
+     margin-right: 27px;
+     flow-children: down;
+     width: 300px;
+     padding: 10px 20px;
+     border-radius: 4px;
+     background-color: black;
+     background-image: url("file://{resources}/images/hud/reborn/quickbuy_bg_psd.vtex");
+     background-repeat: no-repeat round;
+ }
+
+ .head{
+     color: white;
+     font-weight: bold;
+     font-size: 21px;
+     margin-left: 45px;
+ }
+
+ #btn_hid:hover{
+     background-color: green;
+ }
+
+ #aaa{
+     color: white;
+ }
+
+ #main{
+     height: 90%;
+     width: 100%;
+     flow-children: down;
+ }
+
+ #wood{
+     width: 100%;
+     height: 33%;
+     flow-children: right;
+ }
+
+ #food{
+     width: 100%;
+     height: 33%;
+     flow-children: right;
+ }
+
+ #life{
+     width: 100%;
+     height: 33%;
+     flow-children: right;
+ }
+
+ .myfont{
+     text-align: center;
+     vertical-align: middle;
+     horizontal-align: center;
+     font-size: 21px;
+     color: white;
+ }
+
+ #resource_wood1{
+     margin-left: 20px;
+     color: white;
+ }
+
+ #resource_food1{
+     color: white;
+     margin-left: 20px;
+ }
+
+ #kill_num2{
+     flow-children: down;
+ }
+
+ #gold_img{
+     width: 24px;
+     height: 24px;
+     vertical-align: middle;
+ }
+
+ #wood_img{
+     width: 24px;
+     height: 24px;
+     vertical-align: middle;
+ }
+
+ #food_img{
+     width: 24px;
+     height: 24px;
+     vertical-align: middle;
+     brightness: 1;
+ }
+
+
+
+
+
+
+
+ #gold{
+     margin-left: 10px;
+ }
+
+ .haha{
+     width: 100%;
+     height: 40px;
+     margin-top: 10px;
+ }
+
+ .playerKillPanel{
+     width: 100%;
+     flow-children: right;
+     margin-bottom: 4px;
+ }
+
+ #pl1{
+     visibility: collapse;
+     flow-children: right;
+ }
+
+ #pl2{
+     visibility: collapse;
+ }
+
+ #pl3{
+     visibility: collapse;
+ }
+
+ #pl4{
+     visibility: collapse;
+ }
+
+
+
+
+
+ #res_left{
+     width: 70px;
+     height: 100%;
+     transition: position 2.0s ease-in-out 0.0s;
+}

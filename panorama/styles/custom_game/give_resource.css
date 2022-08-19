@@ -1,0 +1,475 @@
+@keyframes 'RequestAnimation'{
+     0%{
+         transform: rotateZ(0deg);
+     }
+     100%{
+         transform: rotateZ(180deg);
+     }
+}
+
+ .WindowsBlockBg{
+     background-color: #000000b2;
+     border-radius: 5px;
+ }
+
+ Label{
+     color: #f3e8c2;
+ }
+
+ .Visible{
+     visibility: visible;
+ }
+
+ .Hidden{
+     visibility: collapse;
+ }
+
+ VerticalScrollBar{
+     width: 14px;
+     margin-right: 6px;
+     border-radius: 6px;
+     border: 2px solid #000000;
+     background-color: #0c272986;
+     transition-property: none;
+     transition-duration: 0s;
+ }
+
+ VerticalScrollBar .ScrollThumb{
+     border: 0px solid #00000000;
+     border-radius: 4px;
+     background-color: #007e6f6e;
+ }
+
+ VerticalScrollBar:hover .ScrollThumb{
+     background-color: #007e6f6e;
+     brightness: 1.2;
+ }
+
+ HorizontalScrollBar{
+     height: 14px;
+     border-radius: 6px;
+     border: 2px solid #000000;
+     background-color: #0c272986;
+     transition-property: none;
+     transition-duration: 0s;
+ }
+
+ HorizontalScrollBar .ScrollThumb{
+     border: 0px solid #00000000;
+     border-radius: 4px;
+     background-color: #007e6f6e;
+ }
+
+ HorizontalScrollBar:hover .ScrollThumb{
+     background-color: #007e6f6e;
+     brightness: 1.2;
+ }
+
+ TextEntry{
+     padding-top: 6px;
+     padding-left: 10px;
+     border-radius: 5px;
+     border: 2px solid #69654d;
+     box-shadow: #000 0px 0px 4px 2px;
+     background-color: #242317;
+     color: #f3e8c2;
+ }
+
+ TextEntry Label,
+TextEntry #PlaceholderText{
+
+     width: 100%;
+     height: 100%;
+     margin-top: 0px;
+     margin: 1px;
+     color: #f3e8c27f;
+ }
+
+ ProgressBar{
+     overflow: clip;
+ }
+
+ #ViewBG{
+     width: 100%;
+     height: 100%;
+     border-radius: 5px;
+     background-color: #181919b2;
+ }
+
+ #ViewBG #BGBorder1{
+     width: 100%;
+     height: 100%;
+     border-radius: 5px;
+     border: 3px solid #000000;
+ }
+
+ #ViewBG #BGBorder2{
+     width: 100%;
+     height: 100%;
+     border-radius: 5px;
+     margin: 3px;
+     border: 5px solid #F3E8C2;
+ }
+
+ #ViewBG #BGBorder3{
+     width: 100%;
+     height: 100%;
+     border-radius: 5px;
+     margin: 7px;
+     border: 3px solid #000000;
+ }
+
+ #ViewBG #TitleBG{
+     height: 90px;
+     width: 100%;
+     margin: 8px;
+     background-color: #0f1d1ab2;
+ }
+
+ #ViewBG #TitleBG #TitleBorder1{
+     height: 100%;
+     width: 100%;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+     border: 3px solid #000000;
+ }
+
+ .CloseBtn{
+     width: 32px;
+     height: 32px;
+     margin-top: 16px;
+     margin-right: 16px;
+     horizontal-align: right;
+     vertical-align: top;
+     background-image: url("s2r://panorama/images/custom_game/hud/close_png.vtex");
+     background-position: 50% 50%;
+     background-size: 100% 100%;
+     background-repeat: no-repeat;
+     transition-property: wash-color;
+     transition-duration: 0.1s;
+ }
+
+ .CloseBtn Label{
+     color: #ffffff;
+ }
+
+ .CloseBtn:hover{
+     wash-color: #ffddddff;
+ }
+
+ .CloseBtn:active{
+     wash-color: #ff8080ff;
+     background-size: 90% 90%;
+ }
+
+ .TitleLabel{
+     max-width: 400px;
+     height: 60px;
+     color: #f3e8c2;
+     font-size: 50px;
+     font-weight: normal;
+     text-shadow: 0px 0px 0px 3 #007e70;
+     letter-spacing: 2px;
+     text-overflow: shrink;
+     font-family: defaultFont;
+ }
+
+ .ItemBorder{
+     width: 100%;
+     height: 100%;
+     border-radius: 5px;
+ }
+
+ .ItemBorder #BGBorder1{
+     width: 100%;
+     height: 100%;
+     border-radius: 5px;
+     border: 2px solid #000000;
+ }
+
+ .ItemBorder #BGBorder2{
+     width: 100%;
+     height: 100%;
+     border-radius: 5px;
+     margin: 2px;
+     border: 2px solid #F3E8C2;
+ }
+
+ .ItemBorder #BGBorder3{
+     width: 100%;
+     height: 100%;
+     border-radius: 5px;
+     margin: 4px;
+     border: 2px solid #000000;
+ }
+
+ .WithItemBorder.StoreItemImage{
+     margin: 6px;
+ }
+
+ .SmallBg{
+     background-color: #181919b2;
+     width: 100%;
+     height: 100%;
+     border-radius: 5px;
+ }
+
+ .SmallBg #BGBorder1{
+     width: 100%;
+     height: 100%;
+     border-radius: 5px;
+     border: 2px solid #000000;
+ }
+
+ .SmallBg #BGBorder2{
+     width: 100%;
+     height: 100%;
+     border-radius: 5px;
+     margin: 2px;
+     border: 2px solid #F3E8C2;
+ }
+
+ .SmallBg #BGBorder3{
+     width: 100%;
+     height: 100%;
+     border-radius: 5px;
+     margin: 4px;
+     border: 2px solid #000000;
+ }
+
+ #StorePanelTitle{
+     width: 100%;
+     horizontal-align: right;
+ }
+
+ .GreenTitleBg{
+     width: 100%;
+     height: 100%;
+     border-radius: 1px;
+ }
+
+ .GreenTitleBg #BGBorder1{
+     width: 100%;
+     height: 100%;
+     border-radius: 1px;
+     border: 2px solid #000000;
+ }
+
+ .GreenTitleBg #BGBorder2{
+     width: 100%;
+     height: 100%;
+     border-radius: 1px;
+     margin: 2px;
+     border: 2px solid #5b9c8a;
+ }
+
+ .GreenTitleBg #BGBorder3{
+     width: 100%;
+     height: 100%;
+     border-radius: 1px;
+     margin: 4px;
+     border: 2px solid #000000;
+ }
+
+ .GreenTitleBg #MainBgGreen{
+     width: 100%;
+     height: 100%;
+     border-radius: 1px;
+     margin: 3px;
+     background-color: #0d786d;
+     opacity: 0.5;
+ }
+
+ .UIRoot{
+     width: 100%;
+     height: 100%;
+ }
+
+ @keyframes 'Shaking'{
+     0%{
+         transform: rotateZ(0deg);
+     }
+     25%{
+         transform: rotateZ(5deg);
+     }
+     50%{
+         transform: rotateZ(0deg);
+     }
+     75%{
+         transform: rotateZ(-5deg);
+     }
+     100%{
+         transform: rotateZ(0deg);
+     }
+ }
+
+ .quickuseRoot{
+     width: 100%;
+     height: 100%;
+ }
+
+ #QuickusePanel{
+     align: center center;
+     width: 500px;
+     border-radius: 5px;
+     background-color: #1f1f1f;
+     padding: 20px;
+ }
+
+ #Quickuse{
+     width: 100%;
+     padding: 5px;
+     flow-children: down;
+ }
+
+ .playerlistButton{
+     vertical-align: middle;
+     width: 100%;
+     border: 2px solid #1f1f1f;
+ }
+
+ RadioButton .RadioBox{
+     visibility: collapse;
+ }
+
+ RadioButton:selected{
+     opacity: .75;
+     transition-duration: 0s;
+     background-color: gradient( linear, 100% 0%, 0% 0%, from( #15062ccc), to( #13062ccc));
+     border: 2px solid #9152ef;
+ }
+
+ RadioButton:hover{
+     background-color: gradient( linear, 0% 0%, 100% 0%, from( #ba73d780), color-stop(0.7, #3A5D87aa), to( #3A5D8700));
+ }
+
+ #playerList{
+     flow-children: down;
+     width: 100%;
+ }
+
+ #ItemInfo{
+     horizontal-align: center;
+     flow-children: right;
+ }
+
+ #ItemImage{
+     width: 66px;
+     height: 48px;
+     margin-top: 4px;
+     margin-right: 8px;
+     margin-bottom: 6px;
+     margin-left: 4px;
+     box-shadow: 0px 0px 4px black;
+ }
+
+ #ItemName{
+     font-size: 18px;
+     color: #e1e1e1;
+     vertical-align: middle;
+     padding-left: 4px;
+     text-overflow: shrink;
+     letter-spacing: 0.5px;
+     text-shadow: 2px 2px 0px 1 #00000090;
+     margin-top: 2px;
+     font-family: Radiance, FZLanTingHei-R-GBK, TH Sarabun New, YDYGO 540, Gulim, MingLiU;
+     text-transform: uppercase;
+     font-weight: semi-bold;
+ }
+
+ #NumberAdjustment{
+     flow-children: right;
+     margin-top: 30px;
+ }
+
+ #NumberSlider{
+     width: fill-parent-flow(1);
+     margin-right: 20px;
+ }
+
+ #NumberEntry{
+     width: 150px;
+ }
+
+ #ItemCost{
+     flow-children: right;
+ }
+
+ #ItemCostIcon{
+     width: 64px;
+     height: 64px;
+     background-image: url("s2r://panorama/images/custom_game/icon_gold_png.vtex");
+     background-size: 100%;
+     margin-right: 5px;
+     margin-left: 4px;
+     vertical-align: center;
+ }
+
+ #BuyCostLabel{
+     color: #FFCC33;
+     font-size: 32px;
+     font-weight: bold;
+     margin-top: 3px;
+     text-shadow: 2px 2px 0px 1 #00000088;
+     font-family: RadianceM;
+     vertical-align: center;
+ }
+
+ #QuickuseButtons{
+     flow-children: right;
+ }
+
+ .QuickuseButton{
+     width: fill-parent-flow(1);
+     vertical-align: center;
+     horizontal-align: right;
+     margin-right: 24px;
+     margin-left: 24px;
+     box-shadow: fill 0 2px 8px #000000DD;
+     background-color: gradient( radial, 50% 50%, 0% 0%, 50% 100%, from( #48495CDD), to( #323342DD));
+     background-image: url("s2r://panorama/images/interface/confirm_button_psd.vtex");
+     background-size: 100% 100%;
+     background-repeat: no-repeat;
+     background-position: center;
+     transition-property: box-shadow, background-color;
+     transition-delay: 0s;
+     transition-duration: .2s;
+     transition-timing-function: ease-in;
+     border-radius: 6px;
+     min-width: 150px;
+     height: 40px;
+ }
+
+ .QuickuseButton:hover{
+     brightness: 1.5;
+ }
+
+ .QuickuseButton:active{
+     brightness: 0.5;
+ }
+
+ .QuickuseButton Label{
+     align: center center;
+     color: #FFFFFF;
+     opacity: 0.7;
+     text-shadow: 0px 0px 0px 1 #000000;
+     font-size: 22px;
+     font-weight: bolder;
+     text-align: center;
+     text-overflow: shrink;
+ }
+
+ .Language_schinese .QuickuseButton Label{
+     letter-spacing: 5px;
+ }
+
+ #Send_Gold{
+     margin-left: 50px;
+     horizontal-align: left;
+     vertical-align: bottom;
+     width: 48px;
+     height: 48px;
+     background-image: url("s2r://panorama/images/custom_game/send_gold_png.vtex");
+     background-size: 100%;
+     margin-bottom: 248px;
+}

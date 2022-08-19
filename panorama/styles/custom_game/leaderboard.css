@@ -1,0 +1,438 @@
+.Visible{
+     visibility: visible;
+}
+
+ .Hidden{
+     visibility: collapse;
+ }
+
+ .leaderboardRoot{
+     width: 100%;
+     height: 100%;
+     z-index: 1;
+ }
+
+
+
+ #topBtns{
+     align: left top;
+     flow-children: right;
+     margin-left: 150px;
+     margin-top: 0px;
+ }
+
+ #leaderboardBtn{
+     background-image: url("s2r://panorama/images/custom_game/rank_png_png.vtex");
+     z-index: 0;
+     opacity: 0.5;
+     height: 33px;
+     width: 33px;
+     margin-right: 17px;
+     background-repeat: no-repeat;
+     background-position: center center;
+     margin-top: 12px;
+     background-size: 30px 30px;
+ }
+
+ #closeBtn{
+     background-image: url("s2r://panorama/images/custom_game/emojione-monotone_cross-mark_png.vtex");
+     background-size: 100%;
+     background-repeat: no-repeat;
+     background-position: center;
+     z-index: 0;
+     width: 32px;
+     height: 32px;
+     align: right top;
+     margin-right: 10px;
+     margin-top: 10px;
+ }
+
+ #closeBtn:hover{
+     brightness: 2.4;
+ }
+
+ #leaderboardBtn:hover{
+     opacity: 1;
+ }
+
+ #mainPanel{
+     width: 1600px;
+     height: 852px;
+     align: center top;
+     margin-top: 75px;
+ }
+
+ #LeaderboardRoot{
+     background-color: white;
+     width: 1300px;
+     height: 852px;
+     background-color: #474747aa;
+     border-radius: 10px;
+     horizontal-align: center;
+ }
+
+ #playerInfoRoot{
+     width: 315px;
+     height: 100%;
+     flow-children: down;
+     background-color: #1C1B1B;
+ }
+
+ #playerAvatar{
+     width: 200px;
+     height: 200px;
+     box-shadow: 0px 0px 4px black;
+     horizontal-align: center;
+     margin-top: 17px;
+ }
+
+ #playerName{
+     font-weight: bold;
+     font-size: 40px;
+     color: #cecece;
+     text-shadow: 0px 3px 4px #000000;
+     margin-top: 26px;
+     horizontal-align: center;
+ }
+
+ #playerScore{
+     font-weight: bold;
+     font-size: 32px;
+     color: #ecf8b7;
+     margin-top: 26px;
+     horizontal-align: center;
+ }
+
+ .playerWinrate{
+     font-weight: bold;
+     font-size: 20px;
+     color: #999999;
+     horizontal-align: center;
+ }
+
+ .leaderboardPlayerName{
+     font-weight: bold;
+     font-size: 40px;
+     color: #e5e2e2;
+     text-shadow: 0px 3px 4px #000000;
+     horizontal-align: center;
+     vertical-align: middle;
+     width: 200px;
+ }
+
+ .leaderboardPlayerNameSmall{
+     font-weight: bold;
+     font-size: 20px;
+     width: 200px;
+     color: #c7c7c7;
+     text-shadow: 0px 3px 4px #000000;
+     horizontal-align: center;
+     vertical-align: middle;
+ }
+
+ #leaderboardPanel{
+     margin-left: 315px;
+     flow-children: down;
+     width: 100%;
+     background-color: #1E1E1E;
+     height: 100%;
+ }
+
+ #leaderboardHeader{
+     width: 100%;
+ }
+
+ #leaderboardTitle{
+     horizontal-align: center;
+     margin-top: 33px;
+     font-weight: bold;
+     font-size: 40px;
+     color: #FFFFFF;
+ }
+
+ #leaderboardSubTitle{
+     font-weight: normal;
+     font-size: 14px;
+     line-height: 16px;
+     color: #4A4A4A;
+     margin-left: 640px;
+     margin-top: 63px;
+ }
+
+ #leaderboard_lines{
+     width: 100%;
+     flow-children: down;
+ }
+
+ .topScoreLine{
+     width: 100%;
+     height: 129px;
+     flow-children: right;
+     background-color: #272727;
+ }
+
+ .topScoreLine_no{
+     font-weight: bold;
+     font-size: 50px;
+     line-height: 59px;
+     color: #FFE600;
+     text-shadow: 0px 2px 4px #000000;
+     vertical-align: middle;
+     margin-left: 22px;
+ }
+
+ .topScoreLine_players{
+     vertical-align: middle;
+     flow-children: right;
+     width: 198px;
+ }
+
+ .topScoreLine_avatar{
+     width: 74px;
+     height: 74px;
+     box-shadow: 0px 0px 4px black;
+     horizontal-align: center;
+     margin-left: 6px;
+ }
+
+ .topScoreLine_hero{
+     width: 74px;
+     box-shadow: 0px 0px 2px black;
+     background-color: #ffffff00;
+     margin-left: 6px;
+ }
+
+ .topScoreLine_heros{
+     vertical-align: middle;
+     margin-left: 52px;
+     flow-children: right;
+     width: 324px;
+ }
+
+ .topScoreLine_hp{
+     width: 200px;
+     height: 100%;
+     horizontal-align: right;
+     flow-children: down;
+ }
+
+ .scoreLine_winrate_panel{
+     font-style: normal;
+     font-weight: bold;
+     color: #eff158;
+     height: 100%;
+     width: 200px;
+     vertical-align: middle;
+ }
+
+ .top_scoreLine_winrate_panel{
+     font-style: normal;
+     font-weight: bold;
+     color: #eff158;
+     height: 100%;
+     width: 200px;
+     vertical-align: middle;
+ }
+
+ .top_scoreLine_winrate{
+     font-style: normal;
+     font-weight: bold;
+     font-size: 30px;
+     line-height: 30px;
+     color: #eff158;
+     vertical-align: middle;
+     horizontal-align: center;
+ }
+
+ .scoreLine_winrate{
+     font-style: normal;
+     font-weight: bold;
+     font-size: 20px;
+     line-height: 20px;
+     color: #eff158;
+     vertical-align: middle;
+     horizontal-align: center;
+ }
+
+ .topScoreLine_hp_text{
+     font-style: normal;
+     font-weight: bold;
+     font-size: 60px;
+     line-height: 70px;
+     color: #eff158;
+     text-shadow: 0px 0px 4px #000000;
+     horizontal-align: center;
+     margin-top: 20px;
+ }
+
+ .topScoreLine_hp_date{
+     font-style: normal;
+     font-weight: bold;
+     font-size: 20px;
+     line-height: 23px;
+     color: #535353;
+     text-shadow: 0px 0px 4px #000000;
+     horizontal-align: center;
+ }
+
+ .scoreLine{
+     width: 100%;
+     height: 58px;
+     flow-children: right;
+ }
+
+ .scoreLine_no{
+     text-shadow: 0px 2px 4px #000000;
+     vertical-align: middle;
+     margin-left: 22px;
+     font-style: normal;
+     font-weight: bold;
+     font-size: 30px;
+     line-height: 35px;
+     color: #CECECE;
+ }
+
+ .scoreLine_players{
+     vertical-align: middle;
+     margin-left: 16px;
+     flow-children: right;
+     width: 198px;
+ }
+
+ .scoreLine_avatar{
+     width: 42px;
+     height: 42px;
+     box-shadow: 0px 0px 4px black;
+     horizontal-align: center;
+     margin-left: 6px;
+ }
+
+ .scoreLine_hero{
+     width: 55px;
+     box-shadow: 0px 0px 2px black;
+     background-color: #ffffff00;
+     margin-left: 6px;
+ }
+
+ .scoreLine_heros{
+     vertical-align: middle;
+     margin-left: 113px;
+     flow-children: right;
+     width: 258px;
+ }
+
+ .scoreLine_hp{
+     height: 100%;
+     width: 200px;
+     flow-children: right;
+     margin-left: 100px;
+     horizontal-align: right;
+ }
+
+ .scoreLine_hp_text{
+     font-style: normal;
+     font-weight: bold;
+     font-size: 30px;
+     line-height: 35px;
+     color: #f1f397;
+     text-shadow: 0px 0px 4px #000000;
+     vertical-align: middle;
+     horizontal-align: center;
+ }
+
+ .scoreLine_hp_date{
+     font-style: normal;
+     font-weight: bold;
+     font-size: 20px;
+     line-height: 23px;
+     color: #535353;
+     text-shadow: 0px 0px 4px #000000;
+     horizontal-align: center;
+     vertical-align: middle;
+ }
+
+ #pageBtns{
+     flow-children: right;
+     align: center bottom;
+     margin-bottom: 40px;
+ }
+
+ #rightBtns{
+     flow-children: down;
+     align: right top;
+     margin-right: 50px;
+     margin-top: 162px;
+ }
+
+ .pageBtn{
+     width: 84px;
+     height: 26px;
+     background-color: #F4F4F4;
+     border-radius: 30px;
+     margin-left: 20px;
+ }
+
+ .pageBtnUnselected{
+     background-color: #C1C1C1;
+     border-radius: 30px;
+ }
+
+ .pageBtnUnselected:hover{
+     brightness: 2;
+ }
+
+ .pageBtn1{
+     margin-left: 20px;
+ }
+
+ .rightBtn{
+     z-index: 0;
+     width: 135px;
+     height: 60px;
+     background-color: #404842;
+     border: 2px solid #E8E8E8;
+     border-radius: 5px;
+     align: center middle;
+     background-color: #293032;
+     background-size: 100% 100%;
+     border-radius: 5px;
+     border: 2px solid #CCCCCC;
+     opacity: 2;
+     tooltip-position: right;
+     margin-top: 16px;
+ }
+
+ .rightBtn:active{
+     border: 4px solid #CCCCCC;
+ }
+
+ .rightBtn:hover{
+     brightness: 1.5;
+ }
+
+ .rightBtn Label{
+     background-image: url("s2r://panorama/images/hard_text_active_png.vtex");
+     horizontal-align: center;
+     vertical-align: middle;
+     background-repeat: no-repeat;
+     font-style: normal;
+     font-weight: bold;
+     font-size: 30px;
+     line-height: 35px;
+     color: #A7FBBF;
+     text-shadow: 0px 0px 2px #000000;
+ }
+
+ .rightBtnDisable{
+     background-color: rgba(64, 72, 66, 0.3);
+     border: 2px solid #9E9E9E;
+     border-radius: 5px;
+ }
+
+ .rightBtnDisable Label{
+     font-style: normal;
+     font-weight: bold;
+     font-size: 30px;
+     line-height: 35px;
+     color: rgba(167, 251, 191, 0.3);
+}

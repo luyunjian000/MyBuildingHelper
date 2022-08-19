@@ -278,6 +278,7 @@
 		"AbilityTextureName"	""
 		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
 		"MaxLevel"	"1"
+		// 施法动画，这边没用把
 		"AbilityCastAnimation"	"ACT_DOTA_TELEPORT"
 		"AbilityCooldown"	"0.2"
 		"AbilityManaCost"	"0"

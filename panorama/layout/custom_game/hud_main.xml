@@ -1,0 +1,95 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/hud_main.css" />
+		<include src="file://{resources}/styles/custom_game/resource.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/resource.js" />
+		<include src="file://{resources}/scripts/custom_game/hud_main.js" />
+	</scripts>
+	<snippets>
+		<snippet name="item_btn">
+			<Panel class="ItemPanel" draggable="true">
+				<Button id="ItemButton" onmouseover="ItemShowTooltip()" onmouseout="ItemHideTooltip()" onactivate="ActivateItem()" ondblclick="DoubleClickItem()" oncontextmenu="RightClickItem()">
+					<DOTAItemImage hittest="false" id="ItemImage" />
+					<Panel hittest="false" id="Cooldown">
+						<Panel hittest="false" id="CooldownOverlay" />
+						<Label hittest="false" id="CooldownTimer" />
+					</Panel>
+					<Label hittest="false" class="Charges" id="ChargeCount" />
+					<Label hittest="false" class="Charges" id="AltChargeCount" />
+					<Panel hittest="false" id="DropTargetHighlight" />
+				</Button>
+				<Panel hittest="false" id="Hotkey">
+					<Label hittest="false" id="HotkeyText" />
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="timerbar">
+			<Panel class="timerbar">
+				<Label id="TimerLabel" text="99" />
+				<ProgressBar class="progress_css">
+					<Panel class="ProgressBarLeft" id="ProgressBarLeft">
+						<Panel class="DotaSceneContainer">
+							<DOTAScenePanel id="timebarscene" class="SceneLoaded" map="scenes/hud/healthbarburner" camera="camera_1" />
+						</Panel>
+					</Panel>
+					<Panel id="timebarprogressright" />
+					<Label id="TimerTick" text="99" />
+				</ProgressBar>
+			</Panel>
+		</snippet>
+		<snippet name="damage_item">
+			<Panel id="" class="damageItem">
+				<Panel id="" class="damageItemLeft">
+					<Label id="" class="damageItemName" text="{s:unit_name}" />
+				</Panel>
+				<Panel id="" class="damageItemRight">
+					<Panel id="damageItemColor" class="damageItemColor" />
+					<Label id="" class="damageItemNumber" text="{s:damage_value}" />
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel hittest="false" class="CustomHudRoot Minimized">
+		<Panel id="DungeonHUDContents" hittest="false" class="CustomHudContents">
+			<Panel hittest="false" id="PartyPortraits" class="LeftRightFlow" />
+			<Panel hittest="false" id="PartyArrows" />
+			<Panel hittest="false" id="ZoneToastPanel" always-cache-composition-layer="true" require-composition-layer="true">
+				<Label hittest="false" id="ZoneNameLabel" text="" class="TitleFont" />
+			</Panel>
+			<Panel id="DungeonHUD" hittest="false" />
+		</Panel>
+		<Panel id="TimerPanel" />
+		<Panel id="errorMsgBG">
+			<Label id="errorMsgTxt" text="" />
+		</Panel>
+		<Panel id="staticRes" hittest="false">
+			<Button id="btn_gold" class="resLine" onmouseover="MouseOver(&apos;gold&apos;)" onmouseout="MouseOut()" onactivate="btnGoldClicked()">
+				<Image id="gold_img" class="" src="s2r://panorama/images/custom_game/gold_png.vtex" hittest="false" />
+				<Label id="gold_label" text="0" class="resLineLabel" hittest="false" />
+			</Button>
+			<Button id="btn_wood" class="resLine" onmouseover="MouseOver(&apos;wood&apos;)" onmouseout="MouseOut()">
+				<Image id="wood_img" class="" src="s2r://panorama/images/custom_game/forest_png.vtex" hittest="false" />
+				<Label id="wood_label" class="resLineLabel" text="0" />
+			</Button>
+			<Button id="btn_food" class="resLine" onmouseover="MouseOver(&apos;food&apos;)" onmouseout="MouseOut()">
+				<Image id="food_img" class="" src="s2r://panorama/images/custom_game/meat_png.vtex" hittest="false" />
+				<Label id="food_label" class="resLineLabel" text="0" />
+			</Button>
+		</Panel>
+		<Panel id="damageTable" class="damageTable">
+			<Panel id="damageTableMain" class="">
+				<Label id="damageTableTitle" class="" text="#damage_table" />
+				<Panel id="damageItemList" class="" />
+			</Panel>
+			<Panel id="ControlPanelSlideThumbContainer" class="">
+				<Button id="ControlPanelSlideThumb" acceptsjoyfocus="true" onactivate="SlideThumbActivate()">
+					<Panel class="RightArrowButtonIcon" />
+				</Button>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

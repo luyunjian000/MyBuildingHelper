@@ -1,0 +1,174 @@
+.CustomHudRoot{
+     width: 100%;
+     height: 100%;
+}
+
+ .CustomHudContents{
+     width: 100%;
+     height: 100%;
+ }
+
+ .smallicon{
+     width: 45px;
+     height: 45px;
+     margin-left: 10px;
+     vertical-align: middle;
+ }
+
+
+
+ #damageTable{
+     width: 500px;
+     height: 557px;
+     vertical-align: bottom;
+     horizontal-align: right;
+     margin-bottom: 150px;
+     margin-right: 0px;
+     transition-property: background-color, transform;
+     transition-duration: 0.35s;
+     transition-timing-function: ease-in-out;
+ }
+
+ #damageTableTitle{
+     horizontal-align: center;
+     margin: 7px 0px;
+     font-size: 18px;
+     color: #FFFFFF;
+ }
+
+ #damageTableMain{
+     horizontal-align: right;
+     width: 371px;
+     height: 100%;
+     background-color: red;
+     flow-children: down;
+     background-color: gradient( linear, 0% 0%, 70% 0%, from( #111111), to( #222222));
+     box-shadow: #000000AA 2px 2px 8px;
+ }
+
+ #damageTableBtn{
+     horizontal-align: right;
+     background-color: green;
+     width: 50px;
+     height: 84px;
+     margin-right: 241px;
+     z-index: -1;
+     vertical-align: middle;
+ }
+
+ #ControlPanelSlideThumbContainer{
+     transform: scaleX(-1);
+ }
+
+ .RightArrowButtonIcon{
+     width: 16px;
+     height: 16px;
+     vertical-align: middle;
+     horizontal-align: right;
+     background-image: url("file://{resources}/images/control_icons/single_arrow_left_png_png.vtex");
+     background-size: contain;
+     background-repeat: no-repeat;
+     wash-color: #D0D0D0;
+     transform: translateX( -1px);
+     transition-property: transform, wash-color;
+     transition-delay: 0.0s;
+     transition-duration: 0.2s;
+     transition-timing-function: ease-in-out;
+     transform: rotateZ(0deg) translateX( 0px);
+ }
+
+ #ControlPanelSlideThumb:hover{
+     background-color: gradient( linear, 0% 0%, 70% 0%, from( #181818), to( #474747));
+ }
+
+ #ControlPanelSlideThumb:hover .RightArrowButtonIcon{
+     transform: rotateZ(0deg) translateX( -4px);
+     wash-color: white;
+ }
+
+ #ControlPanelSlideThumbContainer{
+     transform: scaleX(-1);
+     width: 40px;
+     height: 200px;
+     vertical-align: middle;
+     horizontal-align: right;
+     margin-right: 371px;
+ }
+
+ #ControlPanelSlideThumb{
+     width: 20px;
+     height: 120px;
+     vertical-align: middle;
+     transform: translateX( 0px);
+     background-color: gradient( linear, 0% 0%, 70% 0%, from( #111111), to( #3b3b3b));
+     border-top-right-radius: 8px;
+     border-bottom-right-radius: 12px;
+     box-shadow: #000000AA 1px 1px 6px;
+     transition-property: background-color;
+     transition-delay: 0.0s;
+     transition-duration: 0.2s;
+     transition-timing-function: ease-in-out;
+ }
+
+ .Minimized .damageTable .RightArrowButtonIcon{
+     transform: rotateZ(180deg) translateX( -8px);
+ }
+
+ .Minimized .damageTable #ControlPanelSlideThumb:hover .RightArrowButtonIcon{
+     transform: rotateZ(180deg) translateX( -4px);
+     wash-color: white;
+ }
+
+ .damageTable. #ControlPanelSlideThumb:hover .RightArrowButtonIcon{
+     transform: translateX( 3px) rotateZ(180deg);
+     wash-color: white;
+ }
+
+ .Minimized .damageTable{
+     transform: translateX( 371px) translateY( -0px);
+ }
+
+ #damageItemList{
+     width: 100%;
+     flow-children: down;
+     height: 100%;
+     overflow: squish scroll;
+ }
+
+ .damageItem{
+     height: 27px;
+     margin: 2px 14px;
+     width: 100%;
+     flow-children: right;
+ }
+
+ .damageItemLeft{
+     width: 40%;
+     height: 100%;
+ }
+
+ .damageItemRight{
+     height: 100%;
+     width: 60%;
+ }
+
+ .damageItemName{
+     horizontal-align: right;
+     color: #F0F0F0;
+     font-size: 16px;
+     vertical-align: middle;
+     margin-right: 2px;
+ }
+
+ .damageItemColor{
+     width: 60%;
+     background-color: rgb(227, 42, 42);
+     height: 100%;
+ }
+
+ .damageItemNumber{
+     horizontal-align: right;
+     vertical-align: middle;
+     font-size: 16px;
+     color: #F0F0F0;
+}

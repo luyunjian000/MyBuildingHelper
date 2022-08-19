@@ -1,6 +1,7 @@
 <root>
     <styles>
-        <include src="file://{resources}/styles/dotastyles.css" />
+        <!-- <include src="file://{resources}/styles/dotastyles.css" /> -->
+        <include src="s2r://panorama/styles/dotastyles.vcss_c" />
         <include src="file://{resources}/styles/custom_game/nemestice/nemestice_hud.css"/>
         <include src="file://{resources}/styles/custom_game/nemestice/nemestice_play_details.css" />  
         <include src="file://{resources}/styles/hud/hud_reborn.css" />
