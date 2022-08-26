@@ -1,0 +1,29 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/gamemode_select.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}scripts/custom_game/gamemode_select.js" />
+	</scripts>
+	<snippets>
+		<snippet name="ChooseItem">
+			<Panel class="itemButton">
+				<Label text="{s:itemName}" class="itemName" />
+			</Panel>
+		</snippet>
+		<snippet name="ChooseHero">
+			<Panel class="itemButtonHero">
+				<DOTAScenePanel id="heroPanel" style="width:240px;height:360px;" unit="npc_dota_hero_tusk" particleonly="false" rotateonhover="true" yawmin="-10" yawmax="10" pitchmin="-5" pitchmax="5" />
+				<Label text="{s:itemName}" class="HeroItemName" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel hittest="false" class="CustomHudRoot" onactivate="">
+		<Panel class="mainContainer" id="mainContainer" onactivate="">
+			<Label text="{s:title}" class="title" />
+			<Panel class="items" id="items" />
+		</Panel>
+	</Panel>
+</root>
