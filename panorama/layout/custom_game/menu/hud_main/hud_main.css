@@ -1,0 +1,447 @@
+.hudRoot{
+    height: 100%;
+    width: 100%;
+}
+
+.panelTopMenu{
+    width: 450px;
+    height: 90px;
+    horizontal-align: left;
+    vertical-align: top;
+    margin-left: 140px;
+    flow-children: right;
+}
+
+.buttonTopMenu{
+    width: 30px;
+    height: 100%;
+    margin-left: 20px;
+    background-position: center center;
+    flow-children: right;
+}
+
+.tool{
+    width: 30px;
+    height: 30px;
+    margin-top: 13px;
+    background-image: url("file://{resources}/images/custom_game/menu/tool_png.png");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    tooltip-position: bottom;
+    tooltip-body-position: 50% 50%;
+    wash-color: #CDF;
+    opacity: 0.5;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    img-shadow: 0px 0px 3px 3 black;
+}
+
+.tool:hover{
+    opacity: 1;
+    wash-color: #fff;
+}
+
+.localTool{
+    width: 30px;
+    height: 30px;
+    margin-top: 13px;
+    background-image: url("file://{resources}/images/custom_game/menu/console_png.png");
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    tooltip-position: bottom;
+    tooltip-body-position: 50% 50%;
+    wash-color: #CDF;
+    opacity: 0.5;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    img-shadow: 0px 0px 3px 3 black;
+}
+
+.localTool:hover{
+    opacity: 1;
+    wash-color: #fff;
+}
+
+.recreation{
+    width: 38px;
+    height: 38px;
+    margin-top: 10px;
+    background-image: url("file://{resources}/images/custom_game/menu/recreation_png.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    tooltip-position: bottom;
+    tooltip-body-position: 50% 50%;
+    wash-color: #CDF;
+    opacity: 0.5;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    img-shadow: 0px 0px 3px 3 black;
+}
+
+.recreation:hover{
+    opacity: 1;
+    wash-color: #fff;
+}
+
+.wiki{
+    width: 38px;
+    height: 38px;
+    margin-top: 10px;
+    background-image: url("file://{resources}/images/custom_game/menu/wiki_png.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    tooltip-position: bottom;
+    tooltip-body-position: 50% 50%;
+    wash-color: #CDF;
+    opacity: 0.5;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    img-shadow: 0px 0px 3px 3 black;
+}
+
+.wiki:hover{
+    opacity: 1;
+    wash-color: #fff;
+}
+
+.feedback{
+    width: 30px;
+    height: 30px;
+    margin-top: 14px;
+    background-image: url("file://{resources}/images/custom_game/menu/feedback_png.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    tooltip-position: bottom;
+    tooltip-body-position: 50% 50%;
+    wash-color: #CDF;
+    opacity: 0.5;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    img-shadow: 0px 0px 3px 3 black;
+}
+
+.feedback:hover{
+    opacity: 1;
+    wash-color: #fff;
+}
+
+.message{
+    margin-top: 70%;
+    horizontal-align: middle;
+    background-color: gradient( linear, 0% 0%, 0% 100%, from( #780000aa), to( #590000aa));
+    padding: 2px 15px;
+    opacity: 0;
+    visibility: visible;
+    border-radius: 5px;
+}
+
+.message.show{
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
+    animation-name: PopOutErrorMsg;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+
+.messageLabel{
+    margin-top: 4px;
+    margin-bottom: 4px;
+    color: white;
+    font-size: 28px;
+    horizontal-align: middle;
+    text-shadow: 0px 0px 3px 2.0 #590000;
+    font-family: defaultFont;
+}
+
+@keyframes 'PopOutErrorMsg'{
+    0%{
+        pre-transform-scale2d: 1;
+    }
+    50%{
+        pre-transform-scale2d: 1.2;
+    }
+    100%{
+        pre-transform-scale2d: 1;
+    }
+}
+
+.feedbackPanelContainer{
+    border: 1px solid #5e6869;
+    background-color: #181818dd;
+    box-shadow: #000000aa 0px 0px 8px 0px;
+    padding: 32px;
+    width: 700px;
+    vertical-align: middle;
+    horizontal-align: center;
+    opacity: 1;
+    transform: translateX( 0) translateY( 0);
+    transition-property: transform, opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+    transition-delay: 0.0s;
+    flow-children: down;
+}
+
+.feedbackPanelContainer.Minimized{
+    opacity: 0;
+    transform: translateX( 0) translateY( -150px);
+}
+
+.feedbackTitle{
+    font-size: 25px;
+    font-weight: thin;
+    color: #fff;
+    horizontal-align: center;
+}
+
+.feedbackContent{
+    horizontal-align: center;
+    flow-children: down;
+    margin-top: 20px;
+}
+
+.feedbackInput{
+    border: 1px solid #373C44;
+    width: 700px;
+    height: 150px;
+    padding: 5px 7px 3px 7px;
+    background-color: gradient( linear, 0% 0%, 0% 100%, from( #373C44), to( #222222FF));
+    color: white;
+    font-size: 20px;
+    text-overflow: clip;
+    white-space: normal;
+    overflow: squish scroll;
+}
+
+.feedbackButtonRow{
+    flow-children: right;
+    horizontal-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.feedbackButton{
+    background-color: gradient( linear, 0% 0%, 0% 100%, from( #222222), to( #4B555D));
+    /* background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.png"); */
+    background-size: cover;
+    border: 1px solid #83838390;
+    margin: 8px;
+    width: 110px;
+    padding: 10px 30px;
+    transition-property: background-color, wash-color;
+    transition-delay: 0.0s;
+    transition-duration: 0.1s;
+    transition-timing-function: linear;
+}
+
+.feedbackButton:hover{
+    background-color: gradient( linear, 0% 0%, 0% 100%, from( #58636e), to( #53626e));
+}
+
+.feedbackButton Label{
+    color: white;
+    font-size: 20px;
+    horizontal-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+    text-overflow: shrink;
+    text-shadow: 0px 0px 5px 3.0 #000000;
+    font-weight: semi-bold;
+    letter-spacing: 1px;
+}
+
+.html{
+    horizontal-align: center;
+    vertical-align: middle;
+    width: 80%;
+    height: 80%;
+}
+.CustomHUDInfo{
+    width: 210px;
+    max-height: 240px;
+    vertical-align: bottom;
+    margin-left: 310px;
+    flow-children: down;
+    padding: 10px;
+    background-color: #181818dd;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 0.35s;
+    transition-timing-function: ease-in-out;
+}
+.CustomHUDInfo.Minimized{
+    opacity: 0;
+}
+.CustomHUDInfo Panel{
+    height: 20px;
+}
+.CustomHUDInfo Label{
+    font-size: 18px;
+    color: #EDED00;
+    flow-children: right-wrap;
+}
+
+.axeStatus{
+    horizontal-align: center;
+    margin-top: 110px;
+    width: 800px;
+    opacity: 1;
+}
+.axeStatus.Minimized{
+    opacity: 0;
+}
+.axeStatus_name{
+    font-size: 18px;
+    color: white;
+    vertical-align: top;
+    horizontal-align: center;
+    text-align: center;
+    text-shadow: 1px 1px 0px 2.0 #000000;
+    font-family: monospaceNumbersFont;
+}
+.axeHealth{
+    margin-top: 20px;
+    width: 100%;
+    height: 20px;
+    border: 4px solid rgba(66, 66, 55, 0.5);
+    padding: 1px;
+}
+.axeHealthLabel{
+    font-size: 18px;
+    color: white;
+    horizontal-align: right;
+    text-align: center;
+    text-shadow: 1px 1px 0px 2.0 #000000;
+    font-family: monospaceNumbersFont;
+    z-index: 10;
+}
+.axeHealthProgress{
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+.axeHealthProgress_left{
+    height: 100%;
+    background-color: #dde2e5;
+    z-index: 30;
+}
+.axeHealthProgress_center{
+    height: 100%;
+    background-color: #ab4834;
+    z-index: 20;
+}
+.axeHealthProgress_right{
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: #313f43;
+}
+
+
+.BuffList{
+ vertical-align: top;
+    flow-children: right-wrap;
+    margin-top: 45px;
+}
+
+.buff{
+ width: 30px;
+ height: 30px;
+ margin-left: 5px;
+ background-color: #000;
+    tooltip-position: bottom;
+ tooltip-body-position: 50% 50%;
+}
+
+.buff_img_panel{
+ width: 28px;
+ height: 28px;
+ horizontal-align: middle;
+ vertical-align: middle;
+    overflow: clip;
+}
+
+#dotabuff,#ability{
+ width: 28px;
+ height: 28px;
+ horizontal-align: middle;
+ vertical-align: middle;
+}
+
+#item{
+ width: 39px;
+ height: 28px;
+ horizontal-align: middle;
+ vertical-align: middle;
+}
+
+#item{
+ visibility: collapse;
+}
+
+#background{
+ width: 100%;
+ height: 100%;
+    background-color: #00EF63;
+}
+
+#stack-count{
+ color: #fff;
+ width: 100%;
+ text-align: center;
+ vertical-align: center;
+ font-size: 14px;
+ text-shadow: #000 0px 0px 4px 4.0;
+ visibility: collapse;
+}
+
+.buff.is_debuff #background{
+ background-color: #FB1500;
+}
+
+.buff.has_stacks #stack-count{
+ visibility: visible;
+}
+
+.buff.is_item #item{
+ visibility: visible;
+}
+.buff.is_item #ability{
+ visibility: collapse;
+}
+.buff.is_item #dotabuff{
+ visibility: collapse;
+}
+
+.buff.is_ability #item{
+ visibility: collapse;
+}
+.buff.is_ability #ability{
+ visibility: visible;
+}
+.buff.is_ability #dotabuff{
+ visibility: collapse;
+}
+
+.buff.is_buff #item{
+ visibility: collapse;
+}
+.buff.is_buff #ability{
+ visibility: collapse;
+}
+.buff.is_buff #dotabuff{
+ visibility: visible;
+}
+
+.buff.invisible{
+ width: 0px;
+ height: 0px;
+}

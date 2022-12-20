@@ -80,22 +80,24 @@
 		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/inventory.xml" /> -->
 		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/buff_list.xml" /> -->
         <!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/custom_ui_manifest_copy.xml" /> -->
+
+
 		<!-- 是不是选人的 -->
 		<CustomUIElement type="GameSetup" layoutfile="file://{resources}/layout/custom_game/team_select.xml" />
-		<CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/building_helper.xml" />
-		<CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/selection.xml" />	
+		<!-- <CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/building_helper.xml" />
+		<CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/selection.xml" />	 -->
 
 		<!-- <CustomUIElement type="Hud"	 layoutfile="file://{resources}/layout/custom_game/test.xml" /> -->
 
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hud_main.xml" />
-		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/gamemode_select.xml" />
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/menu/hud_main/hud_main.xml" />
+		<!-- <CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/gamemode_select.xml" /> -->
 
 		<!-- <CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/nemestice/nemestice_hud.xml" /> -->
 
-		<CustomUIElement type="Hud"	 layoutfile="file://{resources}/layout/custom_game/overthrow_item_notification.xml" />
+		<!-- <CustomUIElement type="Hud"	 layoutfile="file://{resources}/layout/custom_game/overthrow_item_notification.xml" /> -->
 
 		<!-- 玩法介绍 -->
-		<CustomUIElement type="GameInfo"  layoutfile="file://{resources}/layout/custom_game/mybuildinghelper_game_info.xml" />
+		<!-- <CustomUIElement type="GameInfo"  layoutfile="file://{resources}/layout/custom_game/mybuildinghelper_game_info.xml" /> -->
 
 		<!-- <CustomUIElement type="Hud"	 layoutfile="file://{resources}/layout/custom_game/canvas.xml" /> -->
 	</Panel>

@@ -1,0 +1,44 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/layout/custom_game/menu/public/public.css" />
+		<include src="file://{resources}/layout/custom_game/menu/localtool/localtool.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/menu/public/public.js" />
+		<include src="file://{resources}/layout/custom_game/menu/dialog/dialog.js" />
+		<include src="file://{resources}/layout/custom_game/menu/localtool/localtool.js" />
+	</scripts>
+	<Panel class="CustomHudRoot Minimized" hittest="false">
+		<Panel class="ControlPanel">
+			<Panel class="ControlPanelContainer">
+				<Panel id="MinimizeButton">
+					<Label text="#localToolTitle" />
+					<Button class="ControlPanelCloseButton" acceptsjoyfocus="true" onactivate="ControlPanelCloseButton()" />
+				</Panel>
+				<Panel class="Category">
+					<Panel class="Row">
+						<Label class="RowTitle" text="#localToolText" />
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton green" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;SelectionGroups&apos;, {checked: true})">
+							<Label text="#OpenSelectionGroups" />
+						</Button>
+						<Button class="DemoButton red" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;SelectionGroups&apos;, {checked: false})">
+							<Label text="#CloseSelectionGroups" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton green" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;SmartMultiunitCast&apos;, {checked: true})">
+							<Label text="#OpenSmartMultiunitCast" />
+						</Button>
+						<Button class="DemoButton red" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;SmartMultiunitCast&apos;, {checked: false})">
+							<Label text="#CloseSmartMultiunitCast" />
+						</Button>
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

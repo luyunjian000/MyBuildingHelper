@@ -1,0 +1,77 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="file://{resources}/layout/custom_game/menu/hud_main/hud_main.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/menu/public/index.js" />
+		<include src="file://{resources}/layout/custom_game/menu/public/public.js" />
+		<include src="file://{resources}/layout/custom_game/menu/hud_main/hud_main.js" />
+	</scripts>
+	<snippets>
+		<snippet name="buff">
+			<Panel class="buff" hittestchildren="false">
+				<Panel id="background" />
+				<Panel class="buff_img_panel">
+					<DOTAItemImage id="item" />
+					<DOTAAbilityImage id="ability" />
+					<Image id="dotabuff" />
+					<Label id="stack-count" text="" />
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+	<!-- id="hudRoot" -->
+	<Panel class="hudRoot" hittest="false">
+		<Panel class="panelTopMenu">
+			<Panel class="buttonTopMenu">
+				<Panel id="tool" class="tool" onmouseover="ShowDOTATooltip(&apos;tool&apos;, &apos;#toolText&apos;)" onmouseout="HideDOTATooltip()" onactivate="toolPanelToggle()" />
+			</Panel>
+			<Panel class="buttonTopMenu">
+				<Panel id="localTool" class="localTool" onmouseover="ShowDOTATooltip(&apos;localTool&apos;, &apos;#localToolText&apos;)" onmouseout="HideDOTATooltip()" onactivate="localToolPanelToggle()" />
+			</Panel>
+			<Panel class="buttonTopMenu">
+				<Panel id="recreation" class="recreation" onmouseover="ShowDOTATooltip(&apos;recreation&apos;, &apos;#recreationText&apos;)" onmouseout="HideDOTATooltip()" onactivate="recreationPanelToggle()" />
+			</Panel>
+			<Panel class="buttonTopMenu">
+				<Panel id="feedback" class="feedback" onmouseover="ShowDOTATooltip(&apos;feedback&apos;, &apos;#feedbackText&apos;)" onmouseout="HideDOTATooltip()" onactivate="feedbackPanelToggle()" />
+			</Panel>
+			<Panel class="buttonTopMenu">
+				<Panel id="wiki" class="wiki" onmouseover="ShowDOTATooltip(&apos;wiki&apos;, &apos;#wikiText&apos;)" onmouseout="HideDOTATooltip()" onactivate="UrlToWiki()" />
+			</Panel>
+		</Panel>
+		<Panel id="toolPanelContainer" />
+		<Panel id="localToolPanelContainer" />
+		<Panel id="recreationPanelContainer" />
+		<Panel id="CustomHUDInfo" class="CustomHUDInfo Minimized" />
+		<Panel id="feedbackPanelContainer" class="feedbackPanelContainer Minimized">
+			<Label class="feedbackTitle" text="#feedbackTitle" />
+			<Panel class="feedbackContent">
+				<TextEntry id="feedbackInput" class="feedbackInput" multiline="true" />
+			</Panel>
+			<Panel class="feedbackButtonRow">
+				<Button class="feedbackButton" onactivate="feedbackok()">
+					<Label text="#Submit" />
+				</Button>
+				<Button class="feedbackButton" onactivate="feedbackreset()">
+					<Label text="#Empty" />
+				</Button>
+				<Button class="feedbackButton" onactivate="feedbackcancel()" id="feedbackcancel" tabindex="1">
+					<Label text="#Cancel" />
+				</Button>
+			</Panel>
+		</Panel>
+		<Panel id="axeStatus" class="axeStatus Minimized">
+			<Label text="#superAxe" class="axeStatus_name" />
+			<Label text="-" id="axeHealthLabel" class="axeHealthLabel" />
+			<Panel id="BuffList" class="BuffList" />
+			<Panel id="axeHealth" class="axeHealth">
+				<Panel id="axeHealthProgress" class="axeHealthProgress">
+					<Panel id="axeHealthProgress_left" class="axeHealthProgress_left" />
+					<Panel id="axeHealthProgress_center" class="axeHealthProgress_center" />
+					<Panel id="axeHealthProgress_right" class="axeHealthProgress_right" />
+				</Panel>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

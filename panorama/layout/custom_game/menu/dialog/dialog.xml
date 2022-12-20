@@ -1,0 +1,27 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="file://{resources}/layout/custom_game/menu/five_component/dialog/dialog.css" />
+	</styles>
+	<Panel hittest="false" class="FiveDialogBox">
+		<Label id="FiveDialogTitle" class="FiveDialogTitle" text="-" />
+		<Panel class="FiveDialogContent">
+			<Panel class="FiveDialogContentErrorlabelPanel">
+				<Label id="FiveDialogContentErrorlabel" class="FiveDialogContentErrorlabel" text="-" />
+			</Panel>
+			<TextEntry id="FiveDialogInput" class="FiveDialogInput" />
+			<Label id="FiveDialogContentlabel" class="FiveDialogContentlabel" text="-" />
+		</Panel>
+		<Panel class="FiveDialogButtonRow">
+			<Button class="FiveDialogButton" id="ok">
+				<Label text="确定" />
+			</Button>
+			<Button class="FiveDialogButton" id="reset">
+				<Label text="重置" />
+			</Button>
+			<Button class="FiveDialogButton" id="cancel" tabindex="1">
+				<Label text="取消" />
+			</Button>
+		</Panel>
+	</Panel>
+</root>

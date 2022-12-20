@@ -1,0 +1,587 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/layout/custom_game/menu/public/public.css" />
+		<include src="file://{resources}/layout/custom_game/menu/tool/tool.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/menu/public/public.js" />
+		<include src="file://{resources}/layout/custom_game/menu/dialog/dialog.js" />
+		<include src="file://{resources}/layout/custom_game/menu/tool/tool.js" />
+	</scripts>
+	<snippets>
+		<snippet name="addAbilityContainer">
+			<Panel>
+				<Button acceptsjoyfocus="true">
+					<DOTAAbilityImage class="abilityImg" />
+					<Panel class="AbilityButton green">
+						<Label text="添加" />
+					</Panel>
+				</Button>
+			</Panel>
+		</snippet>
+		<snippet name="existingAbilityContainer">
+			<Panel>
+				<Button acceptsjoyfocus="true">
+					<DOTAAbilityImage class="abilityImg" />
+					<Panel class="AbilityButton red">
+						<Label text="删除" />
+					</Panel>
+				</Button>
+			</Panel>
+		</snippet>
+		<snippet name="existingAbilityContainer2">
+			<Panel>
+				<DOTAAbilityImage class="abilityImg" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel class="CustomHudRoot Minimized" hittest="false">
+		<Panel class="ControlPanel">
+			<Panel class="ControlPanelContainer">
+				<Panel id="MinimizeButton">
+					<Label text="#toolTitle" />
+					<Button class="ControlPanelCloseButton" acceptsjoyfocus="true" onactivate="ControlPanelCloseButton()" />
+				</Panel>
+				<Panel class="Category">
+					<Panel class="Row">
+						<Label class="RowTitle" text="#neutralcampTitle" />
+					</Panel>
+					<Panel class="Row">
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="neutralcampRefreshRange" onmouseover="ShowDOTATooltip(&apos;neutralcampRefreshRange&apos;, &apos;#neutralcampRefreshRangeDescribe&apos;)" onmouseout="HideDOTATooltip()" onactivate="FireToggleEvent(&apos;neutralcampRefreshRange&apos;)">
+							<Label text="#neutralcampRefreshRange" />
+						</ToggleButton>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton green" acceptsjoyfocus="true" id="dota_spawn_neutrals" onmouseover="ShowDOTATooltip(&apos;dota_spawn_neutrals&apos;, &apos;#dota_spawn_neutralsDescribe&apos;)" onmouseout="HideDOTATooltip()" onactivate="FireCustomGameEvent(&apos;SendToServerConsole&apos;, {command: &apos;dota_spawn_neutrals&apos;})">
+							<Label text="#dotaSpawnNeutrals" />
+						</Button>
+						<Button class="DemoButton red" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;KillNeutrals&apos;, {})">
+							<Label text="#KillNeutrals" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;SendToServerConsole&apos;, {command: &apos;dota_respawn_roshan&apos;})">
+							<Label text="#dotaRespawnRoshan" />
+						</Button>
+						<Button class="DemoButton blue" acceptsjoyfocus="true" onactivate="RoshanUpgradeRateDialog.open()">
+							<Label text="#RoshanUpgradeRate" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Label class="RowTitle" text="#heroTitle" />
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;ResetHero&apos;, {})">
+							<Label text="#ResetHero" />
+						</Button>
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;LevelUp&apos;, {})">
+							<Label text="#LevelUp" />
+						</Button>
+						<Button class="DemoButton" acceptsjoyfocus="true" id="MaxLevel" onmouseover="ShowDOTATooltip(&apos;MaxLevel&apos;, &apos;#MaxLevelDescribe&apos;)" onmouseout="HideDOTATooltip()" onactivate="FireCustomGameEvent(&apos;MaxLevel&apos;, {})">
+							<Label text="#MaxLevelUp" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton blue" acceptsjoyfocus="true" onactivate="SetGoldDialog.open()">
+							<Label text="#SetGold" />
+						</Button>
+						<Button class="DemoButton green" acceptsjoyfocus="true" onactivate="AddHero(true)">
+							<Label text="#AddHeroTrue" />
+						</Button>
+						<Button class="DemoButton red" acceptsjoyfocus="true" onactivate="AddHero(false)">
+							<Label text="#AddHeroFale" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;ClearInventory&apos;, {})">
+							<Label text="#ClearInventory" />
+						</Button>
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="ReplaceHero()">
+							<Label text="#ReplaceHero" />
+						</Button>
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;RespawnHero&apos;, {})">
+							<Label text="#RespawnHero" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton green" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;GetAbilityPoint&apos;, {})">
+							<Label text="#GetAbilityPoint" />
+						</Button>
+						<Button class="DemoButton red" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;RemoveAbilityPoint&apos;, {})">
+							<Label text="#RemoveAbilityPoint" />
+						</Button>
+						<Button class="DemoButton" acceptsjoyfocus="true" id="ReplaceAbility" onmouseover="ShowDOTATooltip(&apos;ReplaceAbility&apos;, &apos;#ReplaceAbilityDescribe&apos;)" onmouseout="HideDOTATooltip()" onactivate="ReplaceAbility()">
+							<Label text="#ReplaceAbility" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Label class="RowTitle" text="#unitTitle" />
+					</Panel>
+					<Panel class="Row">
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="showDetail" onactivate="showDetail()">
+							<Label class="toolButton" text="#showDetail" />
+						</ToggleButton>
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;RefreshHero&apos;, {})">
+							<Label text="#RefreshHero" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;AddDummyTarget&apos;, {})">
+							<Label text="#AddDummyTarget" />
+						</Button>
+						<Button class="DemoButton green" acceptsjoyfocus="true" onactivate="AddUnit(true)">
+							<Label text="#AddUnitTrue" />
+						</Button>
+						<Button class="DemoButton red" acceptsjoyfocus="true" onactivate="AddUnit(false)">
+							<Label text="#AddUnitFalse" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;SelfMutilation&apos;, {})">
+							<Label class="toolButton" text="#SelfMutilation" />
+						</Button>
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="MoveToPoint()">
+							<Label text="#MoveToPoint" />
+						</Button>
+						<Button class="DemoButton blue" acceptsjoyfocus="true" onactivate="MoveToDialog.open()">
+							<Label text="#MoveToCoordinate" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;RemoveUnit&apos;, {})">
+							<Label text="#RemoveUnit" />
+						</Button>
+						<Button class="DemoButton green" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;Invulnerability&apos;, {checked: true})">
+							<Label text="#AddInvulnerability" />
+						</Button>
+						<Button class="DemoButton red" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;Invulnerability&apos;, {checked: false})">
+							<Label text="#RemoveInvulnerability" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="showKV" onmouseover="ShowDOTATooltip(&apos;showKV&apos;, &apos;#showKVDescribe&apos;)" onmouseout="HideDOTATooltip()" onactivate="showKV()">
+							<Label text="#ShowKV" />
+						</ToggleButton>
+					</Panel>
+					<Panel class="Row RunePanel">
+						<Label text="#Rune" class="RuneLabel" />
+						<Button class="RuneButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent( &apos;SpawnRuneDoubleDamagePressed&apos;, {} )" onmouseover="MouseOverRune( &apos;RuneEmoticonDoubleDamage&apos;, &apos;#DOTA_HUD_Rune_DoubleDamage&apos; )" onmouseout="MouseOutRune( &apos;RuneEmoticonDoubleDamage&apos; )">
+							<DOTAEmoticon id="RuneEmoticonDoubleDamage" alias="doubledamage" animating="false" />
+						</Button>
+						<Panel class="FillWidth" />
+						<Button class="RuneButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent( &apos;SpawnRuneHastePressed&apos;, {} )" onmouseover="MouseOverRune( &apos;RuneEmoticonHaste&apos;, &apos;#DOTA_HUD_Rune_Haste&apos; )" onmouseout="MouseOutRune( &apos;RuneEmoticonHaste&apos; )">
+							<DOTAEmoticon id="RuneEmoticonHaste" alias="haste" animating="false" />
+						</Button>
+						<Panel class="FillWidth" />
+						<Button class="RuneButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent( &apos;SpawnRuneIllusionPressed&apos;, {}  )" onmouseover="MouseOverRune( &apos;RuneEmoticonIllusion&apos;, &apos;#DOTA_HUD_Rune_Illusion&apos; )" onmouseout="MouseOutRune( &apos;RuneEmoticonIllusion&apos; )">
+							<DOTAEmoticon id="RuneEmoticonIllusion" alias="illusion" animating="false" />
+						</Button>
+						<Panel class="FillWidth" />
+						<Button class="RuneButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent( &apos;SpawnRuneInvisibilityPressed&apos;, {}  )" onmouseover="MouseOverRune( &apos;RuneEmoticonInvisibility&apos;, &apos;#DOTA_HUD_Rune_Invisibility&apos; )" onmouseout="MouseOutRune( &apos;RuneEmoticonInvisibility&apos; )">
+							<DOTAEmoticon id="RuneEmoticonInvisibility" alias="invisibility" animating="false" />
+						</Button>
+						<Panel class="FillWidth" />
+						<Button class="RuneButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent( &apos;SpawnRuneRegenerationPressed&apos;, {}  )" onmouseover="MouseOverRune( &apos;RuneEmoticonRegeneration&apos;, &apos;#DOTA_HUD_Rune_Regeneration&apos; )" onmouseout="MouseOutRune( &apos;RuneEmoticonRegeneration&apos; )">
+							<DOTAEmoticon id="RuneEmoticonRegeneration" alias="regeneration" animating="false" />
+						</Button>
+						<Panel class="FillWidth" />
+						<Button class="RuneButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent( &apos;SpawnRuneArcanePressed&apos;, {}  )" onmouseover="MouseOverRune( &apos;RuneEmoticonArcane&apos;, &apos;#DOTA_HUD_Rune_Arcane&apos; )" onmouseout="MouseOutRune( &apos;RuneEmoticonArcane&apos; )">
+							<DOTAEmoticon id="RuneEmoticonArcane" alias="arcane_rune" animating="false" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Label class="RowTitle" text="#modelTitle" />
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;QuickStart&apos;, {})">
+							<Label text="#QuickStart" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" id="forcegamestart" onmouseover="ShowDOTATooltip(&apos;forcegamestart&apos;, &apos;#forcegamestartDescribe&apos;)" onmouseout="HideDOTATooltip()" onactivate="FireCustomGameEvent(&apos;SendToServerConsole&apos;, {command: &apos;dota_dev forcegamestart&apos;})">
+							<Label text="#forcegamestart" />
+						</Button>
+						<Button class="DemoButton blue" acceptsjoyfocus="true" onactivate="SetCameraDistanceDialog.open()">
+							<Label text="#SetCameraDistance" />
+						</Button>
+						<Button class="DemoButton blue" acceptsjoyfocus="true" onactivate="HostTimescaleDialog.open()">
+							<Label text="#HostTimescale" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;RemoveTrees&apos;, {})">
+							<Label text="#RemoveTrees" />
+						</Button>
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;RemoveWards&apos;, {})">
+							<Label text="#RemoveWards" />
+						</Button>
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;BuildingHeal&apos;, {})">
+							<Label text="#BuildingHeal" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;RegrowTrees&apos;, {})">
+							<Label text="#RegrowTrees" />
+						</Button>
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;SendToServerConsole&apos;, {command: &apos;dota_spawn_rune&apos;})">
+							<Label text="#dotaSpawnRune" />
+						</Button>
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;SendToServerConsole&apos;, {command: &apos;dota_spawn_creeps&apos;})">
+							<Label text="#dotaSpawnCreeps" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;DayNightCycle&apos;, {})">
+							<Label text="#DayNightCycle" />
+						</Button>
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="PauseDayNightCycle" onactivate="FireToggleEvent(&apos;PauseDayNightCycle&apos;)">
+							<Label text="#PauseDayNightCycle" />
+						</ToggleButton>
+					</Panel>
+					<Panel class="Row">
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="easyBuy" onactivate="FireToggleEvent(&apos;easyBuy&apos;)">
+							<Label text="#easyBuy" />
+						</ToggleButton>
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="FreeSpells" onactivate="FireToggleEvent(&apos;FreeSpells&apos;)">
+							<Label text="#FreeSpells" />
+						</ToggleButton>
+					</Panel>
+					<Panel class="Row">
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="heroFastRespawn" onactivate="FireToggleEvent(&apos;heroFastRespawn&apos;)">
+							<Label text="#heroFastRespawn" />
+						</ToggleButton>
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="heroSituRespawn" onactivate="FireToggleEvent(&apos;heroSituRespawn&apos;)">
+							<Label text="#heroSituRespawn" />
+						</ToggleButton>
+					</Panel>
+					<Panel class="Row">
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="PassiveGold" onactivate="FireToggleEvent(&apos;PassiveGold&apos;)">
+							<Label class="toolButton" text="#PassiveGold" />
+						</ToggleButton>
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="NoSpawnCreeps" onmouseover="ShowDOTATooltip(&apos;NoSpawnCreeps&apos;, &apos;#NoSpawnCreepsDescribe&apos;)" onmouseout="HideDOTATooltip()" onactivate="FireToggleEvent(&apos;NoSpawnCreeps&apos;)">
+							<Label text="#NoSpawnCreeps" />
+						</ToggleButton>
+					</Panel>
+					<Panel class="Row">
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="BuildingInvulnerability" onactivate="FireToggleEvent(&apos;BuildingInvulnerability&apos;)">
+							<Label text="#BuildingInvulnerability" />
+						</ToggleButton>
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="BuildHidden" onactivate="FireToggleEvent(&apos;BuildHidden&apos;)">
+							<Label text="#BuildHidden" />
+						</ToggleButton>
+					</Panel>
+					<Panel class="Row">
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="WatchTowerHidden" onactivate="FireToggleEvent(&apos;WatchTowerHidden&apos;)">
+							<Label text="#WatchTowerHidden" />
+						</ToggleButton>
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="NoFogOfWar" onmouseover="ShowDOTATooltip(&apos;NoFogOfWar&apos;, &apos;#NoFogOfWarDescribe&apos;)" onmouseout="HideDOTATooltip()" onactivate="FireToggleEvent(&apos;NoFogOfWar&apos;)">
+							<Label text="#NoFogOfWar" />
+						</ToggleButton>
+					</Panel>
+					<Panel class="Row">
+						<Label class="RowTitle" text="#rangeTitle" />
+					</Panel>
+					<Panel class="Row">
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="ShowBoundingRadius" onactivate="FireToggleEvent(&apos;ShowBoundingRadius&apos;)">
+							<Label text="#ShowBoundingRadius" />
+						</ToggleButton>
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="ShowSelectionBoxes" onactivate="FireToggleEvent(&apos;ShowSelectionBoxes&apos;)">
+							<Label text="#ShowSelectionBoxes" />
+						</ToggleButton>
+					</Panel>
+					<Panel class="Row">
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="TowerDayVisionRange" onactivate="FireToggleEvent(&apos;TowerDayVisionRange&apos;)">
+							<Label text="#TowerDayVisionRange" />
+						</ToggleButton>
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="TowerNightVisionRange" onactivate="FireToggleEvent(&apos;TowerNightVisionRange&apos;)">
+							<Label text="#TowerNightVisionRange" />
+						</ToggleButton>
+					</Panel>
+					<Panel class="Row">
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="TowerHateRange" onactivate="FireToggleEvent(&apos;TowerHateRange&apos;)">
+							<Label text="#TowerHateRange" />
+						</ToggleButton>
+						<Button class="DemoButton blue" acceptsjoyfocus="true" onactivate="ShowRangeDialog.open()">
+							<Label text="#ShowRange" />
+						</Button>
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel class="entTextPanelContainer Minimized" id="entTextPanelContainer">
+			<Panel class="entTextPanel">
+				<Panel class="entTextTitlePanel">
+					<Label text="#entTextTitle" />
+					<Button class="entTextTitlePanelCloseButton" acceptsjoyfocus="true" onactivate="entTextTitlePanelCloseButton()" />
+				</Panel>
+				<Panel class="entTextContent">
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#entId" />
+							<Label class="entTextPanelCowRight" text="-" id="entId" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetUnitName" />
+							<Label class="entTextPanelCowRight" text="-" id="GetUnitName" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetClassNameAsCStr" />
+							<Label class="entTextPanelCowRight" text="-" id="GetClassNameAsCStr" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetAbsOrigin" />
+							<Label class="entTextPanelCowRight" text="-" id="GetAbsOrigin" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetAbsOrigin2" />
+							<Label class="entTextPanelCowRight" text="-" id="GetAbsOrigin2" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow" id="GetAbsOrigin3Box">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="相减" />
+							<Label class="entTextPanelCowRight" text="-" id="GetAbsOrigin3" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetDayTimeVisionRange" />
+							<Label class="entTextPanelCowRight" text="-" id="GetDayTimeVisionRange" />
+						</Panel>
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetNightTimeVisionRange" />
+							<Label class="entTextPanelCowRight" text="-" id="GetNightTimeVisionRange" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetBaseAttackTime" />
+							<Label class="entTextPanelCowRight" text="-" id="GetBaseAttackTime" />
+						</Panel>
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetAttackSpeed" />
+							<Label class="entTextPanelCowRight" text="-" id="GetAttackSpeed" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetAttacksPerSecond" />
+							<Label class="entTextPanelCowRight" text="-" id="GetAttacksPerSecond" />
+						</Panel>
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetCastPoint" />
+							<Label class="entTextPanelCowRight" text="-" id="GetCastPoint" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetAttackAnimationPoint" />
+							<Label class="entTextPanelCowRight" text="-" id="GetAttackAnimationPoint" />
+						</Panel>
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetProjectileSpeed" />
+							<Label class="entTextPanelCowRight" text="-" id="GetProjectileSpeed" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetPaddedCollisionRadius" />
+							<Label class="entTextPanelCowRight" text="-" id="GetPaddedCollisionRadius" />
+						</Panel>
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetHullRadius" />
+							<Label class="entTextPanelCowRight" text="-" id="GetHullRadius" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetIdealSpeed" />
+							<Label class="entTextPanelCowRight" text="-" id="GetIdealSpeed" />
+						</Panel>
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetCooldownReduction" />
+							<Label class="entTextPanelCowRight" text="-" id="GetCooldownReduction" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetDamage" />
+							<Label class="entTextPanelCowRight" text="-" id="GetDamage" />
+						</Panel>
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetAverageTrueAttackDamage" />
+							<Label class="entTextPanelCowRight" text="-" id="GetAverageTrueAttackDamage" />
+						</Panel>
+					</Panel>
+					<Panel class="entTextPanelRow">
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetPhysicalArmorValue" />
+							<Label class="entTextPanelCowRight" text="-" id="GetPhysicalArmorValue" />
+						</Panel>
+						<Panel class="entTextPanelCow">
+							<Label class="entTextPanelCowLeft" text="#GetMagicalArmorValue" />
+							<Label class="entTextPanelCowRight" text="-" id="GetMagicalArmorValue" />
+						</Panel>
+					</Panel>
+					<Panel class="SelectAbilityExisting2" id="SelectAbilityExisting2" />
+					<Panel class="entTextPanelRowisModifers">
+						<Panel class="entTextPanelRow">
+							<Label class="ShowKVPanelCowModifers" text="Modifiers" />
+						</Panel>
+						<Panel class="entTextPanelRowisModifersList" id="BuffList" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel id="ShowKVContainer" class="ShowKVContainer Minimized">
+			<Panel class="ShowKVPanel">
+				<Panel class="entTextTitlePanel">
+					<Label text="#ShowKV" />
+					<Button class="entTextTitlePanelCloseButton" acceptsjoyfocus="true" onactivate="ShowKVCloseButton()" />
+				</Panel>
+				<Panel class="ShowKVContent" id="ShowKVText" />
+			</Panel>
+		</Panel>
+		<Panel id="SelectAbilityContainer" class="SelectAbilityContainer">
+			<DOTAUIHeroPicker id="HeroPicker" />
+			<Panel class="SelectAbilityAdd" id="SelectAbilityAdd" />
+			<Panel class="SelectAbilityExisting" id="SelectAbilityExisting" />
+		</Panel>
+		<Panel id="SelectUnitContainer" class="SelectUnit">
+			<Panel class="SelectUnitHead">
+				<Label class="SelectUnitHeadText" text="选择要创建的单位" />
+			</Panel>
+			<Panel class="SelectUnitList">
+				<Panel class="SelectUnitCategory">
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_harpy_scout&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_harpy_scout_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_harpy_storm&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_harpy_storm_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_kobold&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_kobold_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_kobold_taskmaster&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_kobold_taskmaster_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_kobold_tunneler&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_kobold_tunneler_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_ghost&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_ghost_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_fel_beast&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_fel_beast_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_forest_troll_berserker&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_forest_troll_berserker_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_forest_troll_high_priest&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_forest_troll_high_priest_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_mud_golem&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_mud_golem_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_gnoll_assassin&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_gnoll_assassin_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_ogre_magi&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_ogre_magi_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_ogre_mauler&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_ogre_mauler_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_warpine_raider&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_warpine_raider_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_giant_wolf&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_giant_wolf_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_alpha_wolf&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_alpha_wolf_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_polar_furbolg_champion&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_polar_furbolg_champion_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_polar_furbolg_ursa_warrior&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_polar_furbolg_ursa_warrior_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_centaur_khan&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_centaur_khan_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_centaur_outrunner&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_centaur_outrunner_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_dark_troll&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_dark_troll_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_dark_troll_warlord&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_dark_troll_warlord_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_enraged_wildkin&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_enraged_wildkin_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_wildkin&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_wildkin_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_satyr_hellcaller&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_satyr_hellcaller_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_satyr_soulstealer&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_satyr_soulstealer_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_satyr_trickster&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_satyr_trickster_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_ice_shaman&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_ice_shaman_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_frostbitten_golem&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_frostbitten_golem_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_granite_golem&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_granite_golem_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_rock_golem&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_rock_golem_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_small_thunder_lizard&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_small_thunder_lizard_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_big_thunder_lizard&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_big_thunder_lizard_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_black_dragon&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_black_dragon_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_black_drake&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_black_drake_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_prowler_acolyte&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_prowler_acolyte_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+					<Panel class="SelectUnitCategoryImgPanel" onactivate="CreateUnit(&apos;npc_dota_neutral_prowler_shaman&apos;)">
+						<Image src="s2r://panorama/images/heroes/npc_dota_neutral_prowler_shaman_png.vtex" class="SelectUnitCategoryImg" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel id="MoveToDialog" />
+		<Panel id="SetCameraDistanceDialog" />
+		<Panel id="SetGoldDialog" />
+		<Panel id="RoshanUpgradeRateDialog" />
+		<Panel id="ShowRangeDialog" />
+		<Panel id="HostTimescaleDialog" />
+	</Panel>
+</root>

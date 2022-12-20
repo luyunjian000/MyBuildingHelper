@@ -1,0 +1,208 @@
+<!-- xml reconstructed by ValveResourceFormat: https://vrf.steamdb.info/ -->
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/layout/custom_game/menu/public/public.css" />
+		<include src="file://{resources}/layout/custom_game/menu/recreation/recreation.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/menu/public/public.js" />
+		<include src="file://{resources}/layout/custom_game/menu/recreation/recreation.js" />
+	</scripts>
+	<snippets>
+		<snippet name="SelectHeroCategoryImgPanel">
+			<Panel class="SelectHeroCategoryImgPanel">
+				<DOTAHeroImage class="SelectHeroCategoryImg active" />
+			</Panel>
+		</snippet>
+		<snippet name="LeaderboardSingle">
+			<Panel class="LeaderboardSingle">
+				<Label text="0" id="rank" class="rank" />
+				<DOTAAvatarImage id="avatar" class="avatar" />
+				<DOTAUserName id="username" class="avausernametar" />
+				<Label text="0" id="score" class="score" />
+			</Panel>
+		</snippet>
+	</snippets>
+	<Panel hittest="false" class="CustomHudRoot Minimized">
+		<Panel class="ControlPanel">
+			<Panel class="ControlPanelContainer">
+				<Panel id="MinimizeButton">
+					<Label text="#HappyModeOptions" />
+					<Button class="ControlPanelCloseButton" acceptsjoyfocus="true" onactivate="ControlPanelCloseButton()" />
+				</Panel>
+				<Panel class="Category">
+					<Panel class="Row">
+						<Label class="RowTitle" text="#HappyMode" />
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;CallSuperAxe&apos;, {})">
+							<Label text="#CallSuperAxe" />
+						</Button>
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="ShowLeaderboard()">
+							<Label text="#Leaderboard" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<ToggleButton class="DemoButton" acceptsjoyfocus="true" id="HideSkill" onactivate="FireToggleEvent(&apos;HideSkill&apos;)">
+							<Label text="#HideSkill" />
+						</ToggleButton>
+						<Button class="DemoButton blue" acceptsjoyfocus="true" onactivate="ShowHideSkillOption()">
+							<Label text="#HideSkillOption" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton blue" acceptsjoyfocus="true" onactivate="ShowAddWoodenStake()">
+							<Label text="#AddWoodenStake" />
+						</Button>
+					</Panel>
+					<Panel class="Row">
+						<Button class="DemoButton" acceptsjoyfocus="true" onactivate="FireCustomGameEvent(&apos;test&apos;, {})">
+							<Label text="#测试" />
+						</Button>
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel class="HideSkillOptionDialog Minimized" id="HideSkillOptionDialog">
+			<Panel class="HideSkillOptionTitlePanel">
+				<Label text="#HideSkillOptions" />
+			</Panel>
+			<Panel class="Row">
+				<Label class="RowTitle" text="#heroTitle" />
+			</Panel>
+			<Panel class="HideSkillHeroList">
+				<Panel class="HideSkillHeroCategory" id="HideSkillHeroCategory" />
+			</Panel>
+			<Panel class="Row">
+				<Button class="DemoButton" acceptsjoyfocus="true" onactivate="SelectHeroCategoryImgSelectAll()">
+					<Label text="#SelectAll" />
+				</Button>
+				<Button class="DemoButton" acceptsjoyfocus="true" onactivate="SelectHeroCategoryImgSelectBack()">
+					<Label text="#ReverseSelection" />
+				</Button>
+			</Panel>
+			<Panel class="Row">
+				<Label class="RowTitle" text="#isInvisible" />
+			</Panel>
+			<Panel class="Row" id="invis">
+				<RadioButton class="DemoButton" acceptsjoyfocus="true" group="invis" tabindex="0">
+					<Label text="#Yes" />
+				</RadioButton>
+				<RadioButton class="DemoButton" acceptsjoyfocus="true" group="invis" tabindex="1">
+					<Label text="#No" />
+				</RadioButton>
+				<RadioButton class="DemoButton" acceptsjoyfocus="true" group="invis" tabindex="2">
+					<Label text="#random" />
+				</RadioButton>
+			</Panel>
+			<Panel class="Row">
+				<Label class="RowTitle" text="#ItemBlinkType" />
+			</Panel>
+			<Panel class="Row" id="blink">
+				<RadioButton class="DemoButton" acceptsjoyfocus="true" group="blink" tabindex="0">
+					<Label text="#normal" />
+				</RadioButton>
+				<RadioButton class="DemoButton" acceptsjoyfocus="true" group="blink" tabindex="1">
+					<Label text="#ArcaneBlink" />
+				</RadioButton>
+				<RadioButton class="DemoButton" acceptsjoyfocus="true" group="blink" tabindex="2">
+					<Label text="#random" />
+				</RadioButton>
+			</Panel>
+			<Panel class="Row">
+				<Label class="RowTitle" text="#RefreshFrequency" />
+			</Panel>
+			<Panel class="Row" id="delay">
+				<RadioButton class="DemoButton" acceptsjoyfocus="true" group="delay" tabindex="0">
+					<Label text="#Faster" />
+				</RadioButton>
+				<RadioButton class="DemoButton" acceptsjoyfocus="true" group="delay" tabindex="1">
+					<Label text="#normal" />
+				</RadioButton>
+				<RadioButton class="DemoButton" acceptsjoyfocus="true" group="delay" tabindex="2">
+					<Label text="#Slower" />
+				</RadioButton>
+				<RadioButton class="DemoButton" acceptsjoyfocus="true" group="delay" tabindex="3">
+					<Label text="#random" />
+				</RadioButton>
+			</Panel>
+			<Panel class="HideSkillOptionButtonRow">
+				<Button class="HideSkillOptionButton" onactivate="HideSkillOptionOk()">
+					<Label text="#Submit" />
+				</Button>
+				<Button class="HideSkillOptionButton" onactivate="HideSkillOptionReset()">
+					<Label text="#Default" />
+				</Button>
+				<Button class="HideSkillOptionButton" onactivate="HideSkillOptionCancel()">
+					<Label text="#Cancel" />
+				</Button>
+			</Panel>
+		</Panel>
+		<Panel class="AddWoodenStakeDialog Minimized" id="AddWoodenStakeDialog">
+			<Panel class="AddWoodenStakeDialogTitlePanel">
+				<Label text="#AddWoodenStake" />
+			</Panel>
+			<Panel class="AddWoodenStakeDialogContainer">
+				<Panel class="AddWoodenStakeDialogRow">
+					<Panel class="AddWoodenStakeDialogHero" onmouseover="AddStyle( active )" onmouseout="RemoveStyle(active)" onactivate="AddWoodenStake(&apos;juggernaut&apos;, &apos;juggernaut_blade_fury&apos;)">
+						<DOTAHeroImage heroname="npc_dota_hero_juggernaut" heroimagestyle="landscape" class="AddWoodenStakeDialogHeroImage" />
+						<Label text="#AddWoodenStakeLabel_juggernaut" class="AddWoodenStakeDialogHeroLabel" />
+					</Panel>
+					<Panel class="AddWoodenStakeDialogHero" onmouseover="AddStyle( active )" onmouseout="RemoveStyle(active)" onactivate="AddWoodenStake(&apos;puck&apos;, &apos;puck_phase_shift&apos;)">
+						<DOTAHeroImage heroname="npc_dota_hero_puck" heroimagestyle="landscape" class="AddWoodenStakeDialogHeroImage" />
+						<Label text="#AddWoodenStakeLabel_puck" class="AddWoodenStakeDialogHeroLabel" />
+					</Panel>
+				</Panel>
+				<Panel class="AddWoodenStakeDialogRow">
+					<Panel class="AddWoodenStakeDialogHero" onmouseover="AddStyle( active )" onmouseout="RemoveStyle(active)" onactivate="AddWoodenStake(&apos;morphling&apos;, &apos;morphling_waveform&apos;)">
+						<DOTAHeroImage heroname="npc_dota_hero_morphling" heroimagestyle="landscape" class="AddWoodenStakeDialogHeroImage" />
+						<Label text="#AddWoodenStakeLabel_morphling" class="AddWoodenStakeDialogHeroLabel" />
+					</Panel>
+					<Panel class="AddWoodenStakeDialogHero" onmouseover="AddStyle( active )" onmouseout="RemoveStyle(active)" onactivate="AddWoodenStake(&apos;queenofpain&apos;, &apos;queenofpain_blink&apos;)">
+						<DOTAHeroImage heroname="npc_dota_hero_queenofpain" heroimagestyle="landscape" class="AddWoodenStakeDialogHeroImage" />
+						<Label text="#AddWoodenStakeLabel_queenofpain" class="AddWoodenStakeDialogHeroLabel" />
+					</Panel>
+				</Panel>
+				<Panel class="AddWoodenStakeDialogRow">
+					<Panel class="AddWoodenStakeDialogHero" onmouseover="AddStyle( active )" onmouseout="RemoveStyle(active)" onactivate="AddWoodenStake(&apos;vengefulspirit&apos;, &apos;vengefulspirit_nether_swap&apos;)">
+						<DOTAHeroImage heroname="npc_dota_hero_vengefulspirit" heroimagestyle="landscape" class="AddWoodenStakeDialogHeroImage" />
+						<Label text="#AddWoodenStakeLabel_vengefulspirit" class="AddWoodenStakeDialogHeroLabel" />
+					</Panel>
+					<Panel class="AddWoodenStakeDialogHero" onmouseover="AddStyle( active )" onmouseout="RemoveStyle(active)" onactivate="AddWoodenStake(&apos;faceless_void&apos;, &apos;faceless_void_time_walk&apos;)">
+						<DOTAHeroImage heroname="npc_dota_hero_faceless_void" heroimagestyle="landscape" class="AddWoodenStakeDialogHeroImage" />
+						<Label text="#AddWoodenStakeLabel_faceless_void" class="AddWoodenStakeDialogHeroLabel" />
+					</Panel>
+				</Panel>
+				<Panel class="AddWoodenStakeDialogRow">
+					<Panel class="AddWoodenStakeDialogHero" onmouseover="AddStyle( active )" onmouseout="RemoveStyle(active)" onactivate="AddWoodenStake(&apos;storm_spirit&apos;, &apos;storm_spirit_ball_lightning&apos;)">
+						<DOTAHeroImage heroname="npc_dota_hero_storm_spirit" heroimagestyle="landscape" class="AddWoodenStakeDialogHeroImage" />
+						<Label text="#AddWoodenStakeLabel_storm_spirit" class="AddWoodenStakeDialogHeroLabel" />
+					</Panel>
+					<Panel class="AddWoodenStakeDialogHero" onmouseover="AddStyle( active )" onmouseout="RemoveStyle(active)" onactivate="AddWoodenStake(&apos;antimage&apos;, &apos;antimage_blink&apos;)">
+						<DOTAHeroImage heroname="npc_dota_hero_antimage" heroimagestyle="landscape" class="AddWoodenStakeDialogHeroImage" />
+						<Label text="#AddWoodenStakeLabel_antimage" class="AddWoodenStakeDialogHeroLabel" />
+					</Panel>
+				</Panel>
+				<Panel class="AddWoodenStakeDialogRow">
+					<Panel class="AddWoodenStakeDialogHero" onmouseover="AddStyle( active )" onmouseout="RemoveStyle(active)" onactivate="AddWoodenStakeOther(1)">
+						<DOTAHeroImage heroname="npc_dota_hero_ursa" heroimagestyle="landscape" class="AddWoodenStakeDialogHeroImage" />
+						<Label text="#AddWoodenStakeLabel_ursa" class="AddWoodenStakeDialogHeroLabel" />
+					</Panel>
+					<Panel class="AddWoodenStakeDialogHero" onmouseover="AddStyle( active )" onmouseout="RemoveStyle(active)" onactivate="AddWoodenStakeOther(2)">
+						<DOTAHeroImage heroname="npc_dota_hero_skeleton_king" heroimagestyle="landscape" class="AddWoodenStakeDialogHeroImage" />
+						<Label text="#AddWoodenStakeLabel_skeleton_king" class="AddWoodenStakeDialogHeroLabel" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel class="LeaderboardPanel Minimized" id="LeaderboardPanel">
+			<Panel class="LeaderboardTitle">
+				<Label text="排名" class="rank_title" />
+				<Label text="玩家" class="user_title" />
+				<Label text="成绩" class="score_title" />
+			</Panel>
+			<Panel id="LeaderboardContainer" class="LeaderboardContainer" />
+		</Panel>
+	</Panel>
+</root>
