@@ -8,16 +8,14 @@ function Build( event )
     local gold_cost = ability:GetGoldCost(1) 
     local hero = caster:IsRealHero() and caster or caster:GetOwner()
     local playerID = hero:GetPlayerID()
-
+    
     -- 如果该异能具有异能黄金成本，则不可能在第一次施放时没有足够的黄金
     -- 一定要在这里退金，因为这栋楼还没建好
     hero:ModifyGold(gold_cost, false, 0)
-
     -- 为了方便处理
     -- event.yaw = 0
     -- 制作一个建筑假人并开始全景重影
     BuildingHelper:AddBuilding(event)
-
     -- Additional checks to confirm a valid building position can be performed here
     event:OnPreConstruction(function(vPos)
 

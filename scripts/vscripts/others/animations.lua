@@ -52,9 +52,9 @@ ANIMATIONS_VERSION = "0.83"
 
 ]]
 
-LinkLuaModifier( "modifier_animation", "libraries/modifiers/modifier_animation.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "modifier_animation_translate", "libraries/modifiers/modifier_animation_translate.lua", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "modifier_animation_translate_permanent", "libraries/modifiers/modifier_animation_translate_permanent.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_animation", "buildinghelper/modifiers/modifier_animation.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_animation_translate", "buildinghelper/modifiers/modifier_animation_translate.lua", LUA_MODIFIER_MOTION_NONE )
+LinkLuaModifier( "modifier_animation_translate_permanent", "buildinghelper/modifiers/modifier_animation_translate_permanent.lua", LUA_MODIFIER_MOTION_NONE )
 
 require('common/index')
 

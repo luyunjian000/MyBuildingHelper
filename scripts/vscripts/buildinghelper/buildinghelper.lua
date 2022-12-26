@@ -646,6 +646,9 @@ end
 -- Makes a building dummy and starts panorama ghosting
 -- Builder calls this and sets the callbacks with the required values
 function BuildingHelper:AddBuilding(keys)
+    BuildingHelper:print("AddBuilding")
+    Tools.CommonPrint(type(keys))
+
     -- Callbacks
     local callbacks = BuildingHelper:SetCallbacks(keys)
     local builder = keys.caster
