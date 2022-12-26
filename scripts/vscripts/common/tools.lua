@@ -65,3 +65,34 @@ function explode(str)
 
   return t
 end
+
+
+-- 通用打印日志
+function Tools:CommonPrint(v, t)
+  if TESTMODEL then
+      if IsClient() then
+          print("[客户端消息]")
+      end
+
+      if v == nil then
+          v = "nil"
+      end
+
+      if t == nil then
+          t = ""
+      end
+
+      if type(v) == "table" then
+          if t ~= "" then
+              print(t)
+          end
+          DeepPrintTable(v)
+      else
+          if t ~= "" then
+              print('['..tostring(t)..']:'..tostring(v))
+          else
+              print(tostring(v))
+          end
+      end
+  end
+end

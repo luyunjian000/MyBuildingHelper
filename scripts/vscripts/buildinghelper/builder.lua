@@ -1,5 +1,6 @@
 -- A build ability is used (not yet confirmed)
 function Build( event )
+    -- Tools:CommonPrint(event)
     local caster = event.caster
     local ability = event.ability
     local ability_name = ability:GetAbilityName()

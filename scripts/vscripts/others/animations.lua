@@ -56,7 +56,7 @@ LinkLuaModifier( "modifier_animation", "libraries/modifiers/modifier_animation.l
 LinkLuaModifier( "modifier_animation_translate", "libraries/modifiers/modifier_animation_translate.lua", LUA_MODIFIER_MOTION_NONE )
 LinkLuaModifier( "modifier_animation_translate_permanent", "libraries/modifiers/modifier_animation_translate_permanent.lua", LUA_MODIFIER_MOTION_NONE )
 
-require('libraries/timers')
+require('common/index')
 
 local _ANIMATION_TRANSLATE_TO_CODE = {
   abysm= 13,

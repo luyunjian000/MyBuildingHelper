@@ -134,7 +134,7 @@ end
 -- Internal
 ------------------------------------------------------------------------
 
-require('libraries/timers')
+-- require('libraries/timers')
 
 if not Selection then
     Selection = class({})

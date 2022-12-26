@@ -5,9 +5,9 @@ BH_VERSION = "1.2.9"
         https://github.com/MNoya/BuildingHelper/wiki
 ]]
 
-require('libraries/timers')
-require('libraries/selection')
-require('libraries/keyvalues')
+-- require('libraries/timers')
+-- require('libraries/selection')
+-- require('libraries/keyvalues')
 
 if not BuildingHelper then
     BuildingHelper = class({})
@@ -51,13 +51,12 @@ function BuildingHelper:Init()
     end
 
     -- Lua Modifiers
-    LinkLuaModifier("modifier_building", "libraries/modifiers/modifier_building", LUA_MODIFIER_MOTION_NONE)
-    LinkLuaModifier("modifier_out_of_world", "libraries/modifiers/modifier_out_of_world", LUA_MODIFIER_MOTION_NONE)
-    LinkLuaModifier("modifier_builder_hidden", "libraries/modifiers/modifier_builder_hidden", LUA_MODIFIER_MOTION_NONE)
-    LinkLuaModifier("modifier_repairing", "libraries/modifiers/repair_modifiers", LUA_MODIFIER_MOTION_NONE)
-    LinkLuaModifier("modifier_builder_repairing", "libraries/modifiers/repair_modifiers", LUA_MODIFIER_MOTION_NONE)
-    LinkLuaModifier("modifier_tree_cut", "libraries/modifiers/modifier_tree_cut", LUA_MODIFIER_MOTION_NONE)
-    require("libraries/modifiers/grid_modifiers")
+    LinkLuaModifier("modifier_building", "buildinghelper/modifiers/modifier_building", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_out_of_world", "buildinghelper/modifiers/modifier_out_of_world", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_builder_hidden", "buildinghelper/modifiers/modifier_builder_hidden", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_repairing", "buildinghelper/modifiers/repair_modifiers", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_builder_repairing", "buildinghelper/modifiers/repair_modifiers", LUA_MODIFIER_MOTION_NONE)
+    LinkLuaModifier("modifier_tree_cut", "buildinghelper/modifiers/modifier_tree_cut", LUA_MODIFIER_MOTION_NONE)
 
     -- Check KVs and set relevant construction_size nettable values
     self:ParseKV()
@@ -2767,7 +2766,8 @@ end
 
 function BuildingHelper:print(...)
     if BuildingHelper.Settings["TESTING"] then
-        print('[BH] '.. ...)
+        Tools:CommonPrint('[BH] '.. ...)
+        -- print('[BH] '.. ...)
     end
 end
 

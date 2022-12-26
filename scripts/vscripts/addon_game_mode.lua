@@ -4,10 +4,7 @@ if CAddonTemplateGameMode == nil then
 	CAddonTemplateGameMode = class({})
 end
 
-require("libraries/buildinghelper")
-require("create_enemy")
-require("player_chat")
-require("libraries/create_timer")
+require("buildinghelper/index")
 
 function Precache( context )
 	--[[

@@ -35,7 +35,7 @@
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"builder.lua"
+				"ScriptFile"	"buildinghelper/builder.lua"
 				"Function"		"UpgradeBuilding"
 				"UnitName"      "npc_dota_tower_wall2"
 			}
