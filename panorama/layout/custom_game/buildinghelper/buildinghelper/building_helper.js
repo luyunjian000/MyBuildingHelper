@@ -67,7 +67,7 @@ if (! Root.loaded)
 }
 
 function StartBuildingHelper( params )
-{
+{   
     if (params !== undefined)
     {
         // 设置AddBuilding传递的参数
@@ -103,6 +103,7 @@ function StartBuildingHelper( params )
 
         if (modelParticle !== undefined) {
             Particles.DestroyParticleEffect(modelParticle, true)
+            // Release 释放
             Particles.ReleaseParticleIndex(modelParticle)
         }
         if (propParticle !== undefined) {
@@ -177,18 +178,12 @@ function StartBuildingHelper( params )
         entityGrid = []
         for (var i = 0; i < entities.length; i++)
         {   
-            $.Msg("!Entities.IsAlive(entities[i]=="+!Entities.IsAlive(entities[i]))
-            $.Msg("Entities.IsOutOfGame(entities[i]=="+Entities.IsOutOfGame(entities[i]))
-            $.Msg("!HasModifier(entities[i],=="+!HasModifier(entities[i], "modifier_building"))
             if (!Entities.IsAlive(entities[i]) || Entities.IsOutOfGame(entities[i]) || !HasModifier(entities[i], "modifier_building")) continue
             var entPos = Entities.GetAbsOrigin( entities[i] )
             // var squares = GetConstructionSize(entities[i])
             var squaresstr = GetConstructionSize(entities[i])
-            $.Msg("squaresstr=="+squaresstr)
             var squares_x = squaresstr.split("x")[0];
             var squares_y = squaresstr.split("x")[1];
-            $.Msg("squares_x=="+squares_x)
-            $.Msg("squares_y=="+squares_y)
 
             //if (squares > 0)
             if (squares_x > 0 && squares_y > 0)
@@ -214,7 +209,6 @@ function StartBuildingHelper( params )
             }
 
             var specialGrid = GetCustomGrid(entities[i])
-            $.Msg("specialGrid=="+specialGrid)
             if (specialGrid)
             {
                 for (var gridType in specialGrid)
@@ -502,7 +496,6 @@ function RegisterGNV(msg){
     var squareY = msg.squareY
     var boundX = msg.boundX
     var boundY = msg.boundY
-    $.Msg("Registering GNV ["+squareX+","+squareY+"] ","Min Bounds: X="+boundX+", Y="+boundY)
 
     var arr = [];
 
@@ -561,7 +554,6 @@ function RegisterGNV(msg){
     {
         tab[arr[i].toString()]++;
     }
-    $.Msg("Free: ",tab["1"]," Blocked: ",tab["2"])
 }
 
 // Ask the server for the Terrain grid
@@ -773,7 +765,6 @@ function GetConstructionSize(entIndex) {
     var entName = Entities.GetUnitName(entIndex)
     var table = CustomNetTables.GetTableValue("construction_size", entName)
     // return table ? table.size : 0 
-    $.Msg("tablesize=="+table.size)
     return table ? table.size : "0x0"
 }
 

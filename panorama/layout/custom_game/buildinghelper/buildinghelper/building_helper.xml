@@ -1,0 +1,10 @@
+<root>
+    <scripts>
+        <!-- <include src="file://{resources}/layout/custom_game/buildinghelper/click.js" /> -->
+        <include src="file://{resources}/layout/custom_game/buildinghelper/buildinghelper/building_helper.js" />
+    </scripts>
+    <script>
+        $.Msg( "Compiled Building Helper!" );
+    </script>
+    <Panel></Panel>
+</root>

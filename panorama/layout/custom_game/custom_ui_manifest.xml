@@ -84,8 +84,8 @@
 
 		<!-- 是不是选人的 -->
 		<CustomUIElement type="GameSetup" layoutfile="file://{resources}/layout/custom_game/team_select.xml" />
-		<!-- <CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/building_helper.xml" />
-		<CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/selection.xml" />	 -->
+		<CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/buildinghelper/buildinghelper/building_helper.xml" />
+		<CustomUIElement type="Hud"  layoutfile="file://{resources}/layout/custom_game/buildinghelper/selection/selection.xml" />
 
 		<!-- <CustomUIElement type="Hud"	 layoutfile="file://{resources}/layout/custom_game/test.xml" /> -->
 

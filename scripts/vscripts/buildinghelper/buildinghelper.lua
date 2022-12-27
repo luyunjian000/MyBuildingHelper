@@ -646,9 +646,6 @@ end
 -- Makes a building dummy and starts panorama ghosting
 -- Builder calls this and sets the callbacks with the required values
 function BuildingHelper:AddBuilding(keys)
-    BuildingHelper:print("AddBuilding")
-    Tools.CommonPrint(type(keys))
-
     -- Callbacks
     local callbacks = BuildingHelper:SetCallbacks(keys)
     local builder = keys.caster
@@ -715,7 +712,7 @@ function BuildingHelper:AddBuilding(keys)
     local mgd = BuildingHelper:GetOrCreateDummy(unitName)
     event.entindex = mgd:GetEntityIndex()
 
-    -- Range overlay
+    -- Range overlay  HasAttackCapability 是否有攻击能力
     if mgd:HasAttackCapability() then
         event.range = buildingTable:GetVal("AttackRange", "number") + mgd:GetHullRadius()
     end
@@ -740,7 +737,6 @@ function BuildingHelper:AddBuilding(keys)
 
     -- add by lyjian 
     event.abilityname =  abilName
-
     CustomGameEventManager:Send_ServerToPlayer(player, "building_helper_enable", event)
 end
 
@@ -2789,6 +2785,7 @@ function BuildingHelper:GetOrCreateDummy(unitName)
     else
         BuildingHelper:print("AddBuilding "..unitName)
         local mgd = CreateUnitByName(unitName, Vector(0,0,0), false, nil, nil, 0)
+        -- EF_NODRAW 防止将有关实体的任何数据传输到客户端，而不会影响服务器上的实体。换句话说，它使实体从玩家的视图中消失而不删除它。
         mgd:AddEffects(EF_NODRAW)
         mgd:AddNewModifier(mgd, nil, "modifier_out_of_world", {})
         BuildingHelper.Dummies[unitName] = mgd
