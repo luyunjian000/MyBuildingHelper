@@ -7,6 +7,7 @@ end
 require("buildinghelper/index")
 require("others/create_enemy")
 require("others/player_chat")
+require("buildmaps/index")
 
 
 function Precache( context )

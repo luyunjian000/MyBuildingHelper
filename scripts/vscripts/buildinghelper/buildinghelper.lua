@@ -35,12 +35,16 @@ function BuildingHelper:Init()
     BuildingHelper:NewGridType("BUILDABLE")
 
     -- Panorama Event Listeners
+    -- 点击左键开始建造的命令
     CustomGameEventManager:RegisterListener("building_helper_build_command", Dynamic_Wrap(BuildingHelper, "BuildCommand"))
     CustomGameEventManager:RegisterListener("building_helper_cancel_command", Dynamic_Wrap(BuildingHelper, "CancelCommand"))
     CustomGameEventManager:RegisterListener("building_helper_repair_command", Dynamic_Wrap(BuildingHelper, "RepairCommand"))
     CustomGameEventManager:RegisterListener("selection_update", Dynamic_Wrap(BuildingHelper, 'OnSelectionUpdate')) --Hook selection library
     CustomGameEventManager:RegisterListener("gnv_request", Dynamic_Wrap(BuildingHelper, "SendGNV"))
     CustomGameEventManager:RegisterListener("change_angles", Dynamic_Wrap(BuildingHelper, "changeAngles"))
+
+    -- 批量建造
+    CustomGameEventManager:RegisterListener("building_helper_build_together", Dynamic_Wrap(BuildingHelper, "buildTogether"))
 
      -- Game Event Listeners
     ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(BuildingHelper, 'OnGameRulesStateChange'), self)
@@ -159,7 +163,7 @@ function BuildingHelper:HookFunctions()
 end
 
 function BuildingHelper:LoadSettings()
-    BuildingHelper.Settings = LoadKeyValues("scripts/kv/building_settings.kv")
+    BuildingHelper.Settings = LoadKeyValues("scripts/vscripts/buildinghelper/kv/building_settings.kv")
     
     BuildingHelper.Settings["TESTING"] = tobool(BuildingHelper.Settings["TESTING"])
     BuildingHelper.Settings["RECOLOR_BUILDING_PLACED"] = tobool(BuildingHelper.Settings["RECOLOR_BUILDING_PLACED"])
@@ -3190,4 +3194,11 @@ function BuildingHelper:changeAngles(args)
     args.caster = caster
     args.ability = ability
     BuildingHelper:AddBuilding(args)
+end
+
+-- 根据一个数组来批量建造
+function BuildingHelper:buildTogether(args)
+    -- 找到对应关系的 keyvalues
+
+    
 end

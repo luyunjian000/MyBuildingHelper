@@ -67,7 +67,7 @@ function explode(str)
 end
 
 
--- 通用打印日志
+-- 通用打印日志 数字好像有点问题
 function Tools:CommonPrint(v, t)
   if TESTMODEL then
       if IsClient() then
