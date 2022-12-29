@@ -15,6 +15,7 @@ function Build( event )
     -- 为了方便处理
     -- event.yaw = 0
     -- 制作一个建筑假人并开始全景重影
+    event.isSentEvent = true
     BuildingHelper:AddBuilding(event)
     -- Additional checks to confirm a valid building position can be performed here
     event:OnPreConstruction(function(vPos)
@@ -178,4 +179,11 @@ end
 
 function SelectBornPosition(event)
     print(event);
+end
+
+function Test(event)
+    local keys = {}
+    keys.x_number = 6
+    keys.y_number = 6
+    BuildMaps:BuildRandomMap(keys)
 end

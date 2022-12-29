@@ -208,7 +208,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"buildinghelper/builder.lua"
-				"Function"		"Build"
+				"Function"		"Test"
 			}
 		}
 	}

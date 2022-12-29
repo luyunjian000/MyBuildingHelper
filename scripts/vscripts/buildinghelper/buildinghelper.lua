@@ -448,6 +448,9 @@ end
 
 -- 通过全景图检测生成器的左键单击
 function BuildingHelper:BuildCommand(args)
+    Tools:CommonPrint("args")
+    Tools:CommonPrint(args)
+
     local playerID = args['PlayerID']
     local x = args['X']
     local y = args['Y']
@@ -455,6 +458,7 @@ function BuildingHelper:BuildCommand(args)
     local location = Vector(x, y, z)
     local queue = args['Queue'] == 1
     local builder = EntIndexToHScript(args['builder']) --activeBuilder
+
     local name = builder:GetUnitName()
     local builders = {}
     local idle_builders = {}
@@ -463,7 +467,12 @@ function BuildingHelper:BuildCommand(args)
     -- 筛选所有选定的生成器
     for k,entIndex in pairs(entityList) do
         local unit = EntIndexToHScript(entIndex)
+        Tools:CommonPrint("entityList")
+        Tools:CommonPrint(unit)
+        Tools:CommonPrint(unit:GetUnitName())
+
         if unit:GetUnitName() == name then
+            -- IsIdle 该生物是否处于闲置状态?
             if unit:IsIdle() then
                 table.insert(idle_builders, unit)
             end
@@ -653,7 +662,15 @@ function BuildingHelper:AddBuilding(keys)
     -- Callbacks
     local callbacks = BuildingHelper:SetCallbacks(keys)
     local builder = keys.caster
+    -- Tools:CommonPrint("builder")
+    -- Tools:CommonPrint(builder)
+    -- Tools:CommonPrint(builder:GetUnitName())
+
     local ability = keys.ability
+    -- Tools:CommonPrint("ability")
+    -- Tools:CommonPrint(ability)
+    -- Tools:CommonPrint(ability:GetAbilityName())
+
     local abilName = ability:GetAbilityName()
     -- npc_units_custom.txt 这个里面的配置
     local buildingTable = BuildingHelper:SetupBuildingTable(abilName, builder)
@@ -741,7 +758,13 @@ function BuildingHelper:AddBuilding(keys)
 
     -- add by lyjian 
     event.abilityname =  abilName
-    CustomGameEventManager:Send_ServerToPlayer(player, "building_helper_enable", event)
+
+    Tools:CommonPrint("event")
+    Tools:CommonPrint(event)
+
+    if keys.isSentEvent then
+        CustomGameEventManager:Send_ServerToPlayer(player, "building_helper_enable", event)
+    end
 end
 
 -- Defines a series of callbacks to be returned in the builder module
@@ -2379,7 +2402,11 @@ function BuildingHelper:AddToQueue(builder, location, bQueued)
     local player = PlayerResource:GetPlayer(playerID)
     local playerTable = BuildingHelper:GetPlayerTable(playerID)
     local buildingName = playerTable.activeBuilding
+    Tools:CommonPrint("buildingName")
+    Tools:CommonPrint(buildingName)
+
     local buildingTable = playerTable.activeBuildingTable
+    Tools:CommonPrint(buildingTable)
     local fMaxScale = buildingTable:GetVal("MaxScale", "float")
     -- local size = buildingTable:GetVal("ConstructionSize", "number")
     local size = buildingTable:GetVal("ConstructionSize")
@@ -3194,11 +3221,4 @@ function BuildingHelper:changeAngles(args)
     args.caster = caster
     args.ability = ability
     BuildingHelper:AddBuilding(args)
-end
-
--- 根据一个数组来批量建造
-function BuildingHelper:buildTogether(args)
-    -- 找到对应关系的 keyvalues
-
-    
 end
