@@ -15,7 +15,7 @@
 		"MinimapIconSize"			"200"               //小地图图标尺寸
 		"Level"						"1"
 		"HealthBarOffset"			"140"   //血条位移，可以看到蓝条
-		"ModelScale"		 		"1.7"
+		"ModelScale"		 		"0.7"
 		// "HasInventory"              "1" // 是否有物品栏 
 		"ConsideredHero"            "1" // 是否作为英雄
 
@@ -29,8 +29,8 @@
 		"ConsumesBuilder"			"1"
 
 		// 看https://github.com/MNoya/BuildingHelper/wiki/KeyValues
-		"ConstructionSize"		"3x3"  //	阻止在该区域建造其他建筑物。需要一个相同大小的有效正方形。
-		"BlockPathingSize"		"3x3"  // 用障碍物阻挡路径，用于迷宫。可以为 0
+		"ConstructionSize"		"1x1"  //	阻止在该区域建造其他建筑物。需要一个相同大小的有效正方形。
+		"BlockPathingSize"		"1x1"  // 用障碍物阻挡路径，用于迷宫。可以为 0
 
 		// Abilities
 		//----------------------------------------------------------------
@@ -147,7 +147,7 @@
 		"MinimapIconSize"			"200"               //小地图图标尺寸
 		"Level"						"1"
 		"HealthBarOffset"			"140"   //血条位移，可以看到蓝条
-		"ModelScale"		 		"1"
+		"ModelScale"		 		"0.5"
 		// "HasInventory"              "1" // 是否有物品栏 
 		"ConsideredHero"            "1" // 是否作为英雄
 
@@ -161,8 +161,8 @@
 		"ConsumesBuilder"			"1"
 
 		// 看https://github.com/MNoya/BuildingHelper/wiki/KeyValues
-		"ConstructionSize"		"3x3"  //	阻止在该区域建造其他建筑物。需要一个相同大小的有效正方形。
-		"BlockPathingSize"		"3x3"  // 用障碍物阻挡路径，用于迷宫。可以为 0
+		"ConstructionSize"		"1x1"  //	阻止在该区域建造其他建筑物。需要一个相同大小的有效正方形。
+		"BlockPathingSize"		"1x1"  // 用障碍物阻挡路径，用于迷宫。可以为 0
 
 		// Abilities
 		//----------------------------------------------------------------

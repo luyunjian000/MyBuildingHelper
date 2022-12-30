@@ -25,7 +25,7 @@
 	
 		"UnitName"						"npc_dota_tower_empty"
 		"AbilityCooldown"				"0"
-		"AbilityGoldCost"				"10"
+		"AbilityGoldCost"				"0"
 
 		// "BuilderInside" 在建造过程中会隐藏建造者
 		// "ConsumesBuilder" 建造完成后杀死建造者
@@ -76,7 +76,7 @@
 	
 		"UnitName"						"npc_dota_tower_wall"
 		"AbilityCooldown"				"0"
-		"AbilityGoldCost"				"10"
+		"AbilityGoldCost"				"0"
 		
 		"BuilderInside" "0"  //会隐藏建造者
 		// "ConsumesBuilder" 建造完成后杀死建造者

@@ -448,14 +448,15 @@ end
 
 -- 通过全景图检测生成器的左键单击
 function BuildingHelper:BuildCommand(args)
-    Tools:CommonPrint("args")
-    Tools:CommonPrint(args)
+    -- Tools:CommonPrint("args")
+    -- Tools:CommonPrint(args)
 
     local playerID = args['PlayerID']
     local x = args['X']
     local y = args['Y']
     local z = args['Z']
-    local location = Vector(x, y, z)
+    local location = args['location']
+
     local queue = args['Queue'] == 1
     local builder = EntIndexToHScript(args['builder']) --activeBuilder
 
@@ -463,28 +464,40 @@ function BuildingHelper:BuildCommand(args)
     local builders = {}
     local idle_builders = {}
     local entityList = PlayerResource:GetSelectedEntities(playerID)
+    local model = args['model']
 
+    Tools:CommonPrint(args)
+
+    if model == "1" then
+        location = Vector(x, y, z)
     -- 筛选所有选定的生成器
-    for k,entIndex in pairs(entityList) do
-        local unit = EntIndexToHScript(entIndex)
-        Tools:CommonPrint("entityList")
-        Tools:CommonPrint(unit)
-        Tools:CommonPrint(unit:GetUnitName())
+        for k,entIndex in pairs(entityList) do
+            local unit = EntIndexToHScript(entIndex)
+            -- Tools:CommonPrint("entityList")
+            -- Tools:CommonPrint(unit)
+            -- Tools:CommonPrint(unit:GetUnitName())
 
-        if unit:GetUnitName() == name then
-            -- IsIdle 该生物是否处于闲置状态?
-            if unit:IsIdle() then
-                table.insert(idle_builders, unit)
+            if unit:GetUnitName() == name then
+                -- IsIdle 该生物是否处于闲置状态?
+                if unit:IsIdle() then
+                    table.insert(idle_builders, unit)
+                end
+                table.insert(builders, unit)
             end
-            table.insert(builders, unit)
         end
-    end
 
-    -- First select from idle builders
-    if #idle_builders > 0 then
-        builder = GetClosestToPosition(idle_builders, location)
-    else
-        builder = GetClosestToPosition(builders, location)
+        -- First select from idle builders
+        if #idle_builders > 0 then
+            builder = GetClosestToPosition(idle_builders, location)
+        else
+            builder = GetClosestToPosition(builders, location)
+        end
+    elseif model == "2" then
+        --Tools:CommonPrint("model == 2")
+        --location.x = args['X']
+        --location.y = args['Y']
+        --location.z = args['Z']
+        Tools:CommonPrint(location)
     end
 
     -- Cancel current action
@@ -492,7 +505,7 @@ function BuildingHelper:BuildCommand(args)
         builder:Stop()
     end
 
-    BuildingHelper:AddToQueue(builder, location, queue)
+    BuildingHelper:AddToQueue(builder, location, queue, model)
 end
 
 -- Detects a Right Click/Tab with a builder through Panorama
@@ -762,9 +775,11 @@ function BuildingHelper:AddBuilding(keys)
     Tools:CommonPrint("event")
     Tools:CommonPrint(event)
 
-    if keys.isSentEvent then
+    if keys.model == "1" then
         CustomGameEventManager:Send_ServerToPlayer(player, "building_helper_enable", event)
     end
+
+    return event
 end
 
 -- Defines a series of callbacks to be returned in the builder module
@@ -958,7 +973,7 @@ end
 function BuildingHelper:OrderBuildingConstruction(builder, ability, position)
     ExecuteOrderFromTable({UnitIndex = builder:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_STOP, Queue = false}) 
     Build({caster=builder, ability=ability})
-    BuildingHelper:AddToQueue(builder, position, false)
+    BuildingHelper:AddToQueue(builder, position, false, "1")
 end
 
 -- 将新建筑置于完全健康状态并返回句柄。放置栅格导航拦截器
@@ -2397,23 +2412,26 @@ end
 -- bQueued will be true if the command was done with shift pressed
 -- If bQueued is false, the queue is cleared and this building is put on top
 -- 加个模型角度的参数
-function BuildingHelper:AddToQueue(builder, location, bQueued)
+function BuildingHelper:AddToQueue(builder, location, bQueued, model)
     local playerID = builder:GetMainControllingPlayer()
     local player = PlayerResource:GetPlayer(playerID)
     local playerTable = BuildingHelper:GetPlayerTable(playerID)
     local buildingName = playerTable.activeBuilding
-    Tools:CommonPrint("buildingName")
-    Tools:CommonPrint(buildingName)
 
     local buildingTable = playerTable.activeBuildingTable
-    Tools:CommonPrint(buildingTable)
     local fMaxScale = buildingTable:GetVal("MaxScale", "float")
     -- local size = buildingTable:GetVal("ConstructionSize", "number")
     local size = buildingTable:GetVal("ConstructionSize")
     local pathing_size = buildingTable:GetVal("BlockGridNavSize", "number")
     local callbacks = playerTable.activeCallbacks
 
-    BuildingHelper:SnapToGridXY(size, location)
+    Tools:CommonPrint("location")
+    Tools:CommonPrint(location)
+    if model == "1" then 
+        BuildingHelper:SnapToGridXY(size, location)
+    end
+
+    Tools:CommonPrint(location)
 
     -- Check gridnav
     if not BuildingHelper:ValidPosition(size, location, builder, callbacks) then
